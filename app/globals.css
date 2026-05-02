@@ -1,8 +1,87 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #ffd9e2;
+  --foreground: #4890fa;
+  /* color tokens */
+  --color-black: #191c1e;
+  --color-blue-100: #ecf0ff;
+  --color-blue-200: #d7e3ff;
+  --color-blue-300: #abc7ff;
+  --color-blue-400: #7babff;
+  --color-blue-500: #4890fa;
+  --color-blue-600: #2375de;
+  --color-blue-700: #005cba;
+  --color-blue-800: #00458e;
+  --color-blue-900: #002f65;
+  --color-blue-1000: #001b3f;
+  --color-blue-main: #4d94ff;
+  --color-neutral-100: #f8fafc;
+  --color-neutral-200: #f2f4f6;
+  --color-neutral-300: #e2e8f0;
+  --color-neutral-400: #94a3b8;
+  --color-neutral-500: #475569;
+  --color-pink-100: #ffecef;
+  --color-pink-200: #ffd9e2;
+  --color-pink-300: #ffb1c7;
+  --color-pink-400: #ff84ac;
+  --color-pink-500: #fd4c93;
+  --color-pink-600: #d93179;
+  --color-pink-700: #b90760;
+  --color-pink-800: #8e0048;
+  --color-pink-900: #650031;
+  --color-pink-1000: #3f001c;
+  --color-pink-main: #ff4d94;
+  --color-white: #ffffff;
+  --color-yellow-100: #ffefcf;
+  --color-yellow-200: #ffdf90;
+  --color-yellow-300: #eec13e;
+  --color-yellow-400: #d0a622;
+  --color-yellow-500: #b28c00;
+  --color-yellow-600: #937300;
+  --color-yellow-700: #755b00;
+  --color-yellow-800: #584400;
+  --color-yellow-900: #584400;
+  --color-yellow-1000: #241a00;
+  --color-yellow-main: #ffd14d;
+
+  /* color styles */
+  --color-icon: var(--color-neutral-500);
+  --color-primary-dark: var(--color-pink-700);
+  --color-primary-light: var(--color-pink-100);
+  --color-primary: var(--color-pink-600);
+  --color-secondary-light: var(--color-blue-100);
+  --color-secondary: var(--color-blue-700);
+  --color-text-main: var(--color-black);
+  --color-text-sub: var(--color-neutral-500);
+
+  /* Text-size styles */
+  --heading--100: 40px;
+  --heading--200: 32px;
+  --heading--300: 28px;
+  --heading--400: 24px;
+  --body---x-l: 20px;
+  --body---l: 18px;
+  --body---m: 16px;
+  --body---s: 14px;
+  --caption--main: 12px;
+  --button---m: 14px;
+  --button---l: 16px;
+
+  /* border radius styles */
+  --radius-xs: 4px;
+  --radius-s: 8px;
+  --radius-m: 12px;
+  --radius-l: 24px;
+  --radius-xl: 9999;
+
+  /* spacing styles */
+  --spacing-xs: 4px;
+  --spacing-s: 8px;
+  --spacing-r: 16px;
+  --spacing-m: 24px;
+  --spacing-l: 30px;
+  --spacing-xl: 40px;
 }
 
 @theme inline {

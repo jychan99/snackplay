@@ -1,5 +1,6 @@
 @import "tailwindcss";
 
+/*순수 CSS 변수*/
 :root {
   --background: #ffd9e2;
   --foreground: #4890fa;
@@ -74,11 +75,10 @@
   --spacing-xl: 40px;
 }
 
+/*테일윈드 테마 토큰*/
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
 
   /* color styles */
   --color-icon: var(--color-neutral-500);
@@ -95,6 +95,24 @@
   /* --shadow-s:; */
   --shadow-m: 0 8px 30px 0 rgba(0, 0, 0, 0.04);
   --shadow-l: 0 20px 50px 0 rgba(0, 0, 0, 0.04);
+
+  --font-sans: var(--font-paperlogy);
+
+  --text-h1: 40px;
+  --text-h2: 32px;
+  --text-h3: 28px;
+  --text-h4: 24px;
+
+  --text-body-xl: 20px;
+  --text-body-l: 18px;
+  --text-body-m: 16px;
+  --text-body-s: 14px;
+  --text-caption: 12px;
+
+  /* --font-weight-bold: 700;
+  --font-weight-semibold: 600;
+  --font-weight-medium: 500;
+  --font-weight-regular: 400; */
 }
 
 @media (prefers-color-scheme: dark) {
@@ -108,4 +126,44 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+@layer components {
+  /* font */
+  .h1 {
+    font-size: var(--text-h1);
+    font-weight: 700;
+  }
+  .h2 {
+    font-size: var(--text-h2);
+    font-weight: 600;
+  }
+  .h3 {
+    font-size: var(--text-h3);
+    font-weight: 600;
+  }
+  .h4 {
+    font-size: var(--text-h4);
+    font-weight: 600;
+  }
+  .body-xl {
+    font-size: var(--text-body-xl);
+    font-weight: 400;
+  }
+  .body-l {
+    font-size: var(--text-body-l);
+    font-weight: 400;
+  }
+  .body-m {
+    font-size: var(--text-body-m);
+    font-weight: 400;
+  }
+  .body-s {
+    font-size: var(--text-body-s);
+    font-weight: 600;
+  }
+  .caption {
+    font-size: var(--text-caption);
+    font-weight: 500;
+  }
 }

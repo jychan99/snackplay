@@ -1,9 +1,46 @@
 import Image from "next/image";
-
+import ArrowIcon2 from "@/components/icon/ArrowIcon2";
+import Button from "@/components/ui/Button";
+import Link from "@/components/ui/Link";
+import Input from "@/components/ui/Input";
+import Badge from "@/components/ui/Badge";
 export default function Home() {
   return (
     <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
+      <Link href="/" ariaLabel="게임 하러가기">View All</Link>
       <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
+        <ArrowIcon2 size={40} color="red"/>
+        <Button
+        variant="primary"
+        disabled
+        icon={<ArrowIcon2 size={16} color="red" />}
+        >
+        children
+      </Button>
+      <Badge color="primary">학교</Badge>
+      <Badge color="secondary">학교</Badge>
+      <Input label='이름' id='test1' type="text" placeholder="테스트입니다"/>
+      <Input label='나이' id='test2' disabled type="number" placeholder="테스트입니다"/>
+        <Button
+        variant="primary" 
+        icon={<ArrowIcon2 size={16} color="red" />}
+      >
+        클릭하기
+      </Button>
+        <Button
+        variant="primary" 
+        size="sm"
+      >
+        클릭하기
+      </Button>
+        <Image
+          className="dark:invert"
+          src="/images/sample_img.png"
+          alt="Next.js logo"
+          width={100}
+          height={20}
+          priority
+        />
         <Image
           className="dark:invert"
           src="/next.svg"

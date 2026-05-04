@@ -8,18 +8,20 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   icon?: React.ReactNode;
   size?: ButtonSize;
   children: React.ReactNode;
-  disabled: boolean;
+  disabled?: boolean;
   onClick?: () => void;
 };
 
 // 스타일
 const baseStyle = `
+  cursor-pointer
   flex
   justify-center
-  aligns-center
-  py-4
-  px-8
+  items-center
+  gap-2
   rounded-full
+  transition
+  
 `;
 
 const variantStyles = {
@@ -33,8 +35,8 @@ const variantStyles = {
 };
 
 const sizeStyles = {
-  sm: "px-3 text-sm",
-  md: "px-4 text-base",
+  sm: "py-2 px-6 text-body-s",
+  md: "py-4 px-8 text-button-m",
   lg: "px-8 text-base",
 };
 
@@ -50,20 +52,26 @@ export default function Button({
   size = "md",
   disabled = false,
   children,
+  className, 
   ...props
 }: ButtonProps) {
+
+  // 클래스 결합 로직
+  const combinedClassName = [
+    baseStyle,
+    variantStyles[variant],
+    sizeStyles[size],
+    disabled ? `${disabledStyles[variant]} opacity-50 cursor-not-allowed pointer-events-none` : "",
+    className // 외부에서 전달된 className 합치기
+  ].join(" ").trim();
+
   return (
     <button
-      className={[
-        `    ${baseStyle}
-        ${variantStyles[variant]}
-        ${sizeStyles[size]}
-        ${disabled ? `${disabledStyles[variant]} opacity-50 cursor-not-allowed pointer-events-none` : ""}`,
-      ].join(" ")}
+      className={combinedClassName}
       type="button"
       {...props}
-    >
-      {icon}
+    > 
+      {icon && <span className="flex items-center">{icon}</span>}
       {children}
     </button>
   );

@@ -2,7 +2,7 @@
 
 /*순수 CSS 변수*/
 :root {
-  --background: #ffd9e2;
+  --background: #fff;
   --foreground: #4890fa;
   /* color tokens */
   --color-black: #191c1e;
@@ -101,13 +101,13 @@
   /* Heading Styles(결합 기능) */
   --text-h1: 40px;
   --text-h1--font-weight: 700;
-  
+
   --text-h2: 32px;
   --text-h2--font-weight: 600;
-  
+
   --text-h3: 28px;
   --text-h3--font-weight: 600;
-  
+
   --text-h4: 24px;
   --text-h4--font-weight: 600;
 
@@ -130,10 +130,13 @@
   --text-caption: 12px;
   --text-caption--font-weight: 500;
 
-  --radius-input : var(--radius-s);
-  --radius-box : var(--radius-m);
-  --radius-modal : var(--radius-l);
-  --radius-button : var(--radius-xl);
+  --radius-input: var(--radius-s);
+  --radius-box: var(--radius-m);
+  --radius-modal: var(--radius-l);
+  --radius-button: var(--radius-xl);
+
+  --space-card: var(--spacing-m);
+  --space-modal: var(--spacing-xl);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -145,8 +148,15 @@
 
 body {
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  /* font-family: Arial, Helvetica, sans-serif; */
   color: var(--color-text-main);
 }
+@layer base {
+  button {
+    @apply cursor-pointer;
+  }
 
-
+  button:disabled {
+    @apply cursor-not-allowed;
+  }
+}

@@ -1,15 +1,14 @@
-// 폰트(크기 굵기)랑 사이즈(패딩, min-width), 아이콘 추가 필요
-// 타입
-type ButtonVariant = "primary" | "secondary" | "outline" | "danger";
-type ButtonSize = "sm" | "md" | "lg";
+import Link from "next/link";
 
-type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
-  variant: ButtonVariant;
+type BaseLinkVariant = "primary" | "secondary" | "outline" | "danger";
+type BaseLinkSize = "sm" | "md" | "lg";
+
+type BaseLinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement> & {
+  variant: BaseLinkVariant;
   icon?: React.ReactNode;
-  size?: ButtonSize;
+  size?: BaseLinkSize;
   children: React.ReactNode;
-  disabled?: boolean;
-  onClick?: () => void;
+  href: string;
 };
 
 // 스타일
@@ -39,38 +38,29 @@ const sizeStyles = {
   lg: "px-8 text-base",
 };
 
-const disabledStyles = {
-  primary: "bg-pink-600 text-white",
-  secondary: "bg-gray-100 text-black",
-  outline: "border border-gray-300 text-black",
-  danger: "bg-red-500 text-white",
-};
-export default function Button({
+export default function BaseLink({
   variant,
   icon,
   size = "md",
-  disabled = false,
   children,
   className,
+  href,
   ...props
-}: ButtonProps) {
+}: BaseLinkProps) {
   // 클래스 결합 로직
   const combinedClassName = [
     baseStyle,
     variantStyles[variant],
     sizeStyles[size],
-    disabled
-      ? `${disabledStyles[variant]} opacity-50 cursor-not-allowed pointer-events-none`
-      : "",
+
     className, // 외부에서 전달된 className 합치기
   ]
     .join(" ")
     .trim();
-
   return (
-    <button className={combinedClassName} type="button" {...props}>
+    <Link href={href} className={combinedClassName} {...props}>
       {icon && <span className="flex items-center">{icon}</span>}
       {children}
-    </button>
+    </Link>
   );
 }

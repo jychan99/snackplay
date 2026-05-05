@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import Header from "@/components/layout/Header/Header";
+import Footer from "@/components/layout/Footer/Footer";
 // import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import localFont from "next/font/local";
@@ -51,7 +53,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko" className={`${paperlogy.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <Header />
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 }

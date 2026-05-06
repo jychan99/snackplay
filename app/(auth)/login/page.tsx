@@ -3,7 +3,5 @@ export const metadata = {
 };
 
 export default function Page() {
-  return (
-    <div>Page</div>
-  )
+  return <div>로그인</div>;
 }

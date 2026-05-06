@@ -25,28 +25,29 @@ export default function CardHorizontal({
       className={` shadow-m rounded-box has-[a:hover]:shadow-l  border-t-4 ${variantStyle[variant]} flex items-center p-card`}
     >
       {/* a[href='/about'] */}
-      <Link href={href} className="">
-        <div className="flex items-center">
-          <div className="relative w-[96px] h-[64px] mr-2 rounded-input overflow-hidden">
-            <Image
-              src="/images/sample_img.png"
-              alt="sample img"
-              fill
-              className="object-cover"
-            />
-          </div>
-          <div>
-            <h3 className="text-body-m">{children}</h3>
-            <p className="flex items-center">
-              <UserIcon size={20} />
-              <span className="text-caption text-text-sub">{count}명 참여</span>
-            </p>
-          </div>
+      <div className="flex items-center">
+        <div className="relative w-[96px] h-[64px] mr-2 rounded-input overflow-hidden">
+          <Image
+            src="/images/sample_img.png"
+            alt="sample img"
+            fill
+            className="object-cover"
+          />
         </div>
-      </Link>
-      <span className="">
-        <BaseLink variant="outline" size="sm" href="/">
+        <div>
+          <h3 className="text-body-m">{children}</h3>
+          <p className="flex items-center">
+            <UserIcon size={20} />
+            <span className="text-caption text-text-sub">{count}명 참여</span>
+          </p>
+        </div>
+      </div>
+      <span className="flex flex-col gap-2">
+        <BaseLink variant={variant} size="sm" href="/">
           결과보기
+        </BaseLink>
+        <BaseLink variant="outline" size="sm" href="/">
+          다시하기
         </BaseLink>
       </span>
     </div>

@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import Header from "@/components/layout/Header/Header";
-import Footer from "@/components/layout/Footer/Footer";
+
 // import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import localFont from "next/font/local";
@@ -42,7 +41,7 @@ const paperlogy = localFont({
 });
 
 export const metadata: Metadata = {
-   title: {
+  title: {
     default: "스낵플레이",
     template: "%s | 스낵플레이",
   },
@@ -56,11 +55,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko" className={`${paperlogy.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col">
-        <Header />
-        {children}
-        <Footer />
-      </body>
+      <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );
 }

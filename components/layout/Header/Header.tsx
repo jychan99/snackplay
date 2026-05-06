@@ -19,16 +19,19 @@ export default function Header() {
           className="md:hidden w-10 h-10 p-1.5 relative -right-2"
           onClick={() => setIsShowMenu(true)}
         >
-          <em className="sr-only">
-            모바일 메뉴 열기
-          </em>
+          <em className="sr-only">모바일 메뉴 열기</em>
           <span className="w-6 h-0.5 bg-text-sub block absolute "></span>
           <span className="w-6 h-0.5 bg-text-sub block absolute top-2.5"></span>
           <span className="w-6 h-0.5 bg-text-sub block absolute top-7"></span>
         </button>
         {isShowMenu && (
           <nav className="right-0 top-0 fixed flex-col items-center bg-background z-10 w-67.5 h-full p-7 md:hidden shadow-2xl">
-            <button onClick={() => setIsShowMenu(false)} type="button" aria-label="모바일 메뉴 닫기"  className="absolute right-6 top-1">
+            <button
+              onClick={() => setIsShowMenu(false)}
+              type="button"
+              aria-label="모바일 메뉴 닫기"
+              className="absolute right-6 top-1"
+            >
               <img src="/images/icons/icon_close.svg" alt="close icon" />
             </button>
             <Menu></Menu>
@@ -72,9 +75,8 @@ export function Menu() {
 
 export function Utils() {
   const [isLogin, setIsLogin] = useState(false);
-
   return isLogin ? (
-    <div className="flex items-center justify-between">
+    <Link href="/my" className="flex items-center justify-between">
       <div className="border-4 border-primary rounded-button w-10 h-10 overflow-hidden mr-2">
         <img
           src="/images/sample_user.png"
@@ -83,10 +85,10 @@ export function Utils() {
         />
       </div>
       <span>가가가님</span>
-    </div>
+    </Link>
   ) : (
     <div className="flex items-center md:gap-3 gap-2">
-      <BaseLink href="/" variant="outline" size="sm">
+      <BaseLink href="/login" variant="outline" size="sm">
         로그인
       </BaseLink>
       <Button variant="primary" size="sm">

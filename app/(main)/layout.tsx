@@ -1,11 +1,15 @@
-export default function AuthLayout({
+import Header from "@/components/layout/Header/Header";
+import Footer from "@/components/layout/Footer/Footer";
+export default function MainLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <div>
-      {children}
-    </div>
+    <>
+      <Header />
+      <main className="container-custom py-16">{children}</main>
+      <Footer />
+    </>
   );
 }

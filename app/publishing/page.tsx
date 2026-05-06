@@ -5,7 +5,7 @@ import BaseLink from "@/components/ui/BaseLink";
 import Link from "@/components/ui/ViewAllLink";
 import Input from "@/components/ui/Input";
 import Badge from "@/components/ui/Badge";
-import Checkbox from "@/components/ui/CheckBox";
+import Checkbox from "@/components/ui/Checkbox";
 import Card from "@/components/display/Card";
 import CardHorizontal from "@/components/display/CardHorizontal";
 
@@ -25,6 +25,9 @@ export default function Home() {
         <CardHorizontal href="/" count={100} variant="primary">
           카드 타이틀22
         </CardHorizontal>
+        <CardHorizontal href="/" count={100} variant="secondary">
+          카드 타이틀22
+        </CardHorizontal>
         <Checkbox id="checkbox" label="체크박스" />
         <ArrowIcon2 size={40} className="text-primary" />
         <Button
@@ -37,10 +40,18 @@ export default function Home() {
         <BaseLink variant="outline" href="/" icon={<ArrowIcon2 size={16} />}>
           링크입니다
         </BaseLink>
-        <BaseLink variant="primary" href="/" icon={<ArrowIcon2 className="text-white" size={16} />}>
+        <BaseLink
+          variant="primary"
+          href="/"
+          icon={<ArrowIcon2 className="text-white" size={16} />}
+        >
           링크입니다
         </BaseLink>
-        <BaseLink variant="secondary" href="/" icon={<ArrowIcon2 className="text-white" size={16} />}>
+        <BaseLink
+          variant="secondary"
+          href="/"
+          icon={<ArrowIcon2 className="text-white" size={16} />}
+        >
           링크입니다
         </BaseLink>
         <Badge color="primary">학교</Badge>
@@ -53,7 +64,10 @@ export default function Home() {
           type="number"
           placeholder="테스트입니다"
         />
-        <Button variant="outline" icon={<ArrowIcon2 size={16} className="text-primary" />}>
+        <Button
+          variant="outline"
+          icon={<ArrowIcon2 size={16} className="text-primary" />}
+        >
           클릭하기
         </Button>
         <Button variant="primary" size="sm">

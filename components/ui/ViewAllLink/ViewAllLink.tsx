@@ -13,11 +13,11 @@ export default function LinkComponent({
     <Link
       href={href}
       aria-label={ariaLabel}
-      className="group flex items-center gap-1 justify-center p-[10px] text-secondary transition text-body-m"
+      className="group inline-flex items-center gap-1 justify-center p-[10px] text-secondary transition text-body-m"
     >
       {children}
       <span className="group-hover:left-1 relative">
-        <ArrowIcon2 size={10} />
+        <ArrowIcon2 className="text-secondary" size={10} />
       </span>
     </Link>
   );

@@ -19,14 +19,14 @@ export default function Card({
   return (
     <Link
       href={href}
-      className={`group w-71.5 shadow-m rounded-box overflow-hidden hover:shadow-l border-t-4 border-${variant}`}
+      className={`group w-full shadow-m rounded-box overflow-hidden hover:shadow-l border-t-4 border-${variant}`}
     >
-      <div className="relative w-full h-[192px]">
+      <div className="relative w-full aspect-[3/2] ">
         <Image
           src="/images/sample_img.png"
           alt="sample img"
           fill
-          className="object-cover "
+          className="object-cover"
         />
       </div>
       <div className="flex flex-wrap items-end p-card">

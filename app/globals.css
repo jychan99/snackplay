@@ -2,7 +2,7 @@
 
 /*순수 CSS 변수*/
 :root {
-  --background: #fff;
+  --background: #f8fafc;
   --foreground: #4890fa;
   /* color tokens */
   --color-black: #191c1e;
@@ -74,7 +74,28 @@
   --spacing-l: 30px;
   --spacing-xl: 40px;
 }
+@media (max-width: 768px) {
+  :root {
+    --heading-100: 27px;
+    --heading-200: 24px;
+    --heading-300: 22px;
+    --heading-400: 20px;
+    --body-xl: 18px;
+    --body-l: 16px;
+    --body-m: 15px;
+    /* --body-s: 14px;
+    --caption: 12px;
+    --button-m: 14px; */
+    --button-l: 15px;
 
+    /* --spacing-xs: 4px;
+  --spacing-s: 8px;
+  --spacing-r: 16px; */
+  --spacing-m: 15px;
+  /* --spacing-l: 30px; */
+  --spacing-xl: 30px
+  }
+}
 /*테일윈드 테마 토큰*/
 @theme inline {
   --color-background: var(--background);
@@ -99,35 +120,39 @@
   --font-sans: var(--font-paperlogy);
 
   /* Heading Styles(결합 기능) */
-  --text-h1: 40px;
+  --text-h1: var(--heading-100);
   --text-h1--font-weight: 700;
+  --text-h1--line-height:1.2;
 
-  --text-h2: 32px;
+  --text-h2: var(--heading-200);
   --text-h2--font-weight: 600;
 
-  --text-h3: 28px;
+  --text-h3: var(--heading-300);
   --text-h3--font-weight: 600;
 
-  --text-h4: 24px;
+  --text-h4: var(--heading-400);
   --text-h4--font-weight: 600;
 
   /* Text Styles */
-  --text-body-xl: 20px;
+  --text-body-xl: var(--body-xl);
   --text-body-xl--font-weight: 400;
 
-  --text-body-l: 18px;
+  --text-body-l: var(--body-l);
   --text-body-l--font-weight: 400;
 
-  --text-body-m: 16px;
+  --text-body-m: var(--body-m);
   --text-body-m--font-weight: 400;
 
-  --text-body-s: 14px;
+  --text-body-s: var(--body-s);
   --text-body-s--font-weight: 600;
 
-  --text-button-m: 16px; /* body-m 사이즈에 weight만 변경 */
+  --text-button-l: var(--button-l); /* body-m 사이즈에 weight만 변경 */
+  --text-button-l--font-weight: 500;
+  
+  --text-button-m: var(--button-m); /* body-m 사이즈에 weight만 변경 */
   --text-button-m--font-weight: 500;
 
-  --text-caption: 12px;
+  --text-caption: var(--caption);
   --text-caption--font-weight: 500;
 
   --radius-input: var(--radius-s);
@@ -142,7 +167,7 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
-    --foreground: #ededed;
+    --foreground: #f8fafc;
   }
 }
 
@@ -151,6 +176,7 @@ body {
   /* font-family: Arial, Helvetica, sans-serif; */
   color: var(--color-text-main);
 }
+
 @layer base {
   button {
     @apply cursor-pointer;
@@ -158,5 +184,11 @@ body {
 
   button:disabled {
     @apply cursor-not-allowed;
+  }
+}
+
+@layer components {
+  .container-custom {
+    @apply max-w-[1280px] w-full mx-auto px-8;
   }
 }

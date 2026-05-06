@@ -14,7 +14,7 @@ type BaseLinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement> & {
 // 스타일
 const baseStyle = `
   cursor-pointer
-  flex
+  inline-flex
   justify-center
   items-center
   gap-2
@@ -33,8 +33,8 @@ const variantStyles = {
 };
 
 const sizeStyles = {
-  sm: "py-2 px-6 text-body-s",
-  md: "py-4 px-8 text-button-m",
+  sm: "py-2 px-6 text-button-m",
+  md: "py-4 px-8 text-button-l",
   lg: "px-8 text-base",
 };
 

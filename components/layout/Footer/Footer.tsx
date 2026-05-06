@@ -1,7 +1,7 @@
 export default function Footer() {
   return (
     <footer className="flex items-center justify-center py-12 border-t-1 border-border-sub">
-      <div className="flex items-center justify-between w-[640px] max-w-[90%] flex-wrap">
+      <div className="flex items-center justify-between w-[640px] flex-wrap px-8">
         <div>
           <h2 className="text-[18px] font-bold">SnackPlay</h2>
           <p className="text-text-sub text-[12px]">

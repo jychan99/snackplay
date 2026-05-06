@@ -1,5 +1,6 @@
 import { sql } from "@/lib/db";
 
+//회원가입
 export async function POST(request: Request) {
   try {
     const { id, password, nickname } = await request.json();
@@ -14,7 +15,9 @@ export async function POST(request: Request) {
 
     // 중복 체크
     const existing = await sql`
-      SELECT "ID" FROM "USER_MAIN" WHERE "ID" = ${id}
+      SELECT "ID"
+      FROM "USER_MAIN"
+      WHERE "ID" = ${id}
     `;
 
     if (existing.length > 0) {
@@ -36,7 +39,7 @@ export async function POST(request: Request) {
       { status: 201 },
     );
   } catch (error) {
-    console.error("API /users POST 에러:", error);
+    console.error("API /auth/signup POST 에러:", error);
     return Response.json(
       { error: "회원가입 실패", details: String(error) },
       { status: 500 },

@@ -29,8 +29,11 @@ export async function POST(request: Request) {
       );
     }
 
+    // 토큰 생성 (간단한 방식: id + timestamp)
+    const token = `${id}_${Date.now()}_${Math.random().toString(36).substring(2, 11)}`;
+
     return Response.json(
-      { message: "로그인 성공", user: login[0] },
+      { message: "로그인 성공", user: login[0], token },
       { status: 201 },
     );
   } catch (error) {

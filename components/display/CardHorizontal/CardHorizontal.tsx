@@ -3,28 +3,29 @@ import Image from "next/image";
 import UserIcon from "@/components/icon/UserIcon";
 import BaseLink from "@/components/ui/BaseLink";
 
-type Varient = "primary" | "secondary";
+type Variant = "primary" | "secondary";
 
 export default function CardHorizontal({
   href,
   count,
   children,
-  varient = "primary",
+  variant = "primary",
 }: {
   href: string;
   count: number;
   children: React.ReactNode;
-  varient: Varient;
+  variant: Variant;
 }) {
-  const varientStyle = {
+  const variantStyle = {
     primary: "border-primary",
     secondary: "border-secondary",
   };
   return (
     <div
-      className={`group shadow-m rounded-box hover:shadow-l  border-t-4 ${varientStyle[varient]} flex items-center p-[var(--spacing-m)]`}
+      className={` shadow-m rounded-box has-[a:hover]:shadow-l  border-t-4 ${variantStyle[variant]} flex items-center p-card`}
     >
-      <Link href={href} className={``}>
+      {/* a[href='/about'] */}
+      <Link href={href} className="">
         <div className="flex items-center">
           <div className="relative w-[96px] h-[64px] mr-2 rounded-input overflow-hidden">
             <Image

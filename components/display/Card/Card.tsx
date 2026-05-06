@@ -1,25 +1,25 @@
 import Link from "next/link";
 import Image from "next/image";
-import ArrowIcon2 from "@/components/icon/PlayIcon";
+import PlayIcon from "@/components/icon/PlayIcon";
 import UserIcon from "@/components/icon/UserIcon";
 
-// type Varient = "primary" | "secondary";
+type Variant = "primary" | "secondary";
 
 export default function Card({
   href,
   count,
   children,
-  varient = "primary",
+  variant = "primary",
 }: {
   href: string;
   count: number;
   children: React.ReactNode;
-  varient: string;
+  variant: Variant;
 }) {
   return (
     <Link
       href={href}
-      className={`group w-[286px] shadow-m rounded-box overflow-hidden hover:shadow-l  border-t-4 border-${varient}`}
+      className={`group w-71.5 shadow-m rounded-box overflow-hidden hover:shadow-l border-t-4 border-${variant}`}
     >
       <div className="relative w-full h-[192px]">
         <Image
@@ -29,20 +29,31 @@ export default function Card({
           className="object-cover "
         />
       </div>
-      <div className="flex flex-wrap items-end p-[var(--spacing-m)]">
+      <div className="flex flex-wrap items-end p-card">
         <h3 className="text-h4 w-full mb-4">{children}</h3>
         <p className="flex flex-1 items-center">
           <UserIcon size={24} />
           <span className="text-caption text-text-sub">{count}명 참여</span>
         </p>
         <span className="group-hover:left-1 transition relative">
-          <ArrowIcon2
-            className={`text-${varient}`}
-            size={40}
-            color={`var(--color-${varient}-light)`}
-          />
+          <PlayIconByVariant variant={variant} />
         </span>
       </div>
     </Link>
+  );
+}
+
+function PlayIconByVariant({ variant }: Variant) {
+  const isPrimary = variant === "primary";
+  return (
+    <PlayIcon
+      className={isPrimary ? "text-primary" : "text-secondary"}
+      size={40}
+      color={
+        isPrimary
+          ? "var(--color-primary-light)" /*svg엔 값이 넘어가야하기 때문에!*/
+          : "var(--color-secondary-light)"
+      }
+    />
   );
 }

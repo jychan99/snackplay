@@ -29,7 +29,7 @@ const variantStyles = {
     "bg-primary text-white hover:shadow-[0_8px_20px_0_rgba(185,7,96,0.3)]",
   secondary: "bg-secondary text-white hover:shadow-[0_10px_15px_-3px_#bfdbfe]",
   outline:
-    "border border-border-sub bg-white text-black hover:shadow-[0_8px_20px_-3px_rgba(0, 0, 0, 0.5)]",
+    "border border-border-sub bg-white text-black hover:shadow-[0_8px_20px_-3px_rgba(0,0,0,0.2)]",
   danger: "bg-red-500 text-white",
 };
 

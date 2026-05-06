@@ -4,7 +4,6 @@ const variantStyles = {
   secondary: "bg-secondary-light text-secondary-dark",
 };
 const baseStyle = "rounded-button inline-block px-4 py-2 text-body-s";
-// 클래스 결합 로직
 
 export default function Badge({
   color,
@@ -13,7 +12,7 @@ export default function Badge({
   color: BadgeVariant;
   children: React.ReactNode;
 }) {
+  // 클래스 결합 로직
   const combinedClassName = [baseStyle, variantStyles[color]].join(" ").trim();
-
   return <span className={combinedClassName}>{children}</span>;
 }

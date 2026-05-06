@@ -10,7 +10,7 @@ type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
 };
 
 const baseStyle =
-  "w-[368px] rounded-input border border-[var(--color-border-main)] bg-white";
+  "w-[368px] rounded-input border border-border-main bg-white";
 
 const sizeStyles: Record<InputSize, string> = {
   sm: "py-2 px-6 text-body-s",
@@ -32,7 +32,7 @@ export default function Input({
     baseStyle,
     sizeStyles[width],
     disabled
-      ? "disabled:bg-[var(--color-neutral-200)] text-border-main cursor-not-allowed pointer-events-none"
+      ? "disabled:bg-neutral-200 text-border-main cursor-not-allowed pointer-events-none"
       : "",
     className,
   ]

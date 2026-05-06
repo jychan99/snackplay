@@ -3,14 +3,14 @@ type PlayIconProps = {
   color?: string;
   className?: string;
 };
-type Varient = "primary" | "secondary";
+type Variant = "primary" | "secondary";
 
 export default function PlayIcon({
   size = 40,
   color = "var(--color-primary-light)",
-  className = "primary",
+  className = "text-primary",
 }: PlayIconProps) {
-  // const varientStyle = {
+  // const variantStyle = {
   //   primary: "color-primary",
   //   secondary: "color-primary",
   // };

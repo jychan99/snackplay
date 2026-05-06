@@ -7,7 +7,7 @@ import { useState } from "react";
 export default function Header() {
   const [isShowMenu, setIsShowMenu] = useState(false);
   return (
-    <header className="flex items-center justify-center md:py-6 py-1 shadow-[0_10px_40px_0_rgba(255, 77, 148, 0.08)]">
+    <header className="flex items-center justify-center md:py-6 py-1 shadow-[0_10px_40px_0_rgba(255,77,148,0.08)]">
       <div className="flex items-center justify-between w-7xl px-8">
         <h1 className="w-[130px] md:w-40.75 md:h-8">
           <img src="/images/logo.png" alt="snackplay logo" />
@@ -16,21 +16,23 @@ export default function Header() {
         {/* 로고 */}
         <button
           type="button"
-          className="md:hidden relative z-11 w-11 h-10 border-1 p-1.5"
+          className="md:hidden w-10 h-10 p-1.5 relative -right-2"
           onClick={() => setIsShowMenu(true)}
         >
           <em className="sr-only">
-            모바일 메뉴
-            {isShowMenu ? <span>닫기</span> : <span>열기</span>}
+            모바일 메뉴 열기
           </em>
           <span className="w-6 h-0.5 bg-text-sub block absolute "></span>
-          <span className="w-6 h-0.5 bg-text-sub block  absolute top-2.5"></span>
-          <span className="w-6 h-0.5 bg-text-sub block   absolute top-7"></span>
+          <span className="w-6 h-0.5 bg-text-sub block absolute top-2.5"></span>
+          <span className="w-6 h-0.5 bg-text-sub block absolute top-7"></span>
         </button>
         {isShowMenu && (
           <nav className="right-0 top-0 fixed flex-col items-center bg-background z-10 w-67.5 h-full p-7 md:hidden shadow-2xl">
+            <button onClick={() => setIsShowMenu(false)} type="button" aria-label="모바일 메뉴 닫기"  className="absolute right-6 top-1">
+              <img src="/images/icons/icon_close.svg" alt="close icon" />
+            </button>
             <Menu></Menu>
-            <hr className="border-1 border-border-sub mt-2 mb-6 w-full" />
+            <hr className="border-1 border-border-sub mt-2.5 mb-6 w-full" />
             <Utils></Utils>
           </nav>
         )}
@@ -47,19 +49,19 @@ export default function Header() {
 
 export function Menu() {
   return (
-    <ul className="flex gap-6">
-      <li>
+    <ul className="flex md:flex-row flex-col  md:gap-6 gap-2.5">
+      <li className="flex">
         <Link
           href="/game"
-          className="p-1 hover:border-b-2 hover:text-primary font-bold"
+          className="p-2 md:p-1 border-b-2 border-white hover:border-primary hover:text-primary font-bold"
         >
           미니 게임
         </Link>
       </li>
-      <li>
+      <li className="flex">
         <Link
           href="/test"
-          className="p-1 hover:border-b-2 hover:text-primary font-bold"
+          className="p-2 md:p-1 border-b-2 border-white hover:border-primary hover:text-primary font-bold"
         >
           미니 테스트
         </Link>
@@ -83,7 +85,7 @@ export function Utils() {
       <span>가가가님</span>
     </div>
   ) : (
-    <div className="flex items-center justify-between gap-3">
+    <div className="flex items-center md:gap-3 gap-2">
       <BaseLink href="/" variant="outline" size="sm">
         로그인
       </BaseLink>

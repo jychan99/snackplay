@@ -111,7 +111,7 @@
   --text-h4: 24px;
   --text-h4--font-weight: 600;
 
-  /* Body Styles */
+  /* Text Styles */
   --text-body-xl: 20px;
   --text-body-xl--font-weight: 400;
 
@@ -135,8 +135,8 @@
   --radius-modal: var(--radius-l);
   --radius-button: var(--radius-xl);
 
-  --space-card: var(--spacing-m);
-  --space-modal: var(--spacing-xl);
+  --spacing-card: var(--spacing-m);
+  --spacing-modal: var(--spacing-xl);
 }
 
 @media (prefers-color-scheme: dark) {

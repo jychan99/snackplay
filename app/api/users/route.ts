@@ -3,7 +3,7 @@ import { sql } from "@/lib/db";
 export async function GET() {
   try {
     const users = await sql`
-      SELECT "ID" as id, "PASSWORD" as passWord, "NICKNAME" as nickName
+      SELECT "ID" as id, "PASSWORD" as password, "NICKNAME" as nickname
       FROM "USER_MAIN"
       ORDER BY "ID" DESC
     `;

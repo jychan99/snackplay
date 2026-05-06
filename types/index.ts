@@ -1,7 +1,7 @@
 export interface USER_MAIN {
   id: string;
-  passWord: string;
-  nickName: string;
+  password: string;
+  nickname: string;
 }
 
 export interface GAME_MAIN {

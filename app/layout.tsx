@@ -42,7 +42,10 @@ const paperlogy = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "스낵플레이",
+   title: {
+    default: "스낵플레이",
+    template: "%s | 스낵플레이",
+  },
   description: "재미있는 미니 게임, 테스트 사이트",
 };
 

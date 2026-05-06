@@ -7,9 +7,9 @@ export interface USER_MAIN {
 export interface GAME_MAIN {
   gameIdPk: number;
   gameTitle: string;
-  gameTypecode: string;
+  gameTypeCode: string;
   gameInfo: string;
-  gameHashTag: string;
+  gameHashtag: string;
   gameTQuestions: string;
   gameTAnswers: string;
 }

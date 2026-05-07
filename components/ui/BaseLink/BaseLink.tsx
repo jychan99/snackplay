@@ -3,11 +3,10 @@ import Link from "next/link";
 type BaseLinkVariant = "primary" | "secondary" | "outline" | "danger";
 type BaseLinkSize = "sm" | "md" | "lg";
 
-type BaseLinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement> & {
+type BaseLinkProps = React.ComponentProps<"a"> & {
   variant: BaseLinkVariant;
   icon?: React.ReactNode;
   size?: BaseLinkSize;
-  children: React.ReactNode;
   href: string;
 };
 

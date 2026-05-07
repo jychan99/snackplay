@@ -2,8 +2,7 @@
 import CheckIcon from "@/components/icon/CheckIcon";
 import { useState } from "react";
 
-type CheckboxProps = React.InputHTMLAttributes<HTMLInputElement> & {
-  id: string;
+type CheckboxProps = React.ComponentProps<"input"> & {
   label: string;
 };
 export default function Checkbox({ id, label }: CheckboxProps) {
@@ -15,7 +14,7 @@ export default function Checkbox({ id, label }: CheckboxProps) {
         id={id}
         checked={checked}
         onChange={(e) => setChecked(e.target.checked)}
-        className="absolute left-0 top-0 w-6 h-6 opacity-0 "
+        className="absolute left-0 top-0 w-6 h-6 opacity-0"
       />
       <CheckIcon checked={checked} />
       <label htmlFor={id} className="text-caption">

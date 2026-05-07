@@ -3,13 +3,10 @@
 type ButtonVariant = "primary" | "secondary" | "outline" | "danger";
 type ButtonSize = "sm" | "md" | "lg";
 
-type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+type ButtonProps = React.ComponentProps<"button"> & {
   variant: ButtonVariant;
   icon?: React.ReactNode;
   size?: ButtonSize;
-  children: React.ReactNode;
-  disabled?: boolean;
-  onClick?: () => void;
 };
 
 // 스타일
@@ -21,7 +18,6 @@ const baseStyle = `
   gap-2
   rounded-full
   transition
-  
 `;
 
 const variantStyles = {

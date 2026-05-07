@@ -9,7 +9,9 @@ export default function CardHorizontal({
   href,
   count,
   children,
+  className,
   variant = "primary",
+  ...props
 }: {
   href: string;
   count: number;
@@ -22,10 +24,10 @@ export default function CardHorizontal({
   };
   return (
     <div
-      className={` shadow-m rounded-box has-[a:hover]:shadow-l  border-t-4 ${variantStyle[variant]} flex items-center p-card`}
+      className={` shadow-m rounded-box has-[a:hover]:shadow-l  border-t-4 ${variantStyle[variant]} flex items-center p-card bg-white  ${className ?? ""}`}
     >
       {/* a[href='/about'] */}
-      <div className="flex items-center">
+      <div className="flex items-center flex-1">
         <div className="relative w-[96px] h-[64px] mr-2 rounded-input overflow-hidden">
           <Image
             src="/images/sample_img.png"
@@ -34,7 +36,7 @@ export default function CardHorizontal({
             className="object-cover"
           />
         </div>
-        <div>
+        <div className="flex-1">
           <h3 className="text-body-m">{children}</h3>
           <p className="flex items-center">
             <UserIcon size={20} />

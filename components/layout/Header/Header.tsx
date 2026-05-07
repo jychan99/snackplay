@@ -10,7 +10,9 @@ export default function Header() {
     <header className="flex items-center justify-center md:py-6 py-1 shadow-[0_10px_40px_0_rgba(255,77,148,0.08)] bg-white">
       <div className="flex items-center justify-between w-7xl px-8">
         <h1 className="w-[130px] md:w-40.75 md:h-8">
-          <img src="/images/logo.png" alt="snackplay logo" />
+          <Link href="/">
+            <img src="/images/logo.png" alt="snackplay logo" />
+          </Link>
           <span className="sr-only">snackplay</span>
         </h1>
         {/* 로고 */}

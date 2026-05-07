@@ -46,6 +46,8 @@
   --color-yellow-1000: #241a00;
   --color-yellow-main: #ffd14d;
 
+  --color-linear-gradient: linear-gradient(45deg, #b90760 0%, #005cba);
+
   /* Text-size styles */
   --heading-100: 40px;
   --heading-200: 32px;
@@ -96,6 +98,7 @@
   --spacing-xl: 30px
   }
 }
+
 /*테일윈드 테마 토큰*/
 @theme inline {
   --color-background: var(--background);
@@ -112,7 +115,7 @@
   --color-text-sub: var(--color-neutral-500);
   --color-border-sub: var(--color-neutral-300);
   --color-border-main: var(--color-neutral-400);
-
+  --color-gradient: var(--color-linear-gradient)
   /* --shadow-s:; */
   --shadow-m: 0 8px 30px 0 rgba(0, 0, 0, 0.04);
   --shadow-l: 0 20px 50px 0 rgba(0, 0, 0, 0.04);
@@ -190,5 +193,8 @@ body {
 @layer components {
   .container-custom {
     @apply max-w-[1280px] w-full mx-auto px-8;
+  }
+  .box-custom {
+    @apply max-w-[1280px] mx-auto p-10 bg-white rounded-modal shadow-[0_20px_50px_0_rgba(0,0,0,0.04)];
   }
 }

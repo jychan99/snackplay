@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import PlayIcon from "@/components/icon/PlayIcon";
 import UserIcon from "@/components/icon/UserIcon";
-
+import BaseLink from "@/components/ui/BaseLink";
 type Variant = "primary" | "secondary";
 
 export default function Card({
@@ -16,11 +16,9 @@ export default function Card({
   children: React.ReactNode;
   variant: Variant;
 }) {
-  return (
-    <Link
-      href={href}
-      className={`group w-full shadow-m rounded-box overflow-hidden hover:shadow-l border-t-4 border-${variant}`}
-    >
+  const myCont = false;
+    const content = (
+    <>
       <div className="relative w-full aspect-[3/2] ">
         <Image
           src="/images/sample_img.png"
@@ -29,21 +27,52 @@ export default function Card({
           className="object-cover"
         />
       </div>
-      <div className="flex flex-wrap items-end p-card">
+      <div className="flex flex-wrap items-end p-card bg-white">
         <h3 className="text-h4 w-full mb-4">{children}</h3>
         <p className="flex flex-1 items-center">
           <UserIcon size={24} />
           <span className="text-caption text-text-sub">{count}명 참여</span>
         </p>
-        <span className="group-hover:left-1 transition relative">
+        { myCont ? (
+        <div className="flex gap-2 justify-end w-full">
+            <BaseLink
+              variant="secondary"
+              href="/game"
+              size="sm"
+            >
+              결과보기
+            </BaseLink>
+            <BaseLink
+              variant="outline"
+              href="/game"
+              size="sm"
+            >
+              다시하기
+            </BaseLink>
+        </div>) :  <span className="group-hover:left-1 transition relative">
           <PlayIconByVariant variant={variant} />
-        </span>
+        </span>}
       </div>
-    </Link>
+    </>
+  )
+    // 전체 클릭 카드
+  if (myCont) {
+    return (
+      <Link
+      href={href}
+      className={`group w-full shadow-m rounded-box overflow-hidden hover:shadow-l border-t-4 border-${variant}`}>
+        {content}
+      </Link>
+    )
+  }
+  return (
+    <div className={`group w-full shadow-m rounded-box overflow-hidden hover:shadow-l border-t-4 border-${variant}`}>
+      {content}
+    </div>
   );
 }
 
-function PlayIconByVariant({ variant }: Variant) {
+function PlayIconByVariant({variant}:  { variant: Variant }) {
   const isPrimary = variant === "primary";
   return (
     <PlayIcon
@@ -57,3 +86,4 @@ function PlayIconByVariant({ variant }: Variant) {
     />
   );
 }
+

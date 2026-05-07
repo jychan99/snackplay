@@ -8,7 +8,7 @@ type CheckboxProps = React.ComponentProps<"input"> & {
 export default function Checkbox({ id, label }: CheckboxProps) {
   const [checked, setChecked] = useState(false);
   return (
-    <div className="relative flex items-center justify-center gap-1">
+    <div className="relative flex items-center gap-1">
       <input
         type="checkbox"
         id={id}

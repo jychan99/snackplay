@@ -45,7 +45,7 @@ export default function Page() {
             <h3 className="text-h2">여기는 닉네임이 들어갈거라구요오옹</h3>
             <p className="text-body-m text-text-sub ">여기는 아이디가 들어갑니다.</p>
             <div className="flex gap-2 mt-6 justify-center sm:justify-start">
-              <Badge variant="primary">뱃지</Badge>
+              <Badge>뱃지</Badge>
               <Badge variant="secondary">뱃지</Badge>
             </div>
           </div>

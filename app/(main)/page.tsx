@@ -52,7 +52,7 @@ export function MainBanner() {
   return (
     <section className="flex flex-col-reverse gap-3 md:gap-0 md:flex-row p-6 md:p-16 items-center justify-between rounded-modal bg-[linear-gradient(155deg,_#fdf2f8_0%,_#eff6ff_100%)] mb-22">
       <div className="">
-        <Badge color="primary">모두 다함께 즐겨요</Badge>
+        <Badge>모두 다함께 즐겨요</Badge>
         <h2 className="my-6 text-h1">
           심심하니?
           <br />

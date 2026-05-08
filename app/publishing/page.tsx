@@ -54,8 +54,8 @@ export default function Home() {
         >
           링크입니다
         </BaseLink>
-        <Badge color="primary">학교</Badge>
-        <Badge color="secondary">학교</Badge>
+        <Badge >학교</Badge>
+        <Badge variant="secondary">학교</Badge>
         <Input label="이름" id="test1" type="text" placeholder="테스트입니다" />
         <Input
           label="나이"

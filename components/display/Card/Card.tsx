@@ -58,17 +58,17 @@ export default function Card({
     // 전체 클릭 카드
   if (myCont) {
     return (
-      <Link
-      href={href}
-      className={`group w-full shadow-m rounded-box overflow-hidden hover:shadow-l border-t-4 border-${variant}`}>
-        {content}
-      </Link>
+      <div className={`group w-full shadow-m rounded-box overflow-hidden hover:shadow-l border-t-4 border-${variant}`}>
+      {content}
+    </div>
     )
   }
   return (
-    <div className={`group w-full shadow-m rounded-box overflow-hidden hover:shadow-l border-t-4 border-${variant}`}>
+    <Link
+      href={href}
+      className={`group w-full shadow-m rounded-box overflow-hidden hover:shadow-l border-t-4 border-${variant}`}>
       {content}
-    </div>
+    </Link>
   );
 }
 

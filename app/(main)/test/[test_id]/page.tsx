@@ -47,7 +47,7 @@ export function PlayTest(){
     <>
       <div className="mb-10 text-right">
         <Badge size="sm" >03/10</Badge>
-        <div className="relative w-full h-3 mt-3 rounded-button bg-border-sub overflow-hidden">
+        <div className="relative w-full h-3 mt-3 rounded-button bg-background overflow-hidden">
           <span className="inline-block w-[10%] bg-border-main h-full absolute left-0"></span>
         </div>
         {/* progressbar */}

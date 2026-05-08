@@ -4,7 +4,7 @@ type ButtonVariant = "primary" | "secondary" | "outline" | "danger";
 type ButtonSize = "sm" | "md" | "lg";
 
 type ButtonProps = React.ComponentProps<"button"> & {
-  variant: ButtonVariant;
+  variant?: ButtonVariant;
   icon?: React.ReactNode;
   size?: ButtonSize;
 };
@@ -42,7 +42,7 @@ const disabledStyles = {
   danger: "bg-red-500 text-white",
 };
 export default function Button({
-  variant,
+  variant = "primary",
   icon,
   size = "md",
   disabled = false,

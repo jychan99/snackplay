@@ -35,20 +35,20 @@ export default function Card({
         </p>
         { myCont ? (
         <div className="flex gap-2 justify-end w-full">
-            <BaseLink
-              variant="secondary"
-              href="/game"
-              size="sm"
-            >
-              결과보기
-            </BaseLink>
-            <BaseLink
-              variant="outline"
-              href="/game"
-              size="sm"
-            >
-              다시하기
-            </BaseLink>
+          <BaseLink
+            variant="secondary"
+            href="/game"
+            size="sm"
+          >
+            결과보기
+          </BaseLink>
+          <BaseLink
+            variant="outline"
+            href="/game"
+            size="sm"
+          >
+            다시하기
+          </BaseLink>
         </div>) :  <span className="group-hover:left-1 transition relative">
           <PlayIconByVariant variant={variant} />
         </span>}

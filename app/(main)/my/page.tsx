@@ -17,7 +17,7 @@ export default function Page() {
   const [modifyInfo, setModifyInfo] = useState(false);
   return (
     <div>
-      <section className="flex flex-col sm:flex-row items-center box-custom mb-10">
+      <section className="flex flex-col sm:flex-row items-center box-custom mb-10 max-w-[1280px] w-full mx-auto ">
         <h2 className="sr-only">my info</h2>
         <div>
         <div className="relative">

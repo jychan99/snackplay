@@ -9,10 +9,9 @@ export const metadata = {
 
 export default function Page() {
   return (
-    <div className="w-full h-screen flex items-center justify-center">
+    <>
       <h1 className="sr-only">로그인</h1>
-      <div className="w-[448px] max-w-[90%] relative overflow-hidden rounded-modal bg-white p-10">
-        <div className="absolute top-0 left-0 h-[4px] w-full bg-[linear-gradient(to_right,_#e040a0,_#7c52aa_50%,_#0096cc)]" />
+      <div className="box-custom">
         <div className="mb-10 text-center">
           <div className="w-[163px] mb-3 mx-auto">
             <img
@@ -51,11 +50,11 @@ export default function Page() {
         </Button>
         <div className="border-t-1 border-primary-light pt-8">
           <span className="text-text-sub">현재 계정이 없으신가요?</span>
-          <Link href="/signup" class="text-secondary">
+          <Link href="/signup" className="text-secondary">
             회원가입하러 가기
           </Link>
         </div>
       </div>
-    </div>
+    </>
   );
 }

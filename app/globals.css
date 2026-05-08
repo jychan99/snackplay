@@ -195,6 +195,21 @@ body {
     @apply max-w-[1280px] w-full mx-auto px-8;
   }
   .box-custom {
-    @apply max-w-[1280px] mx-auto p-10 bg-white rounded-modal shadow-[0_20px_50px_0_rgba(0,0,0,0.04)];
+    @apply w-[448px] max-w-[90%] relative rounded-modal bg-white p-10 overflow-auto
   }
+}
+
+.box-custom::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 4px;
+  width: 100%;
+  background: linear-gradient(
+    to right,
+    #e040a0,
+    #7c52aa 50%,
+    #0096cc
+  );
 }

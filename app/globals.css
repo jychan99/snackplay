@@ -165,6 +165,19 @@
 
   --spacing-card: var(--spacing-m);
   --spacing-modal: var(--spacing-xl);
+
+  --animate-grow-width: grow-width 4s ease-out infinite ;
+
+   @keyframes grow-width {
+    0% {
+      width: 0;
+    }
+
+    100% {
+      width: 100%;
+    }
+  }
+
 }
 
 @media (prefers-color-scheme: dark) {
@@ -213,3 +226,4 @@ body {
     #0096cc
   );
 }
+

@@ -8,7 +8,7 @@ import Badge from "@/components/ui/Badge";
 import Checkbox from "@/components/ui/Checkbox";
 import Card from "@/components/display/Card";
 import CardHorizontal from "@/components/display/CardHorizontal";
-
+import Loading from "@/components/ui/Loading";
 export default function Home() {
   return (
     <div className="flex flex-col flex-1 items-center justify-center  font-sans dark:bg-black">
@@ -82,6 +82,7 @@ export default function Home() {
           priority
         />
       </main>
+      <Loading/>
     </div>
   );
 }

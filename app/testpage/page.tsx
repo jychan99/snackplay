@@ -6,8 +6,9 @@ import Badge from "@/components/ui/Badge";
 import UserInfo from "@/components/test_component/userInfo";
 import SignupForm from "@/components/test_component/signupForm";
 import LoginForm from "@/components/test_component/LoginForm";
-import GameInfo from "@/components/test_component/gameInfo";
-import type { USER_MAIN, GAME_MAIN } from "@/types/index";
+import TestInfo from "@/components/test_component/testInfo";
+import CreateTestForm from "@/components/test_component/createTestForm";
+import type { USER_MAIN, TEST_MAIN } from "@/types/index";
 import { revalidatePath } from "next/cache";
 
 //GET
@@ -35,11 +36,10 @@ async function getUsers() {
 }
 
 //GET
-//게임목록 조회 테스트
-getGames;
-async function getGames() {
+//테스트 목록 조회 테스트
+async function getTests() {
   try {
-    const res = await fetch("http://localhost:3000/api/game", {
+    const res = await fetch("http://localhost:3000/api/test", {
       method: "GET",
       cache: "no-store", // 항상 최신 데이터
     });
@@ -54,14 +54,14 @@ async function getGames() {
 
     return res.json();
   } catch (error) {
-    console.error("getGames 에러:", error);
+    console.error("getTests 에러:", error);
     throw error;
   }
 }
 
 export default async function Home() {
   const users = await getUsers();
-  const games = await getGames();
+  const tests = await getTests();
 
   return (
     <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
@@ -81,7 +81,10 @@ export default async function Home() {
         </div>
       </main>
       <hr />
-      <GameInfo games={games} />
+      <TestInfo tests={tests} />
+      <hr />
+      <hr />
+      <CreateTestForm />
       <hr />
     </div>
   );

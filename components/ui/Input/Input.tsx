@@ -6,6 +6,7 @@ type InputProps = React.ComponentProps<"input"> & {
   icon?: React.ReactNode;
   width?: InputSize;
   label: string;
+  onChange: React.ChangeEventHandler<HTMLInputElement>;
 };
 
 const baseStyle =
@@ -23,6 +24,7 @@ export default function Input({
   disabled = false,
   label,
   className,
+  onChange,
   ...props // placeholder, id, type은 이미 .ComponentProps<"input">에 포함
 }: InputProps) {
   // 클래스 결합 로직
@@ -46,6 +48,7 @@ export default function Input({
           {...props}
           disabled={disabled}
           className={combinedClassName}
+          onChange={onChange}
         />
       </div>
     </div>

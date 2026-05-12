@@ -1,14 +1,51 @@
-"use client"
+"use client";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import Checkbox from "@/components/ui/CheckBox";
-
+import { useState, useRef } from "react";
 export default function Page() {
-  
+  const [id, setId] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordCheck, setPasswordCheck] = useState("");
+  const [nickname, setNickname] = useState("");
+  const [checked, setChecked] = useState(false);
 
-  
+  // 유효성 검사 작업 필요!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  // 유효성 검사 작업 필요!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  // 유효성 검사 작업 필요!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  // 유효성 검사 작업 필요!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  // 유효성 검사 작업 필요!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  // 유효성 검사 작업 필요!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  // 유효성 검사 작업 필요!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  // 유효성 검사 작업 필요!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  async function SignUp(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    try {
+      const res = await fetch("/api/auth/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id,
+          password,
+          nickname,
+        }),
+      });
+
+      if (res.ok) {
+        alert("회원가입 성공!");
+      } else {
+        alert("회원가입 실패! 다시시도해주세요");
+      }
+    } catch (err) {
+      alert("네트워크 오류");
+    }
+  }
+
   return (
-    <>
+    <form onSubmit={SignUp}>
       <div className="w-[163px] mb-5 mx-auto">
         <img className="w-full" src="/images/logo.png" alt="snackplay logo" />
       </div>
@@ -22,27 +59,42 @@ export default function Page() {
             id="signup_id"
             type="text"
             placeholder="아이디를 입력해주세요"
+            value={id}
+            onChange={(e) => setId(e.target.value)}
           />
+          {/* ref={idRef} */}
           <Input
             label="닉네임"
             id="signup_nickname"
             type="text"
             placeholder="닉네임를 입력해주세요"
+            value={nickname}
+            onChange={(e) => setNickname(e.target.value)}
           />
           <Input
             label="비밀번호"
-            id="signup_pw"
+            id="signup_password"
             type="password"
             placeholder="비밀번호를 입력해주세요"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
           <Input
             label="비밀번호 확인"
-            id="signup_pw_check"
+            id="signup_password_check"
             type="password"
             placeholder="동일한 비밀번호를 입력해주세요"
+            value={passwordCheck}
+            onChange={(e) => setPasswordCheck(e.target.value)}
           />
           <div>
-            <Checkbox id="checkbox" label="회원약관에 동의합니다." />
+            <input type="checkbox" />
+            <Checkbox
+              checked={checked}
+              onChange={(e) => setChecked(e.target.checked)}
+              id="checkbox"
+              label="회원약관에 동의합니다."
+            />
             <div className="mt-2 max-h-[100px] overflow-auto text-caption p-4 border-1 border-border-sub bg-background rounded-box">
               Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolor
               sed fuga ipsa, perspiciatis nisi architecto, asperiores non ipsam
@@ -63,6 +115,6 @@ export default function Page() {
           회원가입하기
         </Button>
       </div>
-    </>
+    </form>
   );
 }

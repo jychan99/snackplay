@@ -1,6 +1,6 @@
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
-import Checkbox from "@/components/ui/Checkbox";
+import Checkbox from "@/components/ui/CheckBox";
 
 export const metadata = {
   title: "회원가입",

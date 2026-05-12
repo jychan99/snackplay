@@ -3,6 +3,8 @@ import type { Metadata } from "next";
 // import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import localFont from "next/font/local";
+import { cn } from "@/lib/utils";
+
 const paperlogy = localFont({
   src: [
     {
@@ -54,7 +56,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko" className={`${paperlogy.variable} h-full antialiased`}>
+    <html lang="ko" className={cn("h-full", "antialiased", paperlogy.variable)}>
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );

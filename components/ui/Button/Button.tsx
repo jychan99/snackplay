@@ -14,6 +14,7 @@ export default function Button({
   disabled,
   children,
   className,
+  type = "button",
   ...props
 }: ButtonProps) {
   return (
@@ -25,7 +26,7 @@ export default function Button({
         className,
       })}
       disabled={disabled}
-      type="button"
+      type={type}
       {...props}
     >
       {icon && <span className="flex items-center">{icon}</span>}

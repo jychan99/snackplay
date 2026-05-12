@@ -9,9 +9,46 @@ import Checkbox from "@/components/ui/Checkbox";
 import Card from "@/components/display/Card";
 import CardHorizontal from "@/components/display/CardHorizontal";
 import Loading from "@/components/ui/Loading";
+
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+
+export function AlertDialogDemo() {
+  return (
+    <AlertDialog>
+      <AlertDialogTrigger asChild>
+        <Button variant="outline">Show Dialog</Button>
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>에러 발생</AlertDialogTitle>
+          <AlertDialogDescription>
+            테스트를 확인중에 문제가 생겼습니다.
+            다시 한 번 시도해 주세요.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>취소</AlertDialogCancel>
+          <AlertDialogAction>확인</AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
+  )
+}
+
 export default function Home() {
   return (
     <div className="flex flex-col flex-1 items-center justify-center  font-sans dark:bg-black">
+      <AlertDialogDemo/>
       <Link href="/" ariaLabel="게임 하러가기">
         View All
       </Link>
@@ -82,7 +119,7 @@ export default function Home() {
           priority
         />
       </main>
-      <Loading/>
+      {/* <Loading/> */}
     </div>
   );
 }

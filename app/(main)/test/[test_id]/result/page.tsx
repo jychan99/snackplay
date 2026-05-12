@@ -50,11 +50,15 @@ export function StartTest(){
 }
 export function LoadingTest(){
   return (
-    <div>로딩 시작</div>
-  )
-}
-export function PlayTest(){
-  return (
-    <div>테스트 진행</div>
+    <>
+      <div className="relative w-90 h-3 mb-2 rounded-button bg-border-sub">
+        <span className="absolute left-0 h-full w-0 rounded-button bg-gradient bg-linear-to-r from-primary via-[#7c52aa] to-secondary animate-grow-width"></span>
+      </div>
+      <span>
+        테스트를 확인중입니다.<br/>
+        곧 결과가 나올 예정이니<br/>
+        잠시만 기다려 주세요.
+      </span>
+    </>
   )
 }

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Button from "@/components/ui/Button";
-import Checkbox from "@/components/ui/Checkbox";
+import Checkbox from "@/components/ui/CheckBox";
 import Input from "@/components/ui/Input";
 
 export const metadata = {

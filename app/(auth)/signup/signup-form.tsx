@@ -34,13 +34,18 @@ export default function Page() {
         }),
       });
 
-      if (res.ok) {
-        alert("회원가입 성공!");
-      } else {
-        alert("회원가입 실패! 다시시도해주세요");
+      const data = await res.json();
+      
+      if (!res.ok) {
+        throw new Error(data.message || "회원가입 실패");
       }
-    } catch (err) {
-      alert("네트워크 오류");
+      alert("회원가입 성공!");
+    } catch (err: unknown) {
+      if (err instanceof Error){
+        alert(err.message)
+      } else {
+        alert("네트워크 오류");
+      }
     }
   }
 

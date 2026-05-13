@@ -2,18 +2,18 @@
 import CheckIcon from "@/components/icon/CheckIcon";
 import { useState } from "react";
 
-type CheckboxProps = React.ComponentProps<"input"> & {
+type CheckInputProps = React.ComponentProps<"input"> & {
   label: string;
   checked: boolean;
   onChange: React.ChangeEventHandler<HTMLInputElement>;
 };
-export default function Checkbox({
+export default function CheckInput({
   id,
   label,
   checked,
   onChange,
   ...props
-}: CheckboxProps) {
+}: CheckInputProps) {
   return (
     <div className="relative flex items-center gap-1">
       <input

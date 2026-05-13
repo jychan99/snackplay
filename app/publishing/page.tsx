@@ -5,7 +5,7 @@ import BaseLink from "@/components/ui/BaseLink";
 import Link from "@/components/ui/ViewAllLink";
 import Input from "@/components/ui/Input";
 import Badge from "@/components/ui/Badge";
-import Checkbox from "@/components/ui/Checkbox";
+import CheckInput from "@/components/ui/CheckInput";
 import Card from "@/components/display/Card";
 import CardHorizontal from "@/components/display/CardHorizontal";
 import Loading from "@/components/ui/Loading";
@@ -65,7 +65,7 @@ export default function Home() {
         <CardHorizontal href="/" count={100} variant="secondary">
           카드 타이틀22
         </CardHorizontal>
-        <Checkbox id="checkbox" label="체크박스" />
+        <CheckInput id="CheckInput" label="체크박스" />
         <ArrowIcon2 size={40} className="text-primary" />
         <Button
           variant="outline"

@@ -1,7 +1,7 @@
 "use client";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
-import Checkbox from "@/components/ui/CheckBox";
+import CheckInput from "@/components/ui/CheckInput";
 import { useState, useRef } from "react";
 export default function Page() {
   const [id, setId] = useState("");
@@ -93,10 +93,10 @@ export default function Page() {
             onChange={(e) => setPasswordCheck(e.target.value)}
           />
           <div>
-            <Checkbox
+            <CheckInput
               checked={checked}
               onChange={(e) => setChecked(e.target.checked)}
-              id="checkbox"
+              id="CheckInput"
               label="회원약관에 동의합니다."
             />
             <div className="mt-2 max-h-[100px] overflow-auto text-caption p-4 border-1 border-border-sub bg-background rounded-box">

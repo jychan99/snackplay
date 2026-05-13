@@ -1,7 +1,7 @@
 "use client"
 import Link from "next/link";
 import Button from "@/components/ui/Button";
-import Checkbox from "@/components/ui/CheckBox";
+import CheckInput from "@/components/ui/CheckInput";
 import Input from "@/components/ui/Input";
 import { useActionState, useEffect, useState } from "react";
 
@@ -63,8 +63,8 @@ export default function LoginFormClient({ action }: { action: LoginAction }) {
         >
           비밀번호 찾기
         </Link>
-        <Checkbox checked={savedId}
-          onChange={(e) => setSavedId(e.target.checked)} id="checkbox" label="아이디 저장" />
+        <CheckInput checked={savedId}
+          onChange={(e) => setSavedId(e.target.checked)} id="CheckInput" label="아이디 저장" />
         <Button  disabled={isPending} type="submit" className="mt-6 mb-10 w-full" variant="primary">
           로그인
         </Button>

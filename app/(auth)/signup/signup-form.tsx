@@ -88,7 +88,6 @@ export default function Page() {
             onChange={(e) => setPasswordCheck(e.target.value)}
           />
           <div>
-            <input type="checkbox" />
             <Checkbox
               checked={checked}
               onChange={(e) => setChecked(e.target.checked)}

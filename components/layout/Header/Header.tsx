@@ -4,7 +4,11 @@ import Link from "next/link";
 import BaseLink from "@/components/ui/BaseLink";
 
 import { useState } from "react";
-export default function Header() {
+import { logout } from "./../../../actions/auth";
+
+export default function Header({isLoggedIn}: {
+  isLoggedIn: boolean;
+}) {
   const [isShowMenu, setIsShowMenu] = useState(false);
   return (
     <header className="flex items-center justify-center md:py-6 py-1 shadow-[0_10px_40px_0_rgba(255,77,148,0.08)] bg-white">
@@ -38,13 +42,13 @@ export default function Header() {
             </button>
             <Menu></Menu>
             <hr className="border-1 border-border-sub mt-2.5 mb-6 w-full" />
-            <Utils></Utils>
+            <Utils isLoggedIn={isLoggedIn}></Utils>
           </nav>
         )}
         {/* 모바일 */}
         <nav className="md:flex items-center justify-between w-[60%] hidden">
           <Menu></Menu>
-          <Utils></Utils>
+          <Utils isLoggedIn={isLoggedIn}></Utils>
         </nav>
         {/* PC */}
       </div>
@@ -75,27 +79,31 @@ export function Menu() {
   );
 }
 
-export function Utils() {
-  const [isLogin, setIsLogin] = useState(false);
-  return isLogin ? (
-    <Link href="/my" className="flex items-center justify-between">
-      <div className="border-4 border-primary rounded-button w-10 h-10 overflow-hidden mr-2">
-        <img
-          src="/images/sample_user.png"
-          alt="user image"
-          className="w-full h-full object-cover"
-        />
-      </div>
-      <span>가가가님</span>
-    </Link>
+export function Utils({isLoggedIn}: {
+  isLoggedIn: boolean;
+}) {
+  // const [isLogin, setIsLogin] = useState(false);
+  return isLoggedIn ? (
+    <>
+      <Link href="/my" className="flex items-center justify-between">
+        <div className="border-4 border-primary rounded-button w-10 h-10 overflow-hidden mr-2">
+          <img
+            src="/images/sample_user.png"
+            alt="user image"
+            className="w-full h-full object-cover"
+          />
+        </div>
+        <span>가가가님</span>
+      </Link>
+      <form action={logout}>
+        <Button type="submit" size="sm">로그아웃</Button>
+      </form>
+    </>
   ) : (
     <div className="flex items-center md:gap-3 gap-2">
       <BaseLink href="/login" variant="outline" size="sm">
         로그인
       </BaseLink>
-      <Button variant="primary" size="sm">
-        로그아웃
-      </Button>
     </div>
   );
 }

@@ -3,26 +3,31 @@ import Link from "next/link";
 import Button from "@/components/ui/Button";
 import Checkbox from "@/components/ui/CheckBox";
 import Input from "@/components/ui/Input";
-import { useState } from "react";
+import { useActionState, useEffect, useState } from "react";
+
+export type LoginState = {
+  alertId?: number;
+  error?: string;
+  success?: boolean;
+};
+
+type LoginAction = (
+  state: LoginState,
+  formData: FormData,
+) => Promise<LoginState>;
 
 
-export default function Page() {
-  const [id, setId] = useState('');
-  const [password, setPassword] = useState('');
+export default function LoginFormClient({ action }: { action: LoginAction }) {
+  const [state, formAction, isPending] = useActionState(action, {});
   const [savedId, setSavedId] = useState(false);
-  
-  async function Login(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    // try {
-
-    // }
-    // catch (){
-
-    // }
-  }
+  useEffect(() => {
+    if (state.error) {
+      alert(state.error);
+    }
+  }, [state.alertId, state.error]);
 
   return (
-    <form  onSubmit={Login}>
+    <form action={formAction}>
       <h1 className="sr-only">로그인</h1>
       <div className="box-custom">
         <div className="mb-10 text-center">
@@ -43,16 +48,13 @@ export default function Page() {
             id="login_id"
             type="text"
             placeholder="아이디를 입력해주세요"
-            value={id}
-            onChange={(e) => setId(e.target.value)}
+            name="id"
           />
           <Input
             label="비밀번호"
             id="login_pw"
             type="password"
-            placeholder="비밀번호를 입력해주세요"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            name="password"
           />
         </div>
         <Link
@@ -63,7 +65,7 @@ export default function Page() {
         </Link>
         <Checkbox checked={savedId}
           onChange={(e) => setSavedId(e.target.checked)} id="checkbox" label="아이디 저장" />
-        <Button type="submit" className="mt-6 mb-10 w-full" variant="primary">
+        <Button  disabled={isPending} type="submit" className="mt-6 mb-10 w-full" variant="primary">
           로그인
         </Button>
         <div className="border-t-1 border-primary-light pt-8">

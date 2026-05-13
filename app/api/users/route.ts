@@ -1,5 +1,6 @@
 import { sql } from "@/lib/db";
 
+//유저 정보 조회
 export async function GET() {
   try {
     const users = await sql`

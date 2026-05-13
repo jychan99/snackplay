@@ -1,4 +1,5 @@
 import type { TEST_MAIN } from "@/types/index";
+import Link from "next/link";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 
@@ -54,6 +55,12 @@ export default function TestInfo({ tests }: TestInfoProps) {
                 <p className="text-sm text-zinc-600 dark:text-zinc-400">
                   LIKE: {test.like}
                 </p>
+                <Link
+                  href={`/testpage/test/${test.testId}/questions`}
+                  className="mt-2 inline-block rounded-md bg-blue-500 px-3 py-1 text-sm text-white hover:bg-blue-600"
+                >
+                  질문 편집
+                </Link>
                 <form action={handleLike}>
                   <input type="hidden" name="testId" value={test.testId} />
                   <button

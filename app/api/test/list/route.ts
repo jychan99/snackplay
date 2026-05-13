@@ -1,6 +1,6 @@
 import { sql } from "@/lib/db";
 
-//테스트 조회
+//테스트 목록
 export async function GET() {
   try {
     const games = await sql`

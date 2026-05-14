@@ -39,7 +39,7 @@ async function getUsers() {
 //테스트 목록 조회 테스트
 async function getTests() {
   try {
-    const res = await fetch("http://localhost:3000/api/test", {
+    const res = await fetch("http://localhost:3000/api/test/list", {
       method: "GET",
       cache: "no-store", // 항상 최신 데이터
     });

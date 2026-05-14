@@ -15,6 +15,7 @@ function getCookieValue(cookieHeader: string | null, name: string) {
   return targetCookie ? decodeURIComponent(targetCookie.split("=")[1]) : "";
 }
 
+//좋아요 토글버튼
 export async function POST(request: Request) {
   try {
     const token = getCookieValue(request.headers.get("cookie"), "authToken");

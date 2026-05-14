@@ -64,3 +64,6 @@ url -> 화면명
 /game -> 미니 게임
   GAME_MAIN(R)
 /game/{:game_id} -> 게임상세
+
+
+배포테스트

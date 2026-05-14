@@ -15,7 +15,7 @@ import { revalidatePath } from "next/cache";
 //사용자목록 조회 테스트
 async function getUsers() {
   try {
-    const res = await fetch("http://localhost:3000/api/users", {
+    const res = await fetch("/api/users", {
       method: "GET",
       cache: "no-store", // 항상 최신 데이터
     });
@@ -39,7 +39,7 @@ async function getUsers() {
 //테스트 목록 조회 테스트
 async function getTests() {
   try {
-    const res = await fetch("http://localhost:3000/api/test/list", {
+    const res = await fetch("/api/test/list", {
       method: "GET",
       cache: "no-store", // 항상 최신 데이터
     });

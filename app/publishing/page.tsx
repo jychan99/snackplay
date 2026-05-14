@@ -65,7 +65,7 @@ export default function Home() {
         <CardHorizontal href="/" count={100} variant="secondary">
           카드 타이틀22
         </CardHorizontal>
-        <CheckInput id="CheckInput" label="체크박스" />
+        {/* <CheckInput  id="CheckInput" label="체크박스" /> */}
         <ArrowIcon2 size={40} className="text-primary" />
         <Button
           variant="outline"

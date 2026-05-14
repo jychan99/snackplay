@@ -131,7 +131,7 @@
   --spacing-r: 16px; */
   --spacing-m: 15px;
   /* --spacing-l: 30px; */
-  --spacing-xl: 30px
+  --spacing-xl: 30px;
   }
 }
 
@@ -151,7 +151,7 @@
   --color-text-sub: var(--color-neutral-500);
   --color-border-sub: var(--color-neutral-300);
   --color-border-main: var(--color-neutral-400);
-  --color-gradient: var(--color-linear-gradient)
+  --color-gradient: var(--color-linear-gradient);
   /* --shadow-s:; */
   --shadow-m: 0 8px 30px 0 rgba(0, 0, 0, 0.04);
   --shadow-l: 0 20px 50px 0 rgba(0, 0, 0, 0.04);
@@ -202,7 +202,7 @@
   --spacing-card: var(--spacing-m);
   --spacing-modal: var(--spacing-xl);
 
-  --animate-grow-width: grow-width 4s ease-out infinite ;
+  --animate-grow-width: grow-width 4s ease-out infinite;
 
   @keyframes grow-width {
     0% {
@@ -281,7 +281,7 @@ body {
     @apply max-w-[1280px] w-full mx-auto px-8;
   }
   .box-custom {
-    @apply w-[448px] max-w-[90%] relative rounded-modal bg-white p-10 overflow-auto
+    @apply w-[448px] max-w-[90%] relative rounded-modal bg-white p-10 overflow-auto;
   }
 }
 

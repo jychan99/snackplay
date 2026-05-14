@@ -1,5 +1,5 @@
-import Header from "@/components/layout/Header/Header";
-import Footer from "@/components/layout/Footer/Footer";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
 import { cookies } from "next/headers";
 export default async function MainLayout({
   children,

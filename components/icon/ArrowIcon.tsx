@@ -7,7 +7,6 @@ type ArrowIconProps = {
 export default function ArrowIcon({
   width = 6,
   height = 9,
-  color = '#475569',
   className,
 }:ArrowIconProps) {
   return (

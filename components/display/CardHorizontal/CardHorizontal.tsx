@@ -9,7 +9,6 @@ export default function CardHorizontal({
   href,
   count,
   children,
-  className,
   variant = "primary",
   ...props
 }: {
@@ -24,7 +23,7 @@ export default function CardHorizontal({
   };
   return (
     <div
-      className={` shadow-m rounded-box has-[a:hover]:shadow-l  border-t-4 ${variantStyle[variant]} flex items-center p-card bg-white  ${className ?? ""}`}
+      className={` shadow-m rounded-box has-[a:hover]:shadow-l  border-t-4 ${variantStyle[variant]} flex items-center p-card bg-white`}
     >
       {/* a[href='/about'] */}
       <div className="flex items-center flex-1">

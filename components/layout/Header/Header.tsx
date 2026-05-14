@@ -84,7 +84,7 @@ export function Utils({isLoggedIn}: {
 }) {
   // const [isLogin, setIsLogin] = useState(false);
   return isLoggedIn ? (
-    <>
+    <div className="flex gap-3">
       <Link href="/my" className="flex items-center justify-between">
         <div className="border-4 border-primary rounded-button w-10 h-10 overflow-hidden mr-2">
           <img
@@ -98,7 +98,7 @@ export function Utils({isLoggedIn}: {
       <form action={logout}>
         <Button type="submit" size="sm">로그아웃</Button>
       </form>
-    </>
+    </div>
   ) : (
     <div className="flex items-center md:gap-3 gap-2">
       <BaseLink href="/login" variant="outline" size="sm">

@@ -5,7 +5,8 @@ export const metadata = {
 };
 
 import { cookies } from "next/headers";
-import { revalidatePath } from "next/cache";
+// import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 
 export async function loginUser(
@@ -25,6 +26,7 @@ export async function loginUser(
     body: JSON.stringify({ id, password }),
   });
 
+  // 오류시
   if (!res.ok) {
     const data = await res.json().catch(() => ({}));
 
@@ -32,23 +34,25 @@ export async function loginUser(
       alertId: Date.now(),
       error:
         res.status === 409
-          ? "아이디 및 비밀번호가 일치하지 않습니다."
-          : data.error || "로그인에 실패했습니다.",
+        ? "아이디 및 비밀번호가 일치하지 않습니다."
+        : data.error || "로그인에 실패했습니다.",
     };
   }
 
   const data = await res.json();
   const cookieStore = await cookies();
 
+  // 토큰 저장
   cookieStore.set("authToken", data.token, {
     httpOnly: true,
     path: "/",
     sameSite: "lax",
   });
 
-  revalidatePath("/");
-
-  return { success: true };
+  // 메인 이동
+  redirect("/");
+  // revalidatePath("/");
+  // return { success: true };
 }
 
 export default async function Page() {
@@ -66,7 +70,7 @@ export default async function Page() {
             토큰: {token.substring(0, 20)}...
           </p>
         </div>
-        {/* <form action={logoutUser}>
+          {/* <form action={logoutUser}>
           <button
             type="submit"
             className="w-full px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"

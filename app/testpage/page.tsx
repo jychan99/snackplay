@@ -10,12 +10,29 @@ import TestInfo from "@/components/test_component/testInfo";
 import CreateTestForm from "@/components/test_component/createTestForm";
 import type { USER_MAIN, TEST_MAIN } from "@/types/index";
 import { revalidatePath } from "next/cache";
+import { headers } from "next/headers";
+
+async function getBaseUrl() {
+  const headersList = await headers();
+  const host = headersList.get("host");
+  const protocol = headersList.get("x-forwarded-proto") || "http";
+
+  if (host) {
+    return `${protocol}://${host}`;
+  }
+
+  if (process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL}`;
+  }
+
+  return "http://localhost:3000";
+}
 
 //GET
 //사용자목록 조회 테스트
 async function getUsers() {
   try {
-    const res = await fetch("/api/users", {
+    const res = await fetch(`${await getBaseUrl()}/api/users`, {
       method: "GET",
       cache: "no-store", // 항상 최신 데이터
     });
@@ -39,7 +56,7 @@ async function getUsers() {
 //테스트 목록 조회 테스트
 async function getTests() {
   try {
-    const res = await fetch("/api/test/list", {
+    const res = await fetch(`${await getBaseUrl()}/api/test/list`, {
       method: "GET",
       cache: "no-store", // 항상 최신 데이터
     });

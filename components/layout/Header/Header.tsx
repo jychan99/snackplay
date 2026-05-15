@@ -3,13 +3,24 @@ import Button from "@/components/ui/Button";
 import Link from "next/link";
 import BaseLink from "@/components/ui/BaseLink";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { logout } from "./../../../actions/auth";
 
-export default function Header({isLoggedIn}: {
+export default  function  Header({isLoggedIn}: {
   isLoggedIn: boolean;
 }) {
-  const [isShowMenu, setIsShowMenu] = useState(false);
+  const [isShowMenu, setIsShowMenu] = useState(false);  
+  const [userData, setUserData] = useState('');  
+    useEffect(() => {
+      async function handleClick() {
+        const res = await fetch("/api/users");
+        
+        const data = await res.json();
+        setUserData(data[0].nickname);
+        console.log(data);
+      }
+      handleClick();
+    }, []);
   return (
     <header className="flex items-center justify-center md:py-6 py-1 shadow-[0_10px_40px_0_rgba(255,77,148,0.08)] bg-white">
       <div className="flex items-center justify-between w-7xl px-8">
@@ -42,13 +53,13 @@ export default function Header({isLoggedIn}: {
             </button>
             <Menu></Menu>
             <hr className="border-1 border-border-sub mt-2.5 mb-6 w-full" />
-            <Utils isLoggedIn={isLoggedIn}></Utils>
+            <Utils isLoggedIn={isLoggedIn} userData={userData}></Utils>
           </nav>
         )}
         {/* 모바일 */}
         <nav className="md:flex items-center justify-between w-[60%] hidden">
           <Menu></Menu>
-          <Utils isLoggedIn={isLoggedIn}></Utils>
+          <Utils isLoggedIn={isLoggedIn} userData={userData}></Utils>
         </nav>
         {/* PC */}
       </div>
@@ -79,8 +90,9 @@ export function Menu() {
   );
 }
 
-export function Utils({isLoggedIn}: {
+export function Utils({isLoggedIn, userData}: {
   isLoggedIn: boolean;
+  userData: string;
 }) {
   // const [isLogin, setIsLogin] = useState(false);
   return isLoggedIn ? (
@@ -93,7 +105,7 @@ export function Utils({isLoggedIn}: {
             className="w-full h-full object-cover"
           />
         </div>
-        <span>가가가님</span>
+        <span>{userData}</span>
       </Link>
       <form action={logout}>
         <Button type="submit" size="sm">로그아웃</Button>

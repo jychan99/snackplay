@@ -4,23 +4,20 @@ import Link from "next/link";
 import BaseLink from "@/components/ui/BaseLink";
 
 import { useState, useEffect } from "react";
-import { logout } from "./../../../actions/auth";
+import { logout } from "@/actions/auth";
 
-export default  function  Header({isLoggedIn}: {
+type User = {
+  nickname: string;
+};
+type HeaderProps = {
   isLoggedIn: boolean;
-}) {
+  userData: User | null;
+};
+
+export default  function  Header({isLoggedIn, userData}: HeaderProps) {
   const [isShowMenu, setIsShowMenu] = useState(false);  
-  const [userData, setUserData] = useState('');  
-    useEffect(() => {
-      async function handleClick() {
-        const res = await fetch("/api/users");
-        
-        const data = await res.json();
-        setUserData(data[0].nickname);
-        console.log(data);
-      }
-      handleClick();
-    }, []);
+  // const [userData, setUserData] = useState('');  
+
   return (
     <header className="flex items-center justify-center md:py-6 py-1 shadow-[0_10px_40px_0_rgba(255,77,148,0.08)] bg-white">
       <div className="flex items-center justify-between w-7xl px-8">
@@ -90,10 +87,7 @@ export function Menu() {
   );
 }
 
-export function Utils({isLoggedIn, userData}: {
-  isLoggedIn: boolean;
-  userData: string;
-}) {
+export function Utils({isLoggedIn, userData}: HeaderProps) {
   // const [isLogin, setIsLogin] = useState(false);
   return isLoggedIn ? (
     <div className="flex gap-3">

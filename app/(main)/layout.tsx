@@ -1,18 +1,17 @@
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import { cookies } from "next/headers";
+import { getIsLoggedIn, getCurrentUser } from "@/lib/auth";
 export default async function MainLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   // 로그인 여부 체크
-  const cookieStore = await cookies();
-  const token = cookieStore.get("authToken");
-  const isLoggedIn = !!token;
+  const isLoggedIn = await getIsLoggedIn();
+  const userData = await getCurrentUser();
   return (
     <>
-      <Header isLoggedIn={isLoggedIn}  />
+      <Header isLoggedIn={isLoggedIn} userData={userData?.nickname} />
       <main className="container-custom py-16">{children}</main>
       <Footer />
     </>

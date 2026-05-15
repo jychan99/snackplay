@@ -1,7 +1,23 @@
 import type { TEST_MAIN } from "@/types/index";
 import Link from "next/link";
 import { revalidatePath } from "next/cache";
-import { cookies } from "next/headers";
+import { cookies,headers } from "next/headers";
+
+async function getBaseUrl() {
+  const headersList = await headers();
+  const host = headersList.get("host");
+  const protocol = headersList.get("x-forwarded-proto") || "http";
+
+  if (host) {
+    return `${protocol}://${host}`;
+  }
+
+  if (process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL}`;
+  }
+
+  return "http://localhost:3000";
+}
 
 interface TestInfoProps {
   tests: TEST_MAIN[];
@@ -14,7 +30,7 @@ export async function handleLike(formData: FormData) {
   const cookieStore = await cookies();
   const token = cookieStore.get("authToken")?.value;
 
-  await fetch("http://localhost:3000/api/users/like", {
+  await fetch(`${await getBaseUrl()}/api/users/like`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

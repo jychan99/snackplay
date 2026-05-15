@@ -1,13 +1,30 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { headers } from "next/headers";
+
+async function getBaseUrl() {
+  const headersList = await headers();
+  const host = headersList.get("host");
+  const protocol = headersList.get("x-forwarded-proto") || "http";
+
+  if (host) {
+    return `${protocol}://${host}`;
+  }
+
+  if (process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL}`;
+  }
+
+  return "http://localhost:3000";
+}
 
 export async function createUser(formData: FormData) {
   const id = formData.get("id");
   const password = formData.get("password");
   const nickname = formData.get("nickname");
 
-  await fetch("http://localhost:3000/api/auth/signup", {
+  await fetch(`${await getBaseUrl()}/api/auth/signup`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

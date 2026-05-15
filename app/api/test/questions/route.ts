@@ -46,11 +46,7 @@ export async function GET(request: Request) {
       FROM "SCALE_CODE"
     `;
 
-    return Response.json({
-      questions: questions as TEST_CONTENT[],
-      hashtags: hashtags as SCALE_CODE[],
-      scaleCodes: scaleCodes as SCALE_CODE[],
-    });
+    return Response.json({ questions, hashtags, scaleCodes });
   } catch (error) {
     console.error("API /test/questions GET 에러:", error);
     return Response.json(

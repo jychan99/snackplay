@@ -7,6 +7,7 @@ export interface USER_MAIN {
 
 export interface TEST_MAIN{
   testId: number;
+  userId: string;
   testTitle: string;
   testInfo: string;
   hashtag: string;

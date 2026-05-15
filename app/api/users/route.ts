@@ -28,7 +28,7 @@ export async function GET(request: Request) {
       ORDER BY "ID" DESC
     `;
 
-    return Response.json(users);
+    return Response.json(users[0] || null);
   } catch (error) {
     console.error("API /users GET 에러:", error);
     return Response.json(

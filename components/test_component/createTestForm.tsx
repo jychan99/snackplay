@@ -1,13 +1,30 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { headers } from "next/headers";
+
+async function getBaseUrl() {
+  const headersList = await headers();
+  const host = headersList.get("host");
+  const protocol = headersList.get("x-forwarded-proto") || "http";
+
+  if (host) {
+    return `${protocol}://${host}`;
+  }
+
+  if (process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL}`;
+  }
+
+  return "http://localhost:3000";
+}
 
 export async function createTest(formData: FormData) {
   const testTitle = formData.get("testTitle");
   const testInfo = formData.get("testInfo");
   const hashtag = formData.get("hashtag");
 
-  await fetch("http://localhost:3000/api/test/new", {
+  await fetch(`${await getBaseUrl()}/api/test/new`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

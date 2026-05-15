@@ -1,6 +1,23 @@
 import { cookies } from "next/headers";
 import { revalidatePath } from "next/cache";
 import LoginFormClient, { type LoginState } from "./LoginFormClient";
+import { headers } from "next/headers";
+
+async function getBaseUrl() {
+  const headersList = await headers();
+  const host = headersList.get("host");
+  const protocol = headersList.get("x-forwarded-proto") || "http";
+
+  if (host) {
+    return `${protocol}://${host}`;
+  }
+
+  if (process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL}`;
+  }
+
+  return "http://localhost:3000";
+}
 
 export async function loginUser(
   _prevState: LoginState,
@@ -11,7 +28,7 @@ export async function loginUser(
   const id = formData.get("id");
   const password = formData.get("password");
 
-  const res = await fetch("http://localhost:3000/api/auth/login", {
+  const res = await fetch(`${await getBaseUrl()}/api/auth/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

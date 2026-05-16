@@ -5,7 +5,7 @@ import BaseLink from "@/components/ui/BaseLink";
 
 import { useState, useEffect } from "react";
 import { logout } from "@/actions/auth";
-
+import { useMobileMenuStore } from "@/store/mobileMenuStore";
 type User = {
   nickname: string;
 };
@@ -14,10 +14,10 @@ type HeaderProps = {
   userData: User | null;
 };
 
-export default  function  Header({isLoggedIn, userData}: HeaderProps) {
-  const [isShowMenu, setIsShowMenu] = useState(false);  
-  // const [userData, setUserData] = useState('');  
-
+export default function Header({ isLoggedIn, userData }: HeaderProps) {
+  const [isShowMenu, setIsShowMenu] = useState(false);
+  // const [userData, setUserData] = useState('');
+  const { open, openMenu, closeMenu } = useMobileMenuStore();
   return (
     <header className="flex items-center justify-center md:py-6 py-1 shadow-[0_10px_40px_0_rgba(255,77,148,0.08)] bg-white">
       <div className="flex items-center justify-between w-7xl px-8">
@@ -31,17 +31,19 @@ export default  function  Header({isLoggedIn, userData}: HeaderProps) {
         <button
           type="button"
           className="md:hidden w-10 h-10 p-1.5 relative -right-2"
-          onClick={() => setIsShowMenu(true)}
+          // onClick={() => setIsShowMenu(true)}
+          onClick={openMenu}
         >
           <em className="sr-only">모바일 메뉴 열기</em>
           <span className="w-6 h-0.5 bg-text-sub block absolute "></span>
           <span className="w-6 h-0.5 bg-text-sub block absolute top-2.5"></span>
           <span className="w-6 h-0.5 bg-text-sub block absolute top-7"></span>
         </button>
-        {isShowMenu && (
+        {open && (
           <nav className="right-0 top-0 fixed flex-col items-center bg-background z-10 w-67.5 h-full p-7 md:hidden shadow-2xl">
             <button
-              onClick={() => setIsShowMenu(false)}
+              onClick={closeMenu}
+              // onClick={() => setIsShowMenu(false)}
               type="button"
               aria-label="모바일 메뉴 닫기"
               className="absolute right-6 top-1"
@@ -87,7 +89,7 @@ export function Menu() {
   );
 }
 
-export function Utils({isLoggedIn, userData}: HeaderProps) {
+export function Utils({ isLoggedIn, userData }: HeaderProps) {
   // const [isLogin, setIsLogin] = useState(false);
   return isLoggedIn ? (
     <div className="flex gap-3">
@@ -102,7 +104,9 @@ export function Utils({isLoggedIn, userData}: HeaderProps) {
         <span>{userData}</span>
       </Link>
       <form action={logout}>
-        <Button type="submit" size="sm">로그아웃</Button>
+        <Button type="submit" size="sm">
+          로그아웃
+        </Button>
       </form>
     </div>
   ) : (

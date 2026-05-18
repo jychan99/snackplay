@@ -17,11 +17,8 @@ function getCookieValue(cookieHeader:string | null, name:string){
 
 //마이페이지 유저 정보 조회
 export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
-  const queryUserId = searchParams.get("userId") ?? "";
   const token = getCookieValue(request.headers.get("cookie"), "authToken");
-  const cookieUserId = token ? getUserIdFromToken(token) : "";
-  const userId = queryUserId || cookieUserId;
+  const userId = token ? getUserIdFromToken(token) : "";
 
   try {
     if (!userId) {

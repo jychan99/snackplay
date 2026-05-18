@@ -1,19 +1,21 @@
 import type { USER_MAIN } from "@/types/index";
 
 interface UserInfoProps {
-  users: USER_MAIN[];
+  users: USER_MAIN[] | USER_MAIN | null;
 }
 
 export default function UserInfo({ users }: UserInfoProps) {
+  const userList = Array.isArray(users) ? users : users ? [users] : [];
+
   return (
     <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
       <div className="mt-8 w-full max-w-md">
         <h2 className="text-lg font-semibold mb-4 text-black dark:text-zinc-50">
           사용자 목록 조회테스트
         </h2>
-        {users.length > 0 ? (
+        {userList.length > 0 ? (
           <ul className="space-y-2">
-            {users.map((user: USER_MAIN, index: number) => (
+            {userList.map((user: USER_MAIN, index: number) => (
               <li
                 key={index}
                 className="p-3 bg-zinc-100 dark:bg-zinc-700 rounded-md"

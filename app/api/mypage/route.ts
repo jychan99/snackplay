@@ -4,8 +4,8 @@ function getUserIdFromToken(token: string) {
   return token.split("_")[0];
 }
 
-function getCookieValue(cookieHeader:string | null, name:string){
-  if(!cookieHeader){
+function getCookieValue(cookieHeader: string | null, name: string) {
+  if (!cookieHeader) {
     return "";
   }
 
@@ -27,37 +27,37 @@ export async function GET(request: Request) {
 
     //내가 만든 테스트 목록
     const myTests = await sql`
-      SELECT "TEST_ID"
-          , "USER_ID"
-          , "TEST_TITLE"
-          , "TEST_INFO"
-          , "HASHTAG"
-          , "LIKE"
+      SELECT "TEST_ID" as "testId"
+          , "USER_ID" as "userId"
+          , "TEST_TITLE" as "testTitle"
+          , "TEST_INFO" as "testInfo"
+          , "HASHTAG" as "hashtag"
+          , "LIKE" as "like"
       FROM "TEST_MAIN"
       WHERE "USER_ID" = ${userId}
-    `
+    `;
 
     //내가 시행한 테스트 목록
     const myTestResults = await sql`
-      SELECT A."TEST_ID"
-          , A."USER_ID"
-          , A."TEST_TITLE"
+      SELECT A."TEST_ID"as "testId"
+          , A."USER_ID" as "userId"
+          , A."TEST_TITLE"  as "testTitle"
       FROM "TEST_MAIN" A
       JOIN "TEST_RESULT" B
         ON A."TEST_ID" = B."TEST_ID"
       WHERE B."USER_ID" = ${userId}
-    `
+    `;
     //내가 좋아요한 테스트 목록
     const likedTests = await sql`
-      SELECT A."TEST_ID"
-          , A."USER_ID"
-          , A."TEST_TITLE"
+      SELECT A."TEST_ID" as "testId"
+          , A."USER_ID" as "userId"
+          , A."TEST_TITLE" as "testTitle"
       FROM "TEST_MAIN" A
       JOIN "TEST_LIKE" B
         ON A."TEST_ID" = B."TEST_ID"
       WHERE B."USER_ID" = ${userId}
-    `
-        
+    `;
+
     return Response.json({ myTests, myTestResults, likedTests });
   } catch (error) {
     console.error("API /users GET 에러:", error);

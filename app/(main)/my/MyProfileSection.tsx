@@ -14,7 +14,7 @@ type UserInfoProps = {
   };
 };
 
-export default function MyInfoSection({ userData }: UserInfoProps) {
+export default function MyProfileSection({ userData }: UserInfoProps) {
   // const userData = getCurrentUser();
   const [modifyInfo, setModifyInfo] = useState(false);
   return (

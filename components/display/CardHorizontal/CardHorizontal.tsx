@@ -2,21 +2,24 @@ import Link from "next/link";
 import Image from "next/image";
 import UserIcon from "@/components/icon/UserIcon";
 import BaseLink from "@/components/ui/BaseLink";
+import type { TEST_MAIN } from "@/types/index";
 
+// ui
 type Variant = "primary" | "secondary";
+type Mode = "like" | "result" | "create";
+
+type Props = {
+  data: TEST_MAIN;
+  variant?: Variant;
+  mode: Mode;
+};
 
 export default function CardHorizontal({
-  href,
-  count,
-  children,
+  data,
   variant = "primary",
+  mode,
   ...props
-}: {
-  href: string;
-  count: number;
-  children: React.ReactNode;
-  variant: Variant;
-}) {
+}: Props) {
   const variantStyle = {
     primary: "border-primary",
     secondary: "border-secondary",
@@ -36,20 +39,40 @@ export default function CardHorizontal({
           />
         </div>
         <div className="flex-1">
-          <h3 className="text-body-m">{children}</h3>
+          <h3 className="text-body-m">{data.testTitle}</h3>
           <p className="flex items-center">
             <UserIcon size={20} />
-            <span className="text-caption text-text-sub">{count}명 참여</span>
+            <span className="text-caption text-text-sub">
+              {data.like}명 참여
+            </span>
           </p>
         </div>
       </div>
       <span className="flex flex-col gap-2">
-        <BaseLink variant={variant} size="sm" href="/">
-          결과보기
-        </BaseLink>
-        <BaseLink variant="outline" size="sm" href="/">
-          다시하기
-        </BaseLink>
+        {mode === "result" && (
+          <>
+            <BaseLink
+              variant={variant}
+              size="sm"
+              href={`/test/${data.testId}/result`}
+            >
+              결과보기
+            </BaseLink>
+            <BaseLink variant="outline" size="sm" href={`/test/${data.testId}`}>
+              다시하기
+            </BaseLink>
+          </>
+        )}
+        {mode === "like" && (
+          <BaseLink variant="outline" size="sm" href={`/test/${data.testId}`}>
+            테스트하러 가기
+          </BaseLink>
+        )}
+        {mode === "create" && (
+          <BaseLink variant="outline" size="sm" href={`/test/${data.testId}`}>
+            수정하러 가기
+          </BaseLink>
+        )}
       </span>
     </div>
   );

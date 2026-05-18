@@ -5,19 +5,22 @@ import UserIcon from "@/components/icon/UserIcon";
 import BaseLink from "@/components/ui/BaseLink";
 type Variant = "primary" | "secondary";
 
+type CardProps = {
+  href: string;
+  count: number;
+  children: React.ReactNode;
+  variant?: Variant;
+  myCont?: boolean;
+};
+
 export default function Card({
   href,
   count,
   children,
   variant = "primary",
-}: {
-  href: string;
-  count: number;
-  children: React.ReactNode;
-  variant: Variant;
-}) {
-  const myCont = false;
-    const content = (
+  myCont = false,
+}: CardProps) {
+  const content = (
     <>
       <div className="relative w-full aspect-[3/2] ">
         <Image
@@ -33,46 +36,44 @@ export default function Card({
           <UserIcon size={24} />
           <span className="text-caption text-text-sub">{count}명 참여</span>
         </p>
-        { myCont ? (
-        <div className="flex gap-2 justify-end w-full">
-          <BaseLink
-            variant="secondary"
-            href="/game"
-            size="sm"
-          >
-            결과보기
-          </BaseLink>
-          <BaseLink
-            variant="outline"
-            href="/game"
-            size="sm"
-          >
-            다시하기
-          </BaseLink>
-        </div>) :  <span className="group-hover:left-1 transition relative">
-          <PlayIconByVariant variant={variant} />
-        </span>}
+        {myCont ? (
+          <div className="flex gap-2 justify-end w-full">
+            <BaseLink variant="secondary" href="/game" size="sm">
+              결과보기
+            </BaseLink>
+            <BaseLink variant="outline" href="/game" size="sm">
+              다시하기
+            </BaseLink>
+          </div>
+        ) : (
+          <span className="group-hover:left-1 transition relative">
+            <PlayIconByVariant variant={variant} />
+          </span>
+        )}
       </div>
     </>
-  )
-    // 전체 클릭 카드
-  if (myCont) {
+  );
+  // 전체 클릭 카드
+  if (myCont == true) {
     return (
-      <div className={`group w-full shadow-m rounded-box overflow-hidden hover:shadow-l border-t-4 border-${variant}`}>
-      {content}
-    </div>
-    )
+      <div
+        className={`group w-full shadow-m rounded-box overflow-hidden hover:shadow-l border-t-4 border-${variant}`}
+      >
+        {content}
+      </div>
+    );
   }
   return (
     <Link
       href={href}
-      className={`group w-full shadow-m rounded-box overflow-hidden hover:shadow-l border-t-4 border-${variant}`}>
+      className={`group w-full shadow-m rounded-box overflow-hidden hover:shadow-l border-t-4 border-${variant}`}
+    >
       {content}
     </Link>
   );
 }
 
-function PlayIconByVariant({variant}:  { variant: Variant }) {
+function PlayIconByVariant({ variant }: { variant: Variant }) {
   const isPrimary = variant === "primary";
   return (
     <PlayIcon
@@ -86,4 +87,3 @@ function PlayIconByVariant({variant}:  { variant: Variant }) {
     />
   );
 }
-

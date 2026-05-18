@@ -1,4 +1,4 @@
-import { sql } from "@/lib/db";
+﻿import { sql } from "@/lib/db";
 
 function getUserIdFromToken(token: string) {
   return token.split("_")[0];
@@ -17,10 +17,17 @@ function getCookieValue(cookieHeader:string | null, name:string){
 
 //마이페이지 유저 정보 조회
 export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const queryUserId = searchParams.get("userId") ?? "";
   const token = getCookieValue(request.headers.get("cookie"), "authToken");
-  const userId = token ? getUserIdFromToken(token) : "";
+  const cookieUserId = token ? getUserIdFromToken(token) : "";
+  const userId = queryUserId || cookieUserId;
 
   try {
+    if (!userId) {
+      return Response.json({ error: "로그인이 필요합니다." }, { status: 401 });
+    }
+
     //내가 만든 테스트 목록
     const myTests = await sql`
       SELECT "TEST_ID"

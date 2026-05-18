@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Card from "@/components/display/Card";
-
+import { getAllTest } from "@/lib/test";
+import { TEST_MAIN } from "@/types/index";
 export const metadata = {
   title: "테스트 리스트",
 };
@@ -21,21 +22,16 @@ export default function Page() {
   );
 }
 
-export function CardList() {
+export async function CardList() {
+  const testData = await getAllTest();
+  console.log(testData);
   return (
     <div className="w-full grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-      <Card href="/" count={100} variant="primary">
-        카드 타이틀
-      </Card>
-      <Card href="/" count={100} variant="primary">
-        카드 타이틀
-      </Card>
-      <Card href="/" count={100} variant="primary">
-        카드 타이틀
-      </Card>
-      <Card href="/" count={100} variant="primary">
-        카드 타이틀
-      </Card>
+      {testData.map((item: TEST_MAIN) => (
+        <Card href="/" data={item} variant="primary">
+          카드 타이틀
+        </Card>
+      ))}
     </div>
   );
 }

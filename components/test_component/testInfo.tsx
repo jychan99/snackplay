@@ -19,6 +19,35 @@ async function getBaseUrl() {
   return "http://localhost:3000";
 }
 
+//GET
+//사용자목록 조회 테스트
+async function getUsers() {
+  try {
+    const cookieStore = await cookies();
+    const token = cookieStore.get("authToken")?.value;
+    const res = await fetch(`${await getBaseUrl()}/api/users`, {
+      method: "GET",
+      headers: {
+        ...(token ? { Cookie: `authToken=${token}` } : {}),
+      },
+      cache: "no-store", // 항상 최신 데이터
+    });
+
+    if (!res.ok) {
+      const errorData = await res.json().catch(() => ({}));
+      console.error("API 에러 응답:", res.status, errorData);
+      throw new Error(
+        `API 에러: ${res.status} - ${errorData.error || "알 수 없는 에러"}`,
+      );
+    }
+
+    return res.json();
+  } catch (error) {
+    console.error("getUsers 에러:", error);
+    throw error;
+  }
+}
+
 interface TestInfoProps {
   tests: TEST_MAIN[];
 }
@@ -42,7 +71,10 @@ export async function handleLike(formData: FormData) {
   revalidatePath("/testpage");
 }
 
-export default function TestInfo({ tests }: TestInfoProps) {
+export default async function TestInfo({ tests }: TestInfoProps) {
+  const users = await getUsers();
+  const canEditQuestions = users?.role === "A";
+
   return (
     <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
       <div className="mt-8 w-full max-w-md">
@@ -71,12 +103,14 @@ export default function TestInfo({ tests }: TestInfoProps) {
                 <p className="text-sm text-zinc-600 dark:text-zinc-400">
                   LIKE: {test.like}
                 </p>
-                <Link
-                  href={`/testpage/test/${test.testId}/questions`}
-                  className="mt-2 inline-block rounded-md bg-blue-500 px-3 py-1 text-sm text-white hover:bg-blue-600"
-                >
-                  질문 편집
-                </Link>
+                {canEditQuestions ? (
+                  <Link
+                    href={`/testpage/test/${test.testId}/questions`}
+                    className="mt-2 inline-block rounded-md bg-blue-500 px-3 py-1 text-sm text-white hover:bg-blue-600"
+                  >
+                    질문 편집
+                  </Link>
+                ) : null}
                 <form action={handleLike}>
                   <input type="hidden" name="testId" value={test.testId} />
                   <button

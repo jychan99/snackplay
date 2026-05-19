@@ -28,15 +28,50 @@ export async function GET(request: Request) {
             , "TEST_NUMBERING" as "testNumbering"
             , "QUESTION" as "question"
             , "ANSWER_1" as "answer1"
+            , "ANSWER_1_SCALE" as "answer1Scale"
             , "ANSWER_2" as "answer2"
+            , "ANSWER_2_SCALE" as "answer2Scale"
             , "ANSWER_3" as "answer3"
+            , "ANSWER_3_SCALE" as "answer3Scale"
             , "ANSWER_4" as "answer4"
+            , "ANSWER_4_SCALE" as "answer4Scale"
       FROM "TEST_CONTENT"
       WHERE "TEST_ID" = ${testId}
       ORDER BY "TEST_ID" DESC
     `;
 
-    return Response.json({ testInfo, testContent });
+    const formattedTestContent = testContent.map((item) => {
+      return {
+        contentId: item.contentId,
+        testId: item.testId,
+        testNumbering: item.testNumbering,
+        question: item.question,
+
+        answer: [
+          {
+            content: item.answer1,
+            scale: item.answer1Scale,
+          },
+          {
+            content: item.answer2,
+            scale: item.answer2Scale,
+          },
+          {
+            content: item.answer3,
+            scale: item.answer3Scale,
+          },
+          {
+            content: item.answer4,
+            scale: item.answer4Scale,
+          },
+        ].filter((answer) => answer.content !== null),
+      };
+    });
+
+    return Response.json({
+      testInfo,
+      testContent: formattedTestContent,
+    });
   } catch (error) {
     console.error("API /test GET 에러:", error);
     return Response.json(

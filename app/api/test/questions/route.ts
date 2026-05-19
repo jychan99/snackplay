@@ -33,10 +33,14 @@ export async function GET(request: Request) {
       ORDER BY "TEST_NUMBERING"
     `;
 
-    //해시태그 목록
+    //해당 테스트의 해시태그
     const hashtags = await sql`
-      SELECT DISTINCT "HASHTAG" as "hashtag"
-      FROM "SCALE_CODE"
+      SELECT A."HASHTAG" as "hashtag"
+          , B."CODE" as "code"
+      FROM "TEST_MAIN" A
+      JOIN "SCALE_CODE" B
+        ON A."HASHTAG" = B."HASHTAG"
+      WHERE A."TEST_ID" = ${testId}
     `;
 
     //해시태그별 코드목록

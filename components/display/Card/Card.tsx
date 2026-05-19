@@ -6,16 +6,19 @@ import { TEST_MAIN } from "@/types/index";
 import BaseLink from "@/components/ui/BaseLink";
 import LikeButton from "@/components/ui/LikeButton/LikeButton";
 type Variant = "primary" | "secondary";
+type Mode = "studio" | "result";
 type Props = React.ComponentProps<"a"> & {
   data: TEST_MAIN;
   variant: Variant;
   myCont?: boolean;
+  mode?: Mode;
 };
 
 export default function Card({
   data,
   variant = "primary",
   myCont = false,
+  mode = "result",
   ...props
 }: Props) {
   const content = (
@@ -36,12 +39,33 @@ export default function Card({
         </p>
         {myCont ? (
           <div className="flex gap-2 justify-end w-full">
-            <BaseLink variant="secondary" href="/test" size="sm">
-              결과보기
-            </BaseLink>
-            <BaseLink variant="outline" href="/test" size="sm">
-              다시하기
-            </BaseLink>
+            {mode == "studio" && (
+              <BaseLink
+                variant="outline"
+                href={`/studio/test/edit/${data.testId}`}
+                size="sm"
+              >
+                수정하기
+              </BaseLink>
+            )}
+            {mode === "result" && (
+              <>
+                <BaseLink
+                  variant="secondary"
+                  href={`/test/${data.testId}/result`}
+                  size="sm"
+                >
+                  결과보기
+                </BaseLink>
+                <BaseLink
+                  variant="outline"
+                  href={`/test/${data.testId}`}
+                  size="sm"
+                >
+                  다시하기
+                </BaseLink>
+              </>
+            )}
           </div>
         ) : (
           <span className="group-hover:left-1 transition relative">
@@ -65,11 +89,10 @@ export default function Card({
   }
   // 버튼 없는 카드 (전체 테스트 리스트)
   return (
-    <div className="relative">
-      <Link
-        href={`/test/${data.testId}`}
-        className={`group w-full shadow-m rounded-box overflow-hidden hover:shadow-l border-t-4 border-${variant}`}
-      >
+    <div
+      className={`relative group w-full shadow-m rounded-box overflow-hidden hover:shadow-l border-t-4 border-${variant}`}
+    >
+      <Link href={`/test/${data.testId}`} className={``}>
         {content}
       </Link>
       <LikeButton />

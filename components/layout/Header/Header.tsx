@@ -85,6 +85,14 @@ export function Menu() {
           미니 테스트
         </Link>
       </li>
+      <li className="flex">
+        <Link
+          href="/studio/test"
+          className="p-2 md:p-1 border-b-2 border-white hover:border-primary hover:text-primary font-bold"
+        >
+          테스트 만들기
+        </Link>
+      </li>
     </ul>
   );
 }

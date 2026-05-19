@@ -8,7 +8,6 @@ type Variant = "primary" | "secondary";
 type Props = React.ComponentProps<"a"> & {
   data: TEST_MAIN;
   variant: Variant;
-  children?: React.ReactNode;
   myCont?: boolean;
 };
 
@@ -16,7 +15,7 @@ export default function Card({
   data,
   variant = "primary",
   myCont = false,
-  children,
+
   ...props
 }: Props) {
   const content = (

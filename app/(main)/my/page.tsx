@@ -20,6 +20,7 @@ export default async function Page() {
   console.log(userData);
   console.log(myTests);
   console.log(myLiked);
+  console.log(myMakes);
   return (
     <div>
       <MyProfileSection userData={userData} />
@@ -28,13 +29,17 @@ export default async function Page() {
         {/* <MyRecentGameSection /> */}
         {/* 나의 게임 */}
         {myTests.length == 0 ? (
-          <p>내가 진행한 테스트가 없습니다.</p>
+          <p className="p-10 border-b-1 border-border-sub">
+            내가 진행한 테스트가 없습니다.
+          </p>
         ) : (
           <MyRecentTestSection tests={myTests} />
         )}{" "}
         {/* 나의 테스트 */}
         {myLiked.length == 0 ? (
-          <p>내가 찜한 테스트가 없습니다.</p>
+          <p className="p-10 border-b-1 border-border-sub">
+            내가 찜한 테스트가 없습니다.
+          </p>
         ) : (
           <MyLikedTestSection tests={myLiked} />
         )}{" "}
@@ -51,7 +56,9 @@ export default async function Page() {
         {/* {userData.role === "A" && ( */}
         <>
           {myMakes.length == 0 ? (
-            <p>내가 만든 테스트가 없습니다.</p>
+            <p className="p-10 border-b-1 border-border-sub">
+              내가 만든 테스트가 없습니다.
+            </p>
           ) : (
             <MyCreatedTestSection tests={myMakes} />
           )}{" "}

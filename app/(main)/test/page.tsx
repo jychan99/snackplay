@@ -28,7 +28,7 @@ export async function CardList() {
   return (
     <div className="w-full grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
       {testData.map((item: TEST_MAIN) => (
-        <Card href="/" data={item} variant="primary">
+        <Card key={item.testId} data={item} variant="primary">
           카드 타이틀
         </Card>
       ))}

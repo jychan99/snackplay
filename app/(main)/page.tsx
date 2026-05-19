@@ -5,13 +5,14 @@ import BaseLink from "@/components/ui/BaseLink";
 import ViewAllLink from "@/components/ui/ViewAllLink";
 import Badge from "@/components/ui/Badge";
 import Card from "@/components/display/Card";
-
+import { getPopularTest } from "@/lib/test";
+import { TEST_MAIN } from "@/types";
 export default function Page() {
   return (
     <div>
       <MainBanner></MainBanner>
       {/* banner */}
-      <section className="mb-22">
+      {/* <section className="mb-22">
         <div className="mb-10 flex justify-between items-end">
           <div>
             <h2 className="text-h2">인기있는 게임</h2>
@@ -26,13 +27,13 @@ export default function Page() {
           </div>
         </div>
         <CardList variant="secondary" />
-      </section>
+      </section> */}
       <section className="mb-22">
         <div className="mb-10 flex justify-between items-end">
           <div>
-            <h2 className="text-h2">인기있는 게임</h2>
+            <h2 className="text-h2">인기있는 테스트</h2>
             <p className="text-body-m text-text-sub">
-              가장 인기있는 게임에 참여해보세요
+              인기있는 다양한 테스트에 참여해보세요
             </p>
           </div>
           <div className="relative -m-2.5">
@@ -87,24 +88,20 @@ export function MainBanner() {
     </section>
   );
 }
+
 type CardListProps = {
   variant: "primary" | "secondary";
 };
-export function CardList({ variant }: CardListProps) {
+
+export async function CardList({ variant }: CardListProps) {
+  const testPopularData = await getPopularTest();
   return (
     <div className="w-full grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-      <Card href="/" count={100} variant={variant}>
-        카드 타이틀
-      </Card>
-      <Card href="/" count={100} variant={variant}>
-        카드 타이틀
-      </Card>
-      <Card href="/" count={100} variant={variant}>
-        카드 타이틀
-      </Card>
-      <Card href="/" count={100} variant={variant}>
-        카드 타이틀
-      </Card>
+      {testPopularData.map((data: TEST_MAIN) => (
+        <Card key={data.testId} data={data} variant={variant}>
+          카드 타이틀
+        </Card>
+      ))}
     </div>
   );
 }

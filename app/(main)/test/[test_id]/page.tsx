@@ -5,8 +5,11 @@ import Badge from "@/components/ui/Badge";
 import ArrowIcon from "@/components/icon/ArrowIcon";
 import ViewAllButton from "@/components/ui/ViewAllLink";
 import ArrowIcon2 from "@/components/icon/ArrowIcon2";
-
+import { getDetailTest } from "@/lib/test";
 import { useState, useEffect } from "react";
+import { useParams } from "next/navigation";
+import { TEST_DETAIL_RESPONSE } from "@/types";
+
 // export const metadata = {
 //   title: "테스트 상세",
 // };
@@ -52,16 +55,32 @@ const data = {
 
 export default function Page() {
   const [startTest, setStartTest] = useState(false);
+  const params = useParams();
+  console.log(params.test_id);
+
+  const id = Number(params.test_id);
+
+  const [data, setData] = useState<TEST_DETAIL_RESPONSE | null>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await getDetailTest(id);
+      setData(res);
+    };
+
+    fetchData();
+  }, [id]);
+
   return (
     <div className="box-custom mx-auto text-center">
       {startTest ? (
-        <PlayTest />
+        <PlayTest data={data} />
       ) : (
         <>
           <p className="text-caption text-primary mb-1">
             카테고리 또는 해시태그
           </p>
-          <h2 className="text-h4 mb-10">{data.testTitle}</h2>
+          <h2 className="text-h4 mb-10">{data?.testInfo?.[0]?.testTitle}</h2>
           <div className="w-full h-50 relative mb-10">
             <Image
               className=""
@@ -71,7 +90,9 @@ export default function Page() {
               priority
             />
           </div>
-          <p className="text-text-sub text-body-m mb-10">{data.testInfo}</p>
+          <p className="text-text-sub text-body-m mb-10">
+            {data?.testInfo?.[0]?.testInfo}
+          </p>
           <Button className="w-full" onClick={() => setStartTest(true)}>
             테스트하기
           </Button>
@@ -81,7 +102,7 @@ export default function Page() {
   );
 }
 
-export function PlayTest() {
+export function PlayTest(data: TEST_DETAIL_RESPONSE) {
   const [num, setNum] = useState(0);
   const [progress, setProgress] = useState((num / questions.length) * 100);
 

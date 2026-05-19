@@ -9,16 +9,28 @@ import ArrowIcon2 from "@/components/icon/ArrowIcon2";
 
 type QuestionForm = {
   question: string;
-  answers: string[];
+  answers: AnswerForm[];
 };
 
 type HashtagOption = {
   hashtag: string;
+  code: string;
+  description: string;
 };
+
+type AnswerForm = {
+  content: string;
+  scale: string;
+};
+
+const createAnswer = (): AnswerForm => ({
+  content: "",
+  scale: "",
+});
 
 const createQuestion = (): QuestionForm => ({
   question: "",
-  answers: ["", ""],
+  answers: [createAnswer(), createAnswer()],
 });
 
 export default function EditTestForm() {
@@ -37,6 +49,12 @@ export default function EditTestForm() {
   const canGoNext = currentSlide < slideCount - 1;
   const currentQuestion = questions[currentSlide - 1];
   const isInfoSlide = currentSlide === 0;
+  const uniqueHashtags = Array.from(
+    new Set(hashtagOptions.map((item) => item.hashtag)),
+  );
+  const scaleOptions = hashtagOptions.filter(
+    (item) => item.hashtag === hashtag,
+  );
 
   useEffect(() => {
     const loadHashtags = async () => {
@@ -60,6 +78,19 @@ export default function EditTestForm() {
     setCurrentSlide(questions.length + 1);
   };
 
+  const updateHashtag = (value: string) => {
+    setHashtag(value);
+    setQuestions((prev) =>
+      prev.map((question) => ({
+        ...question,
+        answers: question.answers.map((answer) => ({
+          ...answer,
+          scale: "",
+        })),
+      })),
+    );
+  };
+
   const updateQuestion = (questionIndex: number, value: string) => {
     setQuestions((prev) =>
       prev.map((item, index) =>
@@ -68,7 +99,7 @@ export default function EditTestForm() {
     );
   };
 
-  const updateAnswer = (
+  const updateAnswerContent = (
     questionIndex: number,
     answerIndex: number,
     value: string,
@@ -79,7 +110,59 @@ export default function EditTestForm() {
           ? {
               ...item,
               answers: item.answers.map((answer, targetIndex) =>
-                targetIndex === answerIndex ? value : answer,
+                targetIndex === answerIndex
+                  ? { ...answer, content: value }
+                  : answer,
+              ),
+            }
+          : item,
+      ),
+    );
+  };
+
+  const updateAnswerScale = (
+    questionIndex: number,
+    answerIndex: number,
+    value: string,
+  ) => {
+    setQuestions((prev) =>
+      prev.map((item, index) =>
+        index === questionIndex
+          ? {
+              ...item,
+              answers: item.answers.map((answer, targetIndex) =>
+                targetIndex === answerIndex
+                  ? { ...answer, scale: value }
+                  : answer,
+              ),
+            }
+          : item,
+      ),
+    );
+  };
+
+  const addAnswer = (questionIndex: number) => {
+    setQuestions((prev) =>
+      prev.map((item, index) =>
+        index === questionIndex && item.answers.length < 4
+          ? { ...item, answers: [...item.answers, createAnswer()] }
+          : item,
+      ),
+    );
+  };
+
+  const removeAnswer = (questionIndex: number, answerIndex: number) => {
+    if (answerIndex < 2) {
+      return;
+    }
+
+    setQuestions((prev) =>
+      prev.map((item, index) =>
+        index === questionIndex
+          ? {
+              ...item,
+              answers: item.answers.filter(
+                (_, targetIndex) => targetIndex !== answerIndex,
               ),
             }
           : item,
@@ -104,10 +187,14 @@ export default function EditTestForm() {
           questions: questions.map((item, index) => ({
             testNumbering: index + 1,
             question: item.question,
-            answer1: item.answers[0] || "",
-            answer1Scale: "1",
-            answer2: item.answers[1] || "",
-            answer2Scale: "2",
+            answer1: item.answers[0]?.content || "",
+            answer1Scale: item.answers[0]?.scale || "",
+            answer2: item.answers[1]?.content || "",
+            answer2Scale: item.answers[1]?.scale || "",
+            answer3: item.answers[2]?.content || "",
+            answer3Scale: item.answers[2]?.scale || "",
+            answer4: item.answers[3]?.content || "",
+            answer4Scale: item.answers[3]?.scale || "",
           })),
         }),
       });
@@ -203,13 +290,13 @@ export default function EditTestForm() {
                   <select
                     id="test_hashtag"
                     value={hashtag}
-                    onChange={(event) => setHashtag(event.target.value)}
+                    onChange={(event) => updateHashtag(event.target.value)}
                     className="mt-2 w-full max-w-full rounded-input border border-border-main bg-white py-[12px] px-[25px] text-body-m"
                   >
                     <option value="">해시태그를 선택해주세요</option>
-                    {hashtagOptions.map((item) => (
-                      <option key={item.hashtag} value={item.hashtag}>
-                        #{item.hashtag}
+                    {uniqueHashtags.map((item) => (
+                      <option key={item} value={item}>
+                        #{item}
                       </option>
                     ))}
                   </select>
@@ -219,36 +306,91 @@ export default function EditTestForm() {
           ) : (
             <div>
               <p className="text-h4 text-primary mb-6">질문 {currentSlide}</p>
-              <Input
-                className="max-w-full"
-                label="질문"
-                id={`question_${currentSlide}`}
-                type="text"
-                value={currentQuestion.question}
-                onChange={(event) =>
-                  updateQuestion(currentSlide - 1, event.target.value)
-                }
-                placeholder="질문을 입력해주세요"
-              />
-              <div className="grid gap-4 sm:grid-cols-2 mt-5">
+              <div>
+                <label htmlFor={`question_${currentSlide}`}>질문</label>
+                <textarea
+                  id={`question_${currentSlide}`}
+                  value={currentQuestion.question}
+                  onChange={(event) =>
+                    updateQuestion(currentSlide - 1, event.target.value)
+                  }
+                  className="mt-2 w-full min-h-32 rounded-input border border-border-main bg-white py-[12px] px-[25px] text-body-m"
+                  placeholder="질문을 입력해주세요"
+                />
+              </div>
+              <div className="grid gap-4 mt-5">
                 {currentQuestion.answers.map((answer, answerIndex) => (
-                  <Input
+                  <div
                     key={answerIndex}
-                    className="max-w-full"
-                    label={`답변 ${answerIndex + 1}`}
-                    id={`answer_${currentSlide}_${answerIndex + 1}`}
-                    type="text"
-                    value={answer}
-                    onChange={(event) =>
-                      updateAnswer(
-                        currentSlide - 1,
-                        answerIndex,
-                        event.target.value,
-                      )
-                    }
-                    placeholder="답변을 입력해주세요"
-                  />
+                    className="rounded-box border border-border-sub bg-background p-4"
+                  >
+                    <Input
+                      className="max-w-full"
+                      label={`답변 ${answerIndex + 1}`}
+                      id={`answer_${currentSlide}_${answerIndex + 1}`}
+                      type="text"
+                      value={answer.content}
+                      onChange={(event) =>
+                        updateAnswerContent(
+                          currentSlide - 1,
+                          answerIndex,
+                          event.target.value,
+                        )
+                      }
+                      placeholder="답변을 입력해주세요"
+                    />
+                    <div className="mt-4">
+                      <label
+                        htmlFor={`answer_scale_${currentSlide}_${answerIndex + 1}`}
+                      >
+                        SCALE
+                      </label>
+                      <select
+                        id={`answer_scale_${currentSlide}_${answerIndex + 1}`}
+                        value={answer.scale}
+                        onChange={(event) =>
+                          updateAnswerScale(
+                            currentSlide - 1,
+                            answerIndex,
+                            event.target.value,
+                          )
+                        }
+                        disabled={!hashtag}
+                        className="mt-2 w-full rounded-input border border-border-main bg-white py-[12px] px-[25px] text-body-m disabled:bg-neutral-200 disabled:text-border-main"
+                      >
+                        <option value="">선택</option>
+                        {scaleOptions.map((item) => (
+                          <option key={item.code} value={item.code}>
+                            {item.description}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    {answerIndex >= 2 && (
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        onClick={() =>
+                          removeAnswer(currentSlide - 1, answerIndex)
+                        }
+                        className="mt-4"
+                      >
+                        삭제
+                      </Button>
+                    )}
+                  </div>
                 ))}
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  disabled={currentQuestion.answers.length >= 4}
+                  onClick={() => addAnswer(currentSlide - 1)}
+                  className="justify-self-start"
+                >
+                  답변 추가
+                </Button>
               </div>
             </div>
           )}

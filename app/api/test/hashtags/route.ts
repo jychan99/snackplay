@@ -2,19 +2,21 @@ import { sql } from "@/lib/db";
 
 export async function GET() {
   try {
-    const hashtags = await sql`
-      SELECT DISTINCT "HASHTAG" as "hashtag"
+    const rows = await sql`
+      SELECT "HASHTAG" as "hashtag"
+          , "CODE" as "code"
+          , "DESCRIPTION" as "description"
       FROM "SCALE_CODE"
-      ORDER BY "HASHTAG"
+      ORDER BY "HASHTAG", "CODE"
     `;
 
-    const scales = await sql`
-      SELECT DISTINCT "SCALE" as "scale"
-      FROM "SCALE_CODE"
-      ORDER BY "SCALE"
-    `;
+    const hashtags = rows.map((item) => ({
+      hashtag: String(item.hashtag),
+      code: String(item.code),
+      description: String(item.description),
+    }));
 
-    return Response.json({ hashtags, scales });
+    return Response.json({ hashtags });
   } catch (error) {
     console.error("API /test/hashtags GET 에러:", error);
     return Response.json(

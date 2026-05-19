@@ -1,8 +1,51 @@
 import { sql } from "@/lib/db";
 
+function getUserIdFromToken(token: string) {
+  return token.split("_")[0];
+}
+
+function getCookieValue(cookieHeader: string | null, name: string) {
+  if (!cookieHeader) {
+    return "";
+  }
+
+  const cookies = cookieHeader.split(";").map((cookie) => cookie.trim());
+  const targetCookie = cookies.find((cookie) => cookie.startsWith(`${name}=`));
+
+  return targetCookie ? decodeURIComponent(targetCookie.split("=")[1]) : "";
+}
+
+//테스트 수정을 위한 데이터 조회
+export async function GET(request: Request) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const testId = Number(searchParams.get("testId"));
+
+    const tests = await sql`
+      SELECT "TEST_ID" as "testId"
+            , "TEST_TITLE" as "testTitle"
+            , "TEST_INFO" as "testInfo"
+            , "HASHTAG" as "hashtag"
+            , "LIKE" as "like"
+      FROM "TEST_MAIN"
+      ORDER BY "TEST_ID" DESC
+    `;
+
+    return Response.json(tests);
+  } catch (error) {
+    console.error("API /test GET 에러:", error);
+    return Response.json(
+      { error: "DB 조회 실패", details: String(error) },
+      { status: 500 },
+    );
+  }
+}
+
 //테스트 저장 (생성 및 수정)
 export async function POST(request: Request) {
   try {
+    const token = getCookieValue(request.headers.get("cookie"), "authToken");
+    const userId = token ? getUserIdFromToken(token) : "";
     const { testId, testTitle, testInfo, hashtag, questions } =
       await request.json();
 
@@ -21,21 +64,24 @@ export async function POST(request: Request) {
         "TEST_ID",
         "TEST_TITLE",
         "TEST_INFO",
-        "HASHTAG"
+        "HASHTAG",
+        "USER_ID"
       )
       OVERRIDING SYSTEM VALUE
       VALUES (
         nextval(pg_get_serial_sequence('"TEST_MAIN"', 'TEST_ID'))::integer,
         ${testTitle},
         ${testInfo},
-        ${hashtag}
+        ${hashtag},
+        ${userId}
       )
       ON CONFLICT ("TEST_ID") DO UPDATE
-       SET
-         "TEST_TITLE" = EXCLUDED."TEST_TITLE",
-         "TEST_INFO" = EXCLUDED."TEST_INFO",
-         "HASHTAG" = EXCLUDED."HASHTAG"
-       RETURNING "TEST_ID" as "testId"
+      SET
+        "TEST_TITLE" = EXCLUDED."TEST_TITLE",
+        "TEST_INFO" = EXCLUDED."TEST_INFO",
+        "HASHTAG" = EXCLUDED."HASHTAG",
+        "USER_ID" = EXCLUDED."USER_ID"
+      RETURNING "TEST_ID" as "testId"
     `;
 
     const savedTestId = saved[0].testId;

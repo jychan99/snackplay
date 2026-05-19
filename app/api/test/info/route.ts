@@ -5,7 +5,6 @@ export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
     const testId = Number(searchParams.get("testId"));
-    //const testId = params.testId;
 
     if (!testId) {
       return Response.json({ error: "testId가 필요합니다." }, { status: 400 });

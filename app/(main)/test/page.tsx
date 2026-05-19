@@ -2,8 +2,9 @@ import Image from "next/image";
 import Card from "@/components/display/Card";
 import { getAllTest } from "@/lib/test";
 import { TEST_MAIN } from "@/types/index";
+
 export const metadata = {
-  title: "테스트 리스트",
+  title: "테스트 목록",
 };
 
 export default function Page() {

@@ -1,10 +1,11 @@
-import MyRecentGameSection from "./MyRecentGameSection";
-import MyRecentTestSection from "./MyRecentTestSection";
-import MyProfileSection from "./MyProfileSection";
-import MyLikedTestSection from "./MyLikedTestSection";
-import MyCreatedTestSection from "./MyCreatedTestSection";
+import MyRecentGameSection from "./main/MyRecentGameSection";
+import MyRecentTestSection from "./main/MyRecentTestSection";
+import MyProfileSection from "./main/MyProfileSection";
+import MyLikedTestSection from "./main/MyLikedTestSection";
+import MyCreatedTestSection from "./main/MyCreatedTestSection";
 import { getCurrentUser } from "@/lib/auth";
 import { getMyInfo } from "@/lib/my";
+
 export const metadata = {
   title: "마이페이지",
 };

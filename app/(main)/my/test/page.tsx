@@ -1,7 +1,7 @@
 import Card from "@/components/display/Card";
 
 export const metadata = {
-  title: "나의 테스트",
+  title: "내가 진행한 테스트 목록",
 };
 export default function Page() {
   return (

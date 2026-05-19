@@ -84,7 +84,7 @@ export default function Card({
         className={`relative group w-full shadow-m rounded-box overflow-hidden hover:shadow-l border-t-4 border-${variant}`}
       >
         {content}
-        <LikeButton />
+        <LikeButton testId={data.testId} likeCount={data.like} isLiked={true} />
       </div>
     );
   }
@@ -96,7 +96,7 @@ export default function Card({
       <Link href={`/test/${data.testId}`} className={``}>
         {content}
       </Link>
-      <LikeButton />
+      <LikeButton testId={data.testId} likeCount={data.like} isLiked={true} />
     </div>
   );
 }

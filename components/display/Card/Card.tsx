@@ -5,6 +5,9 @@ import UserIcon from "@/components/icon/UserIcon";
 import { TEST_MAIN } from "@/types/index";
 import BaseLink from "@/components/ui/BaseLink";
 import LikeButton from "@/components/ui/LikeButton/LikeButton";
+import { EditTestDialog } from "@/components/test/EditTestDialog";
+import Button from "@/components/ui/Button";
+
 type Variant = "primary" | "secondary";
 type Mode = "studio" | "result";
 type Props = React.ComponentProps<"a"> & {
@@ -40,13 +43,11 @@ export default function Card({
         {myCont ? (
           <div className="flex gap-2 justify-end w-full">
             {mode == "studio" && (
-              <BaseLink
-                variant="outline"
-                href={`/studio/test/edit/${data.testId}`}
-                size="sm"
-              >
-                수정하기
-              </BaseLink>
+              <EditTestDialog testId={data.testId}>
+                <Button type="button" variant="outline" size="sm">
+                  수정하기
+                </Button>
+              </EditTestDialog>
             )}
             {mode === "result" && (
               <>

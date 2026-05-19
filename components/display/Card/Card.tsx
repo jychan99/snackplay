@@ -4,6 +4,7 @@ import PlayIcon from "@/components/icon/PlayIcon";
 import UserIcon from "@/components/icon/UserIcon";
 import { TEST_MAIN } from "@/types/index";
 import BaseLink from "@/components/ui/BaseLink";
+import LikeButton from "@/components/ui/LikeButton/LikeButton";
 type Variant = "primary" | "secondary";
 type Props = React.ComponentProps<"a"> & {
   data: TEST_MAIN;
@@ -15,7 +16,6 @@ export default function Card({
   data,
   variant = "primary",
   myCont = false,
-
   ...props
 }: Props) {
   const content = (
@@ -51,23 +51,29 @@ export default function Card({
       </div>
     </>
   );
-  // 전체 클릭 카드
+
+  // 버튼 있는 카드 (내가 실행한 테스트 리스트, 내가 만든 테스트 리스트, 내가 찜한 테스트 리스트)
   if (myCont == true) {
     return (
       <div
-        className={`group w-full shadow-m rounded-box overflow-hidden hover:shadow-l border-t-4 border-${variant}`}
+        className={`relative group w-full shadow-m rounded-box overflow-hidden hover:shadow-l border-t-4 border-${variant}`}
       >
         {content}
+        <LikeButton />
       </div>
     );
   }
+  // 버튼 없는 카드 (전체 테스트 리스트)
   return (
-    <Link
-      href={`/test/${data.testId}`}
-      className={`group w-full shadow-m rounded-box overflow-hidden hover:shadow-l border-t-4 border-${variant}`}
-    >
-      {content}
-    </Link>
+    <div className="relative">
+      <Link
+        href={`/test/${data.testId}`}
+        className={`group w-full shadow-m rounded-box overflow-hidden hover:shadow-l border-t-4 border-${variant}`}
+      >
+        {content}
+      </Link>
+      <LikeButton />
+    </div>
   );
 }
 

@@ -1,7 +1,7 @@
 import Card from "@/components/display/Card";
 import { getAllTest } from "@/lib/test";
 import { TEST_MAIN } from "@/types/index";
-import { CreateTestDialog } from "@/components/test/CreateTestDialog";
+import Link from "next/link";
 export const metadata = {
   title: "내가 만든 테스트 목록",
 };
@@ -27,19 +27,17 @@ export async function CardList() {
   console.log(testData);
   return (
     <div className="w-full grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-      <CreateTestDialog>
-        <button
-          type="button"
-          className={`relative group w-full h-full shadow-m rounded-box overflow-hidden  border-t-4 flex items-center justify-center bg-text-sub text-white group`}
-        >
-          <span className="border-white border-1 block rounded-button  w-13 h-13 flex items-center justify-center text-h2 group-hover:rotate-180 transition">
-            +
-          </span>
-          <span className="absolute top-[30%] group-hover:opacity-100 opacity-0 transition bg-text-main px-2 py-1">
-            테스트 추가하기
-          </span>
-        </button>
-      </CreateTestDialog>
+      <Link
+        href="/studio/test/edit"
+        className="relative group w-full h-full shadow-m rounded-box overflow-hidden border-t-4 flex items-center justify-center bg-text-sub text-white"
+      >
+        <span className="border-white border-1 block rounded-button  w-13 h-13 flex items-center justify-center text-h2 group-hover:rotate-180 transition">
+          +
+        </span>
+        <span className="absolute top-[30%] group-hover:opacity-100 opacity-0 transition bg-text-main px-2 py-1">
+          테스트 추가하기
+        </span>
+      </Link>
       {testData.map((item: TEST_MAIN) => (
         <Card
           key={item.testId}

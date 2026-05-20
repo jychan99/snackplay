@@ -68,7 +68,7 @@ export function PlayTest({ data }: ChildProps) {
   const [num, setNum] = useState(0);
   // 프로그래스 바
   const progress = data.length > 0 ? (num / data.length) * 100 : 0;
-  console.log(data);
+  // console.log(data);
   // 답변 데이터
   const [answerArr, setAnswerArr] = useState<TEST_ANSWER_ALL[]>([]);
   const [result, setResult] = useState<Partial<TEST_RESULT>>({});
@@ -76,17 +76,18 @@ export function PlayTest({ data }: ChildProps) {
   // 답변 추가 이벤트
   const addAnswer = (item: TEST_ANSWER_ALL) => {
     if (!item) return;
+
+    const newArr = [...answerArr, item];
+    setAnswerArr(newArr);
+
     if (num + 1 < data.length) {
-      setAnswerArr((prev) => [...prev, item]);
       setNum((prev) => prev + 1);
     } else {
-      alert("마지막!");
-      setResult((prev) => ({
-        ...(prev ?? {}),
+      const finalResult = {
         testId: data[0].testId,
-        answer: answerArr,
-      }));
-
+        answer: newArr,
+      };
+      setResult(finalResult);
       //로컬스토리지에 저장
       localStorage.setItem("test-result", JSON.stringify(result));
 

@@ -63,7 +63,7 @@ export async function GET(request: Request) {
             content: item.answer4,
             scale: item.answer4Scale,
           },
-        ].filter((answer) => answer.content !== null),
+        ].filter((answer) => answer.content?.trim()),
       };
     });
 

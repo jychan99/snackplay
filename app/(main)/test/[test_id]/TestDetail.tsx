@@ -72,31 +72,41 @@ export function PlayTest({ data }: ChildProps) {
   // 답변 데이터
   const [answerArr, setAnswerArr] = useState<TEST_ANSWER_ALL[]>([]);
   const [result, setResult] = useState<Partial<TEST_RESULT>>({});
+  const [disabled, setDisabled] = useState(true);
 
   // 답변 추가 이벤트
   const addAnswer = (item: TEST_ANSWER_ALL) => {
     if (!item) return;
 
-    const newArr = [...answerArr, item]; // 유의하기!
-    setAnswerArr(newArr);
+    const filtered = answerArr.filter(
+      (item2) => item2.testNumbering !== item.testNumbering,
+    );
 
+    filtered.push(item);
+
+    // const newArr = [...answerArr, item]; // 유의하기!
+    setAnswerArr(filtered);
     if (num + 1 < data.length) {
       setNum((prev) => prev + 1);
     } else {
+      setDisabled(false);
       const finalResult = {
         testId: data[0].testId,
-        answer: newArr,
+        answer: filtered,
       };
+
       setResult(finalResult);
       //로컬스토리지에 저장
-      localStorage.setItem("test-result", JSON.stringify(result));
     }
   };
   const router = useRouter();
   const sumitTest = () => {
     // 결과 도출
+    localStorage.setItem("test-result", JSON.stringify(result));
     saveDetailTest();
-    router.push(`/test/${data[0].testId}/result`);
+
+    // 추후 페이지 이동 예정
+    // router.push(`/test/result/${data[0].testId}`);
   };
   //뒤로가기
   const goBack = () => {
@@ -110,7 +120,7 @@ export function PlayTest({ data }: ChildProps) {
     <>
       <div className="mb-10 text-right">
         <Badge size="sm">
-          {num + 1}/{data.length}
+          {num + 1 > data.length ? num : num + 1}/{data.length}
         </Badge>
         <div className="relative w-full h-3 mt-3 rounded-button bg-background overflow-hidden">
           <span
@@ -152,7 +162,11 @@ export function PlayTest({ data }: ChildProps) {
       <hr className="my-6 border-secondary-light" />
       <PrevButton onClick={goBack} />
       {num + 1 == data.length && (
-        <Button onClick={() => sumitTest()} className="w-full">
+        <Button
+          disabled={disabled}
+          onClick={() => sumitTest()}
+          className="w-full"
+        >
           결과보러 가기
         </Button>
       )}

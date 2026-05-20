@@ -21,12 +21,13 @@ const data = {
 };
 
 export async function StartTest() {
-  // const data = await saveDetailTest();
-
+  if (!data) {
+    alert("문제");
+  }
   return (
     <>
       <p className="text-caption text-primary mb-1">카테고리 또는 해시태그</p>
-      <p className="text-h4">당신에게 어울리는 회사는</p>
+      {/* <p className="text-h4">당신에게 어울리는 회사는</p> */}
       <h2 className="text-h2 mb-10">{data.result}</h2>
       <div className="w-full h-50 relative mb-10">
         <Image
@@ -37,9 +38,9 @@ export async function StartTest() {
           priority
         />
       </div>
-      <p className="text-text-sub text-body-m mb-10">
+      {/* <p className="text-text-sub text-body-m mb-10">
         독창적이고 섹시한 매드 지니어스
-      </p>
+      </p> */}
       <div className="mt-2 max-h-[500px] overflow-auto text-body-m p-4 border-1 border-border-sub bg-background rounded-box mb-10">
         {data.resultDetail}
       </div>

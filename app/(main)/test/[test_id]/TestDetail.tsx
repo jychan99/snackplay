@@ -120,29 +120,31 @@ export function PlayTest({ data }: ChildProps) {
       <>
         <h2 className="text-h4 mb-10">{data[num]?.question}</h2>
         <div className="mb-10">
-          {data[num]?.answer.map((item, index) => (
-            <button
-              key={index}
-              onClick={() =>
-                addAnswer({
-                  testNumbering: data[num]?.testNumbering,
-                  question: data[num]?.question,
-                  content: item.content,
-                  scale: item.scale,
-                })
-              }
-              type="button"
-              className="group flex p-6 items-center gap-4 border-1 border-border-sub bg-background rounded-button mb-2"
-            >
-              <span className="flex items-center justify-center w-10 h-10 rounded-button bg-primary text-white text-body-m">
-                {index + 1}
-              </span>
-              <p className="flex-1 min-h-10 text-left">{item.content}</p>
-              <div className="relative group-hover:left-1">
-                <ArrowIcon width={9} height={13.6} className="text-primary" />
-              </div>
-            </button>
-          ))}
+          {data[num]?.answer
+            .filter((item) => item.content)
+            .map((item, index) => (
+              <button
+                key={index}
+                onClick={() =>
+                  addAnswer({
+                    testNumbering: data[num]?.testNumbering,
+                    question: data[num]?.question,
+                    content: item.content,
+                    scale: item.scale,
+                  })
+                }
+                type="button"
+                className="group flex p-6 items-center gap-4 border-1 border-border-sub bg-background rounded-button mb-2"
+              >
+                <span className="flex items-center justify-center w-10 h-10 rounded-button bg-primary text-white text-body-m">
+                  {index + 1}
+                </span>
+                <p className="flex-1 min-h-10 text-left">{item.content}</p>
+                <div className="relative group-hover:left-1">
+                  <ArrowIcon width={9} height={13.6} className="text-primary" />
+                </div>
+              </button>
+            ))}
         </div>
       </>
       <hr className="my-6 border-secondary-light" />

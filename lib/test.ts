@@ -71,6 +71,9 @@ export async function getDetailTest(id: number) {
   try {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/test/info?testId=${id}`,
+      {
+        next: { revalidate: 60 }, //isr
+      },
     );
     data = await res.json();
     if (!res.ok) {

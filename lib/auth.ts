@@ -14,7 +14,7 @@ export async function getCurrentUser() {
     headers: {
       Cookie: cookieStore.toString(),
     },
-    cache: "no-store",
+    cache: "no-store", // ssr
   });
   return res.json();
 }

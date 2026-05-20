@@ -1,5 +1,5 @@
 import Card from "@/components/display/Card";
-
+import { getMyTestData } from "@/lib/test";
 export const metadata = {
   title: "내가 진행한 테스트 목록",
 };
@@ -15,24 +15,6 @@ export default function Page() {
       <CardList />
     </section>
   );
-}
-
-export async function getMyTestData() {
-  try {
-    const res = await fetch("http://localhost:3000/api/test/list/mytestlist", {
-      method: "GET",
-      // body: "",
-    });
-
-    const data = await res.json();
-
-    if (!res.ok) {
-      console.log(data.message || "데이터 가져오기 실패");
-    }
-    return data;
-  } catch (error) {
-    console.error("getTests 에러:", error);
-  }
 }
 
 export async function CardList() {

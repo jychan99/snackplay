@@ -1,5 +1,6 @@
 import { cookies } from "next/headers";
 
+// 유저정보
 export async function getMyInfo() {
   let data;
   try {

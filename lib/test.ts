@@ -4,7 +4,9 @@
 export async function getAllTest() {
   let data;
   try {
-    const res = await fetch(`http://localhost:3000/api/test/list`);
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/test/list`,
+    );
     data = await res.json();
     if (!res.ok) {
       throw new Error(data.message || "테스트 불러오기 실패");
@@ -24,10 +26,12 @@ export async function getAllTest() {
 export async function getPopularTest() {
   let data;
   try {
-    const res = await fetch(`http://localhost:3000/api/test/list`);
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/test/list`,
+    );
     data = await res.json();
     if (!res.ok) {
-      throw new Error(data.message || "테스트 불러오기 실패");
+      throw new Error(data.message || "인기 테스트 불러오기 실패");
     }
   } catch (err: unknown) {
     if (err instanceof Error) {
@@ -41,7 +45,22 @@ export async function getPopularTest() {
 }
 
 // 내가 진행한 테스트
+export async function getMyTestData() {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/test/list/mytestlist`,
+    );
 
+    const data = await res.json();
+
+    if (!res.ok) {
+      console.log(data.message || "데이터 가져오기 실패");
+    }
+    return data;
+  } catch (error) {
+    console.error("getTests 에러:", error);
+  }
+}
 // 내가 만든 테스트
 
 // 내가 찜한 테스트
@@ -50,7 +69,9 @@ export async function getPopularTest() {
 export async function getDetailTest(id: number) {
   let data;
   try {
-    const res = await fetch(`http://localhost:3000/api/test/info?testId=${id}`);
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/test/info?testId=${id}`,
+    );
     data = await res.json();
     if (!res.ok) {
       throw new Error(data.message || "테스트 불러오기 실패");
@@ -70,9 +91,12 @@ export async function getDetailTest(id: number) {
 export async function saveDetailTest() {
   let data;
   try {
-    const res = await fetch(`http://localhost:3000/api/generate`, {
-      method: "POST",
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/generate`,
+      {
+        method: "POST",
+      },
+    );
     data = await res.json();
     if (!res.ok) {
       throw new Error(data.message || "테스트 제출 실패");
@@ -84,6 +108,5 @@ export async function saveDetailTest() {
       console.log("네트워크 오류");
     }
   }
-
   return data;
 }

@@ -1,4 +1,4 @@
-import LoginForm, { type LoginState }  from "./login-form";
+import LoginForm, { type LoginState } from "./login-form";
 
 export const metadata = {
   title: "로그인",
@@ -7,7 +7,6 @@ export const metadata = {
 import { cookies } from "next/headers";
 // import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-
 
 export async function loginUser(
   _prevState: LoginState,
@@ -18,13 +17,16 @@ export async function loginUser(
   const id = formData.get("id");
   const password = formData.get("password");
 
-  const res = await fetch("http://localhost:3000/api/auth/login", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/login`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id, password }),
     },
-    body: JSON.stringify({ id, password }),
-  });
+  );
 
   // 오류시
   if (!res.ok) {
@@ -34,8 +36,8 @@ export async function loginUser(
       alertId: Date.now(),
       error:
         res.status === 409
-        ? "아이디 및 비밀번호가 일치하지 않습니다."
-        : data.error || "로그인에 실패했습니다.",
+          ? "아이디 및 비밀번호가 일치하지 않습니다."
+          : data.error || "로그인에 실패했습니다.",
     };
   }
 
@@ -70,7 +72,7 @@ export default async function Page() {
             토큰: {token.substring(0, 20)}...
           </p>
         </div>
-          {/* <form action={logoutUser}>
+        {/* <form action={logoutUser}>
           <button
             type="submit"
             className="w-full px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"

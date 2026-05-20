@@ -1,6 +1,6 @@
 import { sql } from "@/lib/db";
 
-//테스트 정보 / 질문 및 답변 조회
+//테스트진행시 테스트 정보, 질문 및 답변 조회
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);

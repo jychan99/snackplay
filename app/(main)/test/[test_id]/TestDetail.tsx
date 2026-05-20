@@ -8,7 +8,7 @@ import { getDetailTest, saveDetailTest } from "@/lib/test";
 import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import { TEST_INFO, TEST_CONTENT, TEST_RESULT, TEST_ANSWER_ALL } from "@/types";
-
+import { useRouter } from "next/navigation";
 export default function Page() {
   const [startTest, setStartTest] = useState(false);
   const params = useParams();
@@ -77,7 +77,7 @@ export function PlayTest({ data }: ChildProps) {
   const addAnswer = (item: TEST_ANSWER_ALL) => {
     if (!item) return;
 
-    const newArr = [...answerArr, item];
+    const newArr = [...answerArr, item]; // 유의하기!
     setAnswerArr(newArr);
 
     if (num + 1 < data.length) {
@@ -90,12 +90,14 @@ export function PlayTest({ data }: ChildProps) {
       setResult(finalResult);
       //로컬스토리지에 저장
       localStorage.setItem("test-result", JSON.stringify(result));
-
-      // 결과 도출
-      saveDetailTest();
     }
   };
-
+  const router = useRouter();
+  const sumitTest = () => {
+    // 결과 도출
+    saveDetailTest();
+    router.push(`/test/${data[0].testId}/result`);
+  };
   //뒤로가기
   const goBack = () => {
     if (num === 0) return;
@@ -134,12 +136,12 @@ export function PlayTest({ data }: ChildProps) {
                   })
                 }
                 type="button"
-                className="group flex p-6 items-center gap-4 border-1 border-border-sub bg-background rounded-button mb-2"
+                className="group flex p-6 items-center gap-4 border-1 border-border-sub bg-background rounded-button mb-2 w-full"
               >
                 <span className="flex items-center justify-center w-10 h-10 rounded-button bg-primary text-white text-body-m">
                   {index + 1}
                 </span>
-                <p className="flex-1 min-h-10 text-left">{item.content}</p>
+                <p className="flex-1  text-left">{item.content}</p>
                 <div className="relative group-hover:left-1">
                   <ArrowIcon width={9} height={13.6} className="text-primary" />
                 </div>
@@ -149,6 +151,11 @@ export function PlayTest({ data }: ChildProps) {
       </>
       <hr className="my-6 border-secondary-light" />
       <PrevButton onClick={goBack} />
+      {num + 1 == data.length && (
+        <Button onClick={() => sumitTest()} className="w-full">
+          결과보러 가기
+        </Button>
+      )}
     </>
   );
 }

@@ -24,7 +24,7 @@ export default function Page() {
 export function CardList() {
   return (
     <div className="w-full grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-      <Card href="/" count={100} variant="secondary">
+      {/* <Card href="/" count={100} variant="secondary">
         카드 타이틀
       </Card>
       <Card href="/" count={100} variant="secondary">
@@ -35,7 +35,7 @@ export function CardList() {
       </Card>
       <Card href="/" count={100} variant="secondary">
         카드 타이틀
-      </Card>
+      </Card> */}
     </div>
   );
 }

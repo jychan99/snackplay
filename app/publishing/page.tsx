@@ -20,7 +20,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
+} from "@/components/ui/alert-dialog";
 
 export function AlertDialogDemo() {
   return (
@@ -32,8 +32,7 @@ export function AlertDialogDemo() {
         <AlertDialogHeader>
           <AlertDialogTitle>에러 발생</AlertDialogTitle>
           <AlertDialogDescription>
-            테스트를 확인중에 문제가 생겼습니다.
-            다시 한 번 시도해 주세요.
+            테스트를 확인중에 문제가 생겼습니다. 다시 한 번 시도해 주세요.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
@@ -42,18 +41,18 @@ export function AlertDialogDemo() {
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
-  )
+  );
 }
 
 export default function Home() {
   return (
     <div className="flex flex-col flex-1 items-center justify-center  font-sans dark:bg-black">
-      <AlertDialogDemo/>
+      <AlertDialogDemo />
       <Link href="/" ariaLabel="게임 하러가기">
         View All
       </Link>
       <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Card href="/" count={100} variant="secondary">
+        {/* <Card href="/" count={100} variant="secondary">
           카드 타이틀
         </Card>
         <Card href="/" count={100} variant="primary">
@@ -64,7 +63,7 @@ export default function Home() {
         </CardHorizontal>
         <CardHorizontal href="/" count={100} variant="secondary">
           카드 타이틀22
-        </CardHorizontal>
+        </CardHorizontal> */}
         {/* <CheckInput  id="CheckInput" label="체크박스" /> */}
         <ArrowIcon2 size={40} className="text-primary" />
         <Button
@@ -91,7 +90,7 @@ export default function Home() {
         >
           링크입니다
         </BaseLink>
-        <Badge >학교</Badge>
+        <Badge>학교</Badge>
         <Badge variant="secondary">학교</Badge>
         <Input label="이름" id="test1" type="text" placeholder="테스트입니다" />
         <Input

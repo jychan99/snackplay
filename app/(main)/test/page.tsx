@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Card from "@/components/display/Card";
 import { getAllTest } from "@/lib/test";
 import { TEST_MAIN } from "@/types/index";

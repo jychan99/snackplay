@@ -14,7 +14,7 @@ export default function MyRecentGameSection() {
         </ViewAllLink>
       </div>
       <div className="flex flex-col gap-6">
-        <CardHorizontal href="/" count={100} variant="secondary">
+        {/* <CardHorizontal href="/" count={100} variant="secondary">
           네모네모로직
         </CardHorizontal>
         <CardHorizontal href="/" count={100} variant="secondary">
@@ -22,7 +22,7 @@ export default function MyRecentGameSection() {
         </CardHorizontal>
         <CardHorizontal href="/" count={100} variant="secondary">
           붕어빵 타이쿤
-        </CardHorizontal>
+        </CardHorizontal> */}
       </div>
     </section>
   );

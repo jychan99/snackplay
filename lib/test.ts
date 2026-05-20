@@ -63,7 +63,7 @@ export async function getMyTestData() {
 }
 // 내가 만든 테스트
 
-// 내가 찜한 테스트
+// 내가 좋아요한 테스트
 
 // 테스트 상세 데이터
 export async function getDetailTest(id: number) {

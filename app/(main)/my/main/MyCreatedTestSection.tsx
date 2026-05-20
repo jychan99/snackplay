@@ -12,7 +12,7 @@ export default function MyRecentGameSection({ tests }: MyTestProps) {
       <div className="flex items-center justify-between  mb-6">
         <h2 className="text-h4">내가 만든 테스트</h2>
         <ViewAllLink
-          href="/my/test"
+          href="/studio/test"
           ariaLabel="내가 진행한 테스트 전체 보러가기"
         >
           View All

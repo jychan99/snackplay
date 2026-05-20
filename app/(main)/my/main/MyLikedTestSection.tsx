@@ -10,9 +10,9 @@ export default function MyRecentGameSection({ tests }: MyTestProps) {
   return (
     <section>
       <div className="flex items-center justify-between  mb-6">
-        <h2 className="text-h4">내가 찜한 테스트</h2>
+        <h2 className="text-h4">내가 좋아요한 테스트</h2>
         <ViewAllLink
-          href="/my/test"
+          href="/my/test/liked"
           ariaLabel="내가 진행한 테스트 전체 보러가기"
         >
           View All

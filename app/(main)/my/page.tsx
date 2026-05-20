@@ -18,10 +18,6 @@ export default async function Page() {
   const myTests = myInfoData.myTestResults.slice(0, 3);
   const myLiked = myInfoData.likedTests.slice(0, 3);
   const myMakes = myInfoData.myTests.slice(0, 3);
-  console.log(userData);
-  console.log(myTests);
-  console.log(myLiked);
-  console.log(myMakes);
   return (
     <div>
       <MyProfileSection userData={userData} />
@@ -39,7 +35,7 @@ export default async function Page() {
         {/* 나의 테스트 */}
         {myLiked.length == 0 ? (
           <p className="p-10 border-b-1 border-border-sub">
-            내가 찜한 테스트가 없습니다.
+            내가 좋아요한 테스트가 없습니다.
           </p>
         ) : (
           <MyLikedTestSection tests={myLiked} />

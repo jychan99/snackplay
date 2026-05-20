@@ -36,34 +36,5 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 
 ---
-# 페이지 정보입니다.
-**※보기양식은 다음과같습니다.**
-url -> 화면명
-  사용 테이블 - 테이블설명(CRUD)
---
 
-/ -> 메인화면
-  USER_MAIN(R)
-  TEST_MAIN(R)
-  GAME_MAIN(R)
-
-/login -> 로그인
-  USER_MAIN(CR)
-
-/my -> 마이페이지(탈퇴 | 비밀번호 재설정 | 플레이 통계)
-  USER_MAIN(RUD)
-  TEST_RESULT(R)
-
-/test -> 미니 테스트
-  TEST_MAIN(R)
-/test/{:test_id} -> 테스트상세
-  TEST_MAIN(R)
-  TEST_CONTENT(R)
-  TEST_RESULT(RU)
-
-/game -> 미니 게임
-  GAME_MAIN(R)
-/game/{:game_id} -> 게임상세
-
-
-배포테스트
+20260520 배포

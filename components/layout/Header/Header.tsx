@@ -6,12 +6,10 @@ import BaseLink from "@/components/ui/BaseLink";
 import { useState, useEffect } from "react";
 import { logout } from "@/actions/auth";
 import { useMobileMenuStore } from "@/store/mobileMenuStore";
-type User = {
-  nickname: string;
-};
+
 type HeaderProps = {
   isLoggedIn: boolean;
-  userData: User | null;
+  userData: string;
 };
 
 export default function Header({ isLoggedIn, userData }: HeaderProps) {
@@ -72,7 +70,8 @@ export function Menu() {
       <li className="flex">
         <Link
           href="/game"
-          className="p-2 md:p-1 border-b-2 border-white hover:border-primary hover:text-primary font-bold"
+          className="p-2 md:p-1 border-b-2 border-white"
+          style={{ color: "lightgray" }}
         >
           미니 게임
         </Link>

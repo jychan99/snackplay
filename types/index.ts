@@ -50,8 +50,8 @@ export interface SCALE_CODE {
   description: string;
 }
 
-// 테스트 진행 데이터
-export interface TestInfo {
+// 테스트 진행 데이터 > 정보
+export interface TEST_INFO {
   testId: number;
   testTitle: string;
   testInfo: string;
@@ -64,7 +64,8 @@ export interface TestAnswer {
   scale: string | null;
 }
 
-export interface TestContent {
+// 테스트 진행 데이터 > 질문 내용
+export interface TEST_CONTENT {
   contentId: number;
   testId: number;
   testNumbering: number;
@@ -72,7 +73,14 @@ export interface TestContent {
   answer: TestAnswer[];
 }
 
-export interface TEST_DETAIL_RESPONSE {
-  testInfo: TestInfo[];
-  testContent: TestContent[];
+export interface TEST_ANSWER_ALL {
+  testNumbering: number;
+  question: string;
+  content: string;
+  scale: string | null;
+}
+// 테스트 결과 제출 데이터
+export interface TEST_RESULT {
+  testId: number;
+  answer: TEST_ANSWER_ALL[];
 }

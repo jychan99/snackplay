@@ -1,4 +1,5 @@
 import { sql } from "@/lib/db";
+import { hashPassword } from "@/lib/password";
 
 // 프로필 정보 변경
 export async function POST(request: Request) {
@@ -25,7 +26,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const nextPassword = hasPasswordInput ? password : null;
+    const nextPassword = hasPasswordInput ? await hashPassword(password) : null;
 
     const result = await sql`
       UPDATE  "USER_MAIN"

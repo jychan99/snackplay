@@ -1,4 +1,5 @@
 import { sql } from "@/lib/db";
+import { hashPassword } from "@/lib/password";
 
 //회원가입
 export async function POST(request: Request) {
@@ -26,11 +27,13 @@ export async function POST(request: Request) {
         { status: 409 },
       );
     }
-
+    //비밀번호 해싱
+    const hashedPassword = await hashPassword(password);
+    
     // 회원가입
     const result = await sql`
       INSERT INTO "USER_MAIN" ("ID", "PASSWORD", "NICKNAME")
-      VALUES (${id}, ${password}, ${nickname})
+      VALUES (${id}, ${hashedPassword}, ${nickname})
       RETURNING "ID" as id, "PASSWORD" as password, "NICKNAME" as nickname
     `;
 

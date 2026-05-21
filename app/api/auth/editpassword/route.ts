@@ -1,9 +1,11 @@
 import { sql } from "@/lib/db";
+import {hashPassword} from "@/lib/password";
 
 //비밀번호 변경
 export async function POST(request: Request) {
   try {
     const { id, password } = await request.json();
+    const hashedPassword = await hashPassword(password);
 
     // 필수 필드 검증
     if (!password) {
@@ -16,7 +18,7 @@ export async function POST(request: Request) {
     // 비밀번호 변경
     const result = await sql`
       UPDATE  "USER_MAIN"
-      SET "PASSWORD" = ${password}
+      SET "PASSWORD" = ${hashedPassword}
       WHERE "ID" = ${id}
       RETURNING "ID" as id, "PASSWORD" as password
     `;

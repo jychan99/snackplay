@@ -24,6 +24,7 @@ export default function Page() {
 export function CardList() {
   return (
     <div className="w-full grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <p className="py-40 w-full">현재 참여 가능한 게임이 없습니다.</p>
       {/* <Card href="/" count={100} variant="secondary">
         카드 타이틀
       </Card>

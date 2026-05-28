@@ -103,7 +103,7 @@ export function PlayTest({ data }: ChildProps) {
   const sumitTest = () => {
     // 결과 도출
     localStorage.setItem("test-result", JSON.stringify(result));
-    saveDetailTest();
+    const resultData = saveDetailTest();
 
     // 추후 페이지 이동 예정
     // router.push(`/test/result/${data[0].testId}`);

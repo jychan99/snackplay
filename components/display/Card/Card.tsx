@@ -11,10 +11,10 @@ import Button from "@/components/ui/Button";
 type Variant = "primary" | "secondary";
 type Mode = "studio" | "result";
 type Props = React.ComponentProps<"a"> & {
-  data: TEST_MAIN;
-  variant: Variant;
-  myCont?: boolean;
-  mode?: Mode;
+  data: TEST_MAIN; // 데이터
+  variant: Variant; // 색상
+  myCont?: boolean; // 내가 실행한, 내가 만든, 내가 좋아요한 테스트 리스트 중 1개 (버튼 있음)
+  mode?: Mode; // mycont 중 분류
 };
 
 export default function Card({

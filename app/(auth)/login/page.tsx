@@ -5,7 +5,6 @@ export const metadata = {
 };
 
 import { cookies } from "next/headers";
-// import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 export async function loginUser(
@@ -28,7 +27,7 @@ export async function loginUser(
     },
   );
 
-  // 오류시
+  // 오류 시
   if (!res.ok) {
     const data = await res.json().catch(() => ({}));
 
@@ -53,36 +52,8 @@ export async function loginUser(
 
   // 메인 이동
   redirect("/");
-  // revalidatePath("/");
-  // return { success: true };
 }
 
 export default async function Page() {
-  const cookieStore = await cookies();
-  const token = cookieStore.get("authToken")?.value;
-
-  if (token) {
-    return (
-      <div className="space-y-3">
-        <div className="p-4 bg-green-100 dark:bg-green-900 rounded-md">
-          <p className="text-green-800 dark:text-green-100 font-medium">
-            로그인 완료
-          </p>
-          <p className="text-sm text-green-700 dark:text-green-200 mt-1">
-            토큰: {token.substring(0, 20)}...
-          </p>
-        </div>
-        {/* <form action={logoutUser}>
-          <button
-            type="submit"
-            className="w-full px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
-          >
-            로그아웃
-          </button>
-        </form> */}
-      </div>
-    );
-  }
-
   return <LoginForm action={loginUser} />;
 }

@@ -76,7 +76,7 @@ ${JSON.stringify(testResult, null, 2)}
     const recordResult = await sql`
       INSERT INTO "TEST_RESULT" ("TEST_ID", "USER_ID", "RESULT", "RESULT_DETAIL")
       VALUES (${testId}, ${userId}, ${parsedResult.result}, ${parsedResult.resultDetail})
-      RETURNING "TEST_ID" as testId, "USER_ID" as userId, "RESULT" as result, "RESULT_DETAIL" as resultDetail, "RESULT_ID" as resultId
+      RETURNING "TEST_ID" as "testId", "USER_ID" as "userId", "RESULT" as result, "RESULT_DETAIL" as "resultDetail", "RESULT_ID" as "resultId"
     `;
 
     return Response.json({

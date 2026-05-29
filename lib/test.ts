@@ -104,10 +104,10 @@ export async function saveDetailTest() {
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/generate`,
       {
         method: "POST",
-        headers:{
+        headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({testId,testResult}),
+        body: JSON.stringify({ testId, testResult }),
       },
     );
     data = await res.json();
@@ -122,4 +122,20 @@ export async function saveDetailTest() {
     }
   }
   return data;
+}
+
+// 테스트 결과 데이터
+export async function getResult(id: string) {
+  let data;
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/test/result/${id}`,
+    );
+    data = await res.json();
+    if (!res.ok) {
+      console.log("실패");
+    }
+  } catch (err) {}
+
+  return data.user;
 }

@@ -12,7 +12,6 @@ import { useRouter } from "next/navigation";
 export default function Page() {
   const [startTest, setStartTest] = useState(false);
   const params = useParams();
-  console.log(params.test_id);
 
   const id = Number(params.test_id);
 
@@ -100,13 +99,15 @@ export function PlayTest({ data }: ChildProps) {
     }
   };
   const router = useRouter();
-  const sumitTest = () => {
+  const sumitTest = async () => {
     // 결과 도출
     localStorage.setItem("test-result", JSON.stringify(result));
-    const resultData = saveDetailTest();
+    const resultData = await saveDetailTest();
 
-    // 추후 페이지 이동 예정
-    // router.push(`/test/result/${data[0].testId}`);
+    // 페이지 이동
+    if (resultData?.resultId) {
+      router.push(`/test/result/${resultData.resultId}`);
+    }
   };
   //뒤로가기
   const goBack = () => {

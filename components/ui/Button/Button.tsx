@@ -1,10 +1,10 @@
-
 import { getButtonClass, ButtonVariant, ButtonSize } from "./button.styles";
 
 type ButtonProps = React.ComponentProps<"button"> & {
   variant?: ButtonVariant;
   size?: ButtonSize;
   icon?: React.ReactNode;
+  onClick?: () => void;
 };
 
 export default function Button({
@@ -15,6 +15,7 @@ export default function Button({
   children,
   className,
   type = "button",
+  onClick,
   ...props
 }: ButtonProps) {
   return (
@@ -25,6 +26,7 @@ export default function Button({
         disabled,
         className,
       })}
+      onClick={onClick}
       disabled={disabled}
       type={type}
       {...props}

@@ -94,10 +94,17 @@ type CardListProps = {
 };
 
 export async function CardList({ variant }: CardListProps) {
-  const testPopularData = await getPopularTest();
+  const testPopularData: TEST_MAIN[] = await getPopularTest();
+  testPopularData.sort((a, b) => {
+    if (a.like !== b.like) {
+      return b.like - a.like;
+    }
+    return b.testId - a.testId;
+  });
+  const bestData = testPopularData.slice(0, 4);
   return (
     <div className="w-full grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-      {testPopularData.map((data: TEST_MAIN) => (
+      {bestData.map((data: TEST_MAIN) => (
         <Card key={data.testId} data={data} variant={variant}>
           카드 타이틀
         </Card>

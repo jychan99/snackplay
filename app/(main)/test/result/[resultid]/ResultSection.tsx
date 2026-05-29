@@ -1,3 +1,4 @@
+"use client";
 import BaseLink from "@/components/ui/BaseLink";
 import Button from "@/components/ui/Button";
 import Image from "next/image";
@@ -13,9 +14,15 @@ type Props = {
 };
 
 export default function ResultSection({ data }: Props) {
-  // if (!data) {
-  //   alert("문제");
-  // }
+  function copyUrl() {
+    window.navigator.clipboard
+      .writeText(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/test/result/${data.resultid}`,
+      )
+      .then(() => {
+        alert("복사 완료!");
+      });
+  }
   return (
     <>
       <p className="text-caption text-primary mb-1">카테고리 또는 해시태그</p>
@@ -38,7 +45,7 @@ export default function ResultSection({ data }: Props) {
       </div>
       <hr className="my-6 border-secondary-light" />
       <div className="flex justify-center gap-3 mb-10">
-        <Button variant="outline" size="sm">
+        <Button variant="outline" size="sm" onClick={copyUrl}>
           공유하기
         </Button>
         <BaseLink href="/test" variant="secondary" size="sm">

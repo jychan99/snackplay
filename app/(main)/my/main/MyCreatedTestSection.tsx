@@ -13,7 +13,7 @@ export default function MyRecentGameSection({ tests }: MyTestProps) {
         <h2 className="text-h4">내가 만든 테스트</h2>
         <ViewAllLink
           href="/studio/test"
-          ariaLabel="내가 진행한 테스트 전체 보러가기"
+          ariaLabel="내가 만든 테스트 전체 보러가기"
         >
           View All
         </ViewAllLink>

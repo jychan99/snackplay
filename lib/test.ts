@@ -44,8 +44,8 @@ export async function getPopularTest() {
   return data;
 }
 
-// 내가 진행한 테스트
-export async function getMyTestData() {
+// 내가 만든 테스트
+export async function getMyTest() {
   try {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/test/list/mytestlist`,
@@ -61,9 +61,42 @@ export async function getMyTestData() {
     console.error("getTests 에러:", error);
   }
 }
-// 내가 만든 테스트
+
+// 내가 진행한 테스트
+export async function getPlayedTest() {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/mypage/playedtests`,
+    );
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      console.log(data.error || "데이터 가져오기 실패");
+    }
+    return data;
+  } catch (error) {
+    console.error("getTests 에러:", error);
+  }
+}
 
 // 내가 좋아요한 테스트
+export async function getLikedTest() {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/mypage/likedtests`,
+    );
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      console.log(data.error || "데이터 가져오기 실패");
+    }
+    return data;
+  } catch (error) {
+    console.error("getTests 에러:", error);
+  }
+}
 
 // 테스트 상세 데이터
 export async function getDetailTest(id: number) {

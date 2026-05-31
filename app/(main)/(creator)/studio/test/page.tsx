@@ -1,5 +1,5 @@
 import Card from "@/components/display/Card";
-import { getAllTest } from "@/lib/test";
+import { getMyTest } from "@/lib/test";
 import { TEST_MAIN } from "@/types/index";
 import Link from "next/link";
 export const metadata = {
@@ -23,8 +23,8 @@ export default function Page() {
 }
 
 export async function CardList() {
-  const testData = await getAllTest();
-  console.log(testData);
+  const testData = await getMyTest();
+  console.log(testData[0]);
   return (
     <div className="w-full grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
       <Link

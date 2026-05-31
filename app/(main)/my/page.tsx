@@ -14,7 +14,7 @@ export default async function Page() {
   // 개인정보 데이터
   const userData = await getCurrentUser();
   const myInfoData = await getMyInfo();
-  // const myTestLikes = await getMyTests()
+
   const myTests = myInfoData.myTestResults.slice(0, 3);
   const myLiked = myInfoData.likedTests.slice(0, 3);
   const myMakes = myInfoData.myTests.slice(0, 3);

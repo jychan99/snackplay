@@ -1,10 +1,10 @@
 import Card from "@/components/display/Card";
-import { getMyTestData } from "@/lib/test";
+import { getLikedTest } from "@/lib/test";
 import { TEST_MAIN } from "@/types/index";
 export const metadata = {
-  title: "내가 진행한 테스트 목록",
+  title: "내가 좋아요한 테스트 목록",
 };
-export default function Page() {
+export default async function Page() {
   return (
     <section className="mb-22">
       <div className="mb-10 flex justify-between items-end">
@@ -19,7 +19,7 @@ export default function Page() {
 }
 
 export async function CardList() {
-  const testList = await getMyTestData();
+  const testList: TEST_MAIN[] = await getLikedTest();
   console.log(`testlist: ${testList}`);
   console.log(testList);
   const myCont = true;

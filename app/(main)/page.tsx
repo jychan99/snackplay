@@ -6,6 +6,8 @@ import ViewAllLink from "@/components/ui/ViewAllLink";
 import Badge from "@/components/ui/Badge";
 import Card from "@/components/display/Card";
 import { getPopularTest } from "@/lib/test";
+import { getIsLoggedIn } from "@/lib/auth";
+import { myLikedTest } from "@/lib/mylikedtest";
 import { TEST_MAIN } from "@/types";
 export default function Page() {
   return (
@@ -95,19 +97,31 @@ type CardListProps = {
 
 export async function CardList({ variant }: CardListProps) {
   const testPopularData: TEST_MAIN[] = await getPopularTest();
+  const isLoggedIn = await getIsLoggedIn();
+
   testPopularData.sort((a, b) => {
     if (a.like !== b.like) {
       return b.like - a.like;
     }
     return b.testId - a.testId;
   });
-  const bestData = testPopularData.slice(0, 4);
+  let bestData;
+  if (isLoggedIn) {
+    const liked = await myLikedTest();
+    bestData = testPopularData.map((item) => ({
+      ...item,
+      isLiked: liked.likedTests.some(
+        (like: { testId: number }) => like.testId === item.testId,
+      ),
+    }));
+  } else {
+    bestData = testPopularData;
+  }
+  const popularData = bestData.slice(0, 4);
   return (
     <div className="w-full grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-      {bestData.map((data: TEST_MAIN) => (
-        <Card key={data.testId} data={data} variant={variant}>
-          카드 타이틀
-        </Card>
+      {popularData.map((data: TEST_MAIN) => (
+        <Card key={data.testId} data={data} variant={variant} />
       ))}
     </div>
   );

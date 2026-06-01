@@ -1,7 +1,4 @@
-// import { getBaseUrl } from "./base";
-import { cookies } from "next/headers";
-
-const cookieStore = await cookies();
+import { getIsLoggedIn } from "./auth";
 // 전체 테스트
 export async function getAllTest() {
   let data;
@@ -24,17 +21,19 @@ export async function getAllTest() {
   return data;
 }
 
-// 메인 인기 테스트 ////////////////작업필요
+// 메인 인기 테스트
 export async function getPopularTest() {
   let data;
   try {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/test/list`,
     );
+
     data = await res.json();
     if (!res.ok) {
       throw new Error(data.message || "인기 테스트 불러오기 실패");
     }
+    // 로그인 시 하트 여부 넣어주기 위해
   } catch (err: unknown) {
     if (err instanceof Error) {
       console.log(err.message);
@@ -44,75 +43,6 @@ export async function getPopularTest() {
   }
   // 내림차순, likes 숫자 큰 순서대로 (백엔드에서 해야하나...)
   return data;
-}
-
-// 내가 만든 테스트
-export async function getMyTest() {
-  try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/test/list/mytestlist`,
-      {
-        headers: {
-          Cookie: cookieStore.toString(),
-        },
-      },
-    );
-
-    const data = await res.json();
-
-    if (!res.ok) {
-      console.log(data.message || "데이터 가져오기 실패");
-    }
-    return data;
-  } catch (error) {
-    console.error("getTests 에러:", error);
-  }
-}
-
-// 내가 진행한 테스트
-export async function getPlayedTest() {
-  try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/mypage/playedtests`,
-      {
-        headers: {
-          Cookie: cookieStore.toString(),
-        },
-      },
-    );
-
-    const data = await res.json();
-
-    if (!res.ok) {
-      console.log(data.error || "데이터 가져오기 실패");
-    }
-    return data;
-  } catch (error) {
-    console.error("getTests 에러:", error);
-  }
-}
-
-// 내가 좋아요한 테스트
-export async function getLikedTest() {
-  try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/mypage/likedtests`,
-      {
-        headers: {
-          Cookie: cookieStore.toString(),
-        },
-      },
-    );
-
-    const data = await res.json();
-
-    if (!res.ok) {
-      console.log(data.error || "데이터 가져오기 실패");
-    }
-    return data;
-  } catch (error) {
-    console.error("getTests 에러:", error);
-  }
 }
 
 // 테스트 상세 데이터

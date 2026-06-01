@@ -12,6 +12,7 @@ export interface TEST_MAIN {
   testInfo: string;
   hashtag: string;
   like: number;
+  isLiked: boolean;
 }
 
 export interface TEST_CONTENT {

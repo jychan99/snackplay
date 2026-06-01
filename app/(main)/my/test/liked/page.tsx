@@ -1,6 +1,8 @@
 import Card from "@/components/display/Card";
-import { getLikedTest } from "@/lib/test";
+import { getLikedTest } from "@/lib/my";
+import { getIsLoggedIn } from "@/lib/auth";
 import { TEST_MAIN } from "@/types/index";
+import { myLikedTest } from "@/lib/mylikedtest";
 export const metadata = {
   title: "내가 좋아요한 테스트 목록",
 };
@@ -19,13 +21,24 @@ export default async function Page() {
 }
 
 export async function CardList() {
-  const testList: TEST_MAIN[] = await getLikedTest();
-  console.log(`testlist: ${testList}`);
-  console.log(testList);
+  const data = await getLikedTest();
+  const isLoggedIn = await getIsLoggedIn();
+  let testData;
+  if (isLoggedIn) {
+    const liked = await myLikedTest();
+    testData = data.likedTests.map((item: TEST_MAIN) => ({
+      ...item,
+      isLiked: liked.likedTests.some(
+        (like: { testId: number }) => like.testId === item.testId,
+      ),
+    }));
+  } else {
+    testData = data;
+  }
   const myCont = true;
   return (
     <div className="w-full grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-      {testList.likedTestsmap((item: TEST_MAIN) => (
+      {testData.map((item: TEST_MAIN) => (
         <Card key={item.testId} data={item} variant="primary">
           카드 타이틀
         </Card>

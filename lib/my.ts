@@ -2,9 +2,9 @@ import { cookies } from "next/headers";
 
 // 유저정보
 export async function getMyInfo() {
+  const cookieStore = await cookies();
   let data;
   try {
-    const cookieStore = await cookies();
     const authToken = cookieStore.get("authToken")?.value;
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/mypage`, {
       headers: {
@@ -24,4 +24,79 @@ export async function getMyInfo() {
   }
 
   return data;
+}
+
+// 내가 만든 테스트
+export async function getMyTest() {
+  const cookieStore = await cookies();
+
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/test/list/mytestlist`,
+      {
+        headers: {
+          Cookie: cookieStore.toString(),
+        },
+      },
+    );
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      console.log(data.message || "데이터 가져오기 실패");
+    }
+    return data;
+  } catch (error) {
+    console.error("getTests 에러:", error);
+  }
+}
+
+// 내가 진행한 테스트
+export async function getPlayedTest() {
+  const cookieStore = await cookies();
+
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/mypage/playedtests`,
+      {
+        headers: {
+          Cookie: cookieStore.toString(),
+        },
+      },
+    );
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      console.log(data.error || "데이터 가져오기 실패");
+    }
+    return data;
+  } catch (error) {
+    console.error("getTests 에러:", error);
+  }
+}
+
+// 내가 좋아요한 테스트
+export async function getLikedTest() {
+  const cookieStore = await cookies();
+
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/mypage/likedtests`,
+      {
+        headers: {
+          Cookie: cookieStore.toString(),
+        },
+      },
+    );
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      console.log(data.error || "데이터 가져오기 실패");
+    }
+    return data;
+  } catch (error) {
+    console.error("getTests 에러:", error);
+  }
 }

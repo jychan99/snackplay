@@ -1,5 +1,7 @@
 // import { getBaseUrl } from "./base";
+import { cookies } from "next/headers";
 
+const cookieStore = await cookies();
 // 전체 테스트
 export async function getAllTest() {
   let data;
@@ -49,6 +51,11 @@ export async function getMyTest() {
   try {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/test/list/mytestlist`,
+      {
+        headers: {
+          Cookie: cookieStore.toString(),
+        },
+      },
     );
 
     const data = await res.json();
@@ -67,6 +74,11 @@ export async function getPlayedTest() {
   try {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/mypage/playedtests`,
+      {
+        headers: {
+          Cookie: cookieStore.toString(),
+        },
+      },
     );
 
     const data = await res.json();
@@ -85,6 +97,11 @@ export async function getLikedTest() {
   try {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/mypage/likedtests`,
+      {
+        headers: {
+          Cookie: cookieStore.toString(),
+        },
+      },
     );
 
     const data = await res.json();

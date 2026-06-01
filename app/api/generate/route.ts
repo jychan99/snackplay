@@ -16,6 +16,79 @@ function getCookieValue(cookieHeader: string | null, name: string) {
   return targetCookie ? decodeURIComponent(targetCookie.split("=")[1]) : "";
 }
 
+function getPromptByHashtag(hashtag: string) {
+  if (hashtag === "MBTI(CAR)") {
+    return `
+당신은 심리 테스트 결과 분석 전문가입니다.
+아래 사용자의 테스트 응답 데이터의 맥락을 바탕으로 사용자에게 가장 어울리는 자동차를 추천하세요.
+
+반드시 JSON 형식만 응답하세요.
+설명 문장, 마크다운 코드블록, 주석은 절대 포함하지 마세요.
+
+응답 형식:
+{
+  "result": "자동차: 추천 자동차",
+  "resultDetail": "최종 결과가 나온 근거 설명"
+}
+
+result에는 자동차를 작성하세요.  예) "result": "자동차: 미니 쿠퍼"
+resultDetail은 사용자의 응답, 선택지, scale 값을 근거로 왜 그 결과가 나왔는지 한국어로 200자 이내로 설명하세요.
+`;
+  }
+  if (hashtag === "MBTI(ANIMAL)") {
+    return `
+당신은 심리 테스트 결과 분석 전문가입니다.
+아래 사용자의 테스트 응답 데이터의 맥락을 바탕으로 사용자를 닮은 동물을 추천하세요.
+
+반드시 JSON 형식만 응답하세요.
+설명 문장, 마크다운 코드블록, 주석은 절대 포함하지 마세요.
+
+응답 형식:
+{
+  "result": "동물: 추천 동물",
+  "resultDetail": "최종 결과가 나온 근거 설명"
+}
+
+result에는 동물을 작성하세요.  예) "result": "동물: 고양이"
+resultDetail은 사용자의 응답, 선택지, scale 값을 근거로 왜 그 결과가 나왔는지 한국어로 200자 이내로 설명하세요.
+`;
+  }
+  if (hashtag === "COMPANY") {
+    return `
+당신은 심리테스트 결과 분석 전문가입니다.
+아래 사용자의 테스트 응답 데이터를 바탕으로 사용자에게 가장 어울리는 회사를 추천하세요.
+
+반드시 JSON 형식만 응답하세요.
+설명 문장, 마크다운 코드블록, 주석은 절대 포함하지 마세요.
+
+응답 형식:
+{
+  "result": "추천 회사명",
+  "resultDetail": "최종 결과가 나온 근거 설명"
+}
+
+result는 회사명을 작성해주세요 예) "result": "SK하이닉스"
+resultDetail은 사용자의 응답, 선택지, scale 값을 근거로 왜 그 결과가 나왔는지 한국어로 200자 이내로 설명하세요 .
+`;
+  }
+
+  return `
+당신은 심리 테스트 결과 분석 전문가입니다.
+아래 사용자의 테스트 응답 데이터를 바탕으로 사용자에게 가장 어울리는 결과를 추천하세요.
+
+반드시 JSON 형식만 응답하세요.
+설명 문장, 마크다운 코드블록, 주석은 절대 포함하지 마세요.
+
+응답 형식:
+{
+  "result": "최종 결과값",
+  "resultDetail": "최종 결과가 나온 근거 설명"
+}
+
+resultDetail은 사용자의 응답, 선택지, scale 값을 근거로 왜 그 결과가 나왔는지 한국어로 200자 이내로 설명하세요.
+`;
+}
+
 export async function POST(request: Request) {
   try {
     const { testId, testResult } = await request.json();
@@ -33,24 +106,21 @@ export async function POST(request: Request) {
     const genAI = new GoogleGenerativeAI(apiKey);
     const model = genAI.getGenerativeModel({ model: "gemini-3.1-flash-lite" });
 
+    const testInfo = await sql`
+  SELECT "HASHTAG" as "hashtag"
+  FROM "TEST_MAIN"
+  WHERE "TEST_ID" = ${testId}
+  LIMIT 1
+`;
+
+    const hashtag = String(testInfo[0]?.hashtag || "");
+
     const prompt = `
-당신은 심리테스트 결과 분석 전문가입니다.
-아래 사용자의 테스트 응답 데이터를 바탕으로 사용자에게 가장 어울리는 회사를 추천하세요.
-
-반드시 JSON 형식만 응답하세요.
-설명 문장, 마크다운 코드블록, 주석은 절대 포함하지 마세요.
-
-응답 형식:
-{
-  "result": "최종 결과값",
-  "resultDetail": "최종 결과가 나온 근거 설명"
-}
-
-result는 회사명을 작성해주세요 예) "result": "SK하이닉스"
-resultDetail은 사용자의 응답, 선택지, scale 값을 근거로 왜 그 결과가 나왔는지 한국어로 200자 이내로 설명하세요 .
+${getPromptByHashtag(hashtag)}
 
 testId: ${testId}
 userId: ${userId}
+hashtag: ${hashtag}
 사용자 테스트 응답 데이터:
 ${JSON.stringify(testResult, null, 2)}
 `;

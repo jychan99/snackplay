@@ -9,7 +9,11 @@ type Props = {
   isLiked?: boolean;
 };
 
-export default function LikeButton({ testId, likeCount, isLiked }: Props) {
+export default function LikeButton({
+  testId,
+  likeCount,
+  isLiked = false,
+}: Props) {
   const [checked, setChecked] = useState(isLiked);
   const [count, setCount] = useState(likeCount);
   console.log(isLiked);

@@ -11,8 +11,10 @@ export default function Page() {
     <section className="mb-22">
       <div className="mb-10 flex justify-between items-end">
         <div>
-          <h2 className="text-h2">내가 플레이한</h2>
-          <p className="text-body-m text-text-sub">내가 진행한 테스트</p>
+          <h2 className="text-h2">내가 플레이한 테스트</h2>
+          <p className="text-body-m text-text-sub">
+            내가 진행한 테스트의 결과를 확인해보세요
+          </p>
         </div>
       </div>
       <CardList />

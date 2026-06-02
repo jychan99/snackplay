@@ -43,11 +43,16 @@ export default function Card({
         {myCont ? (
           <div className="flex gap-2 justify-end w-full">
             {mode == "studio" && (
-              <EditTestDialog testId={data.testId}>
-                <Button type="button" variant="outline" size="sm">
-                  수정하기
-                </Button>
-              </EditTestDialog>
+              <BaseLink
+                href={`/studio/test/edit/${data.testId}`}
+                type="button"
+                variant="outline"
+                size="sm"
+              >
+                수정하기
+              </BaseLink>
+              // <EditTestDialog testId={data.testId}>
+              // </EditTestDialog>
             )}
             {mode === "result" && (
               <>

@@ -14,8 +14,8 @@ type AlertProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   data: {
-    ttl: string;
-    desc: string;
+    ttl?: string;
+    desc?: string;
   };
   onConfirm?: () => void;
   confirm?: boolean;

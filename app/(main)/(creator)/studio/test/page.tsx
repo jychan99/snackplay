@@ -43,7 +43,7 @@ export async function CardList() {
   return (
     <div className="w-full grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
       <Link
-        href="/studio/test/edit"
+        href="/studio/test/new"
         className="relative group w-full h-full shadow-m rounded-box overflow-hidden border-t-4 flex items-center justify-center bg-text-sub text-white"
       >
         <span className="border-white border-1 block rounded-button  w-13 h-13 flex items-center justify-center text-h2 group-hover:rotate-180 transition">

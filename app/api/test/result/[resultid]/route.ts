@@ -10,12 +10,15 @@ export async function GET(
     const resultId = Number(resultid);
 
     const selectResult = await sql`
-      SELECT "TEST_ID" as testId
-            , "RESULT_ID" as resultId
-            , "USER_ID" as userId
-            , "RESULT" as result
-            , "RESULT_DETAIL" as resultDetail
-        FROM "TEST_RESULT"
+      SELECT A."TEST_ID" as testId
+            , A."RESULT_ID" as resultId
+            , A."USER_ID" as userId
+            , B."TEST_TITLE" as testTitle
+            , A."RESULT" as result
+            , A."RESULT_DETAIL" as resultDetail
+        FROM "TEST_RESULT" A
+        JOIN "TEST_MAIN" B
+        ON A."TEST_ID" = B."TEST_ID"
         WHERE "RESULT_ID" = ${resultId}
     `;
 

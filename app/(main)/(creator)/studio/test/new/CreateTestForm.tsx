@@ -175,7 +175,7 @@ export default function EditTestForm() {
     setIsSaving(true);
 
     try {
-      const res = await fetch("/api/test/new", {
+      const res = await fetch("/api/test/edit", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

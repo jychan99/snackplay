@@ -25,7 +25,7 @@ export default function Page() {
     if (id == "") {
       setOpen(true);
       setAlert({
-        ttl: "미입력 항목 발생",
+        ttl: "아이디 미입력",
         desc: "아이디를 입력해주세요.",
         onConfirm: () => {},
       });
@@ -34,7 +34,7 @@ export default function Page() {
     if (nickname == "") {
       setOpen(true);
       setAlert({
-        ttl: "미입력 항목 발생",
+        ttl: "닉네임 미입력",
         desc: "닉네임을 입력해주세요.",
         onConfirm: () => {},
       });
@@ -43,8 +43,17 @@ export default function Page() {
     if (password == "" || passwordCheck == "") {
       setOpen(true);
       setAlert({
-        ttl: "미입력 항목 발생",
+        ttl: "비밀번호 미입력",
         desc: "비밀번호를 입력해주세요.",
+        onConfirm: () => {},
+      });
+      return;
+    }
+    if (password !== passwordCheck) {
+      setOpen(true);
+      setAlert({
+        ttl: "비밀번호/비밀번호 확인 불일치",
+        desc: "비밀번호를 다시 입력해주세요.",
         onConfirm: () => {},
       });
       return;

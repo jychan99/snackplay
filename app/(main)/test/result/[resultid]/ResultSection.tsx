@@ -2,6 +2,8 @@
 import BaseLink from "@/components/ui/BaseLink";
 import Button from "@/components/ui/Button";
 import Image from "next/image";
+import Alert from "@/components/ui/Alert";
+import { useState } from "react";
 type resultProps = {
   result: string;
   resultdetail: string;
@@ -15,13 +17,14 @@ type Props = {
 };
 
 export default function ResultSection({ data }: Props) {
+  const [open, setOpen] = useState(false); // alert ui
   function copyUrl() {
     window.navigator.clipboard
       .writeText(
         `${process.env.NEXT_PUBLIC_BASE_URL}/test/result/${data.resultid}`,
       )
       .then(() => {
-        alert("복사 완료!");
+        setOpen(true);
       });
   }
   return (
@@ -60,6 +63,17 @@ export default function ResultSection({ data }: Props) {
       >
         한번 더 테스트하기
       </BaseLink>
+      <Alert
+        open={open}
+        onOpenChange={setOpen}
+        data={{
+          ttl: "링크 복사 완료",
+          desc: "주소가 복사되었습니다. 원하는 곳에 붙여넣기(Ctrl+V)해주세요.",
+        }}
+        onConfirm={() => {
+          setOpen(false);
+        }}
+      />
     </>
   );
 }

@@ -46,7 +46,7 @@ export default function LikeButton({
         open={open}
         onOpenChange={setOpen}
         data={{
-          ttl: "로그아웃 상태",
+          ttl: "로그인 해주세요",
           desc: "로그인 후 좋아요 버튼을 클릭해주세요",
         }}
         onConfirm={() => {

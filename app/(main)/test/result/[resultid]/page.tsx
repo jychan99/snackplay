@@ -15,11 +15,13 @@ type resultProps = {
   resultid: number;
   testid: number;
   userid: string;
+  testtitle: string;
 };
 
 export default async function Page({ params }: Props) {
   const { resultid } = await params;
   const result: resultProps = await getResult(resultid);
+  console.log(result);
   if (!result) {
     return <div>데이터 없음</div>;
   }

@@ -8,6 +8,7 @@ type resultProps = {
   resultid: number;
   testid: number;
   userid: string;
+  testtitle: string;
 };
 type Props = {
   data: resultProps;
@@ -25,7 +26,7 @@ export default function ResultSection({ data }: Props) {
   }
   return (
     <>
-      <p className="text-caption text-primary mb-1">카테고리 또는 해시태그</p>
+      <p className="text-caption text-primary mb-1">{data.testtitle}</p>
       {/* <p className="text-h4">당신에게 어울리는 회사는</p> */}
       <h2 className="text-h2 mb-10">{data.result}</h2>
       <div className="w-full h-50 relative mb-10">

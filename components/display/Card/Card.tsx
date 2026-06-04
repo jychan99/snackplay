@@ -71,7 +71,7 @@ export default function Card({
               <>
                 <BaseLink
                   variant="secondary"
-                  href={`/test/${data.testId}/result`}
+                  href={`/test/result/${data.resultId}`}
                   size="sm"
                 >
                   결과보기

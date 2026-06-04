@@ -33,7 +33,7 @@ export async function GET(request: Request) {
           , B."RESULT_ID" as "resultId"
           , (SELECT COUNT("TEST_ID")
             FROM "TEST_LIKE"
-            WHERE "TEST_ID" = A."TEST_ID") as "likeCount"
+            WHERE "TEST_ID" = A."TEST_ID") as "like"
       FROM "TEST_MAIN" A
       JOIN "TEST_RESULT" B
         ON A."TEST_ID" = B."TEST_ID"

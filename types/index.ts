@@ -13,6 +13,7 @@ export interface TEST_MAIN {
   hashtag: string;
   like: number;
   isLiked: boolean;
+  resultId?: number;
 }
 
 export interface TEST_CONTENT {
@@ -85,3 +86,4 @@ export interface TEST_RESULT {
   testId: number;
   answer: TEST_ANSWER_ALL[];
 }
+// 확인창 props

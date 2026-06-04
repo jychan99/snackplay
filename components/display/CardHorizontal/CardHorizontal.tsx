@@ -54,7 +54,7 @@ export default function CardHorizontal({
             <BaseLink
               variant={variant}
               size="sm"
-              href={`/test/${data.testId}/result`}
+              href={`/test/result/${data.resultId}`}
             >
               결과보기
             </BaseLink>

@@ -50,17 +50,17 @@ export default async function Page() {
         {/* 추후 주석 풀기 */}
         {/* 추후 주석 풀기 */}
         {/* 추후 주석 풀기 */}
-        {/* {userData.role === "A" && ( */}
-        <>
-          {myMakes.length == 0 ? (
-            <p className="p-10 border-b-1 border-border-sub">
-              내가 만든 테스트가 없습니다.
-            </p>
-          ) : (
-            <MyCreatedTestSection tests={myMakes} />
-          )}{" "}
-        </>
-        {/* )} */}
+        {userData.role === "A" && (
+          <>
+            {myMakes.length == 0 ? (
+              <p className="p-10 border-b-1 border-border-sub">
+                내가 만든 테스트가 없습니다.
+              </p>
+            ) : (
+              <MyCreatedTestSection tests={myMakes} />
+            )}{" "}
+          </>
+        )}
         {/* 내가 만든 테스트 */}
       </div>
     </div>

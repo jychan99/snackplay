@@ -6,10 +6,15 @@ import BaseLink from "@/components/ui/BaseLink";
 import { useState, useEffect } from "react";
 import { logout } from "@/actions/auth";
 import { useMobileMenuStore } from "@/store/mobileMenuStore";
+import { getIsLoggedIn } from "@/lib/auth";
 
 type HeaderProps = {
   isLoggedIn: boolean;
-  userData: string;
+  userData: {
+    id: string;
+    nickname: string;
+    role: string;
+  };
 };
 
 export default function Header({ isLoggedIn, userData }: HeaderProps) {
@@ -48,14 +53,14 @@ export default function Header({ isLoggedIn, userData }: HeaderProps) {
             >
               <img src="/images/icons/icon_close.svg" alt="close icon" />
             </button>
-            <Menu></Menu>
+            <Menu isLoggedIn={isLoggedIn} userData={userData}></Menu>
             <hr className="border-1 border-border-sub mt-2.5 mb-6 w-full" />
             <Utils isLoggedIn={isLoggedIn} userData={userData}></Utils>
           </nav>
         )}
         {/* 모바일 */}
         <nav className="md:flex items-center justify-between w-[60%] hidden">
-          <Menu></Menu>
+          <Menu isLoggedIn={isLoggedIn} userData={userData}></Menu>
           <Utils isLoggedIn={isLoggedIn} userData={userData}></Utils>
         </nav>
         {/* PC */}
@@ -64,7 +69,7 @@ export default function Header({ isLoggedIn, userData }: HeaderProps) {
   );
 }
 
-export function Menu() {
+export function Menu({ userData, isLoggedIn }: HeaderProps) {
   return (
     <ul className="flex md:flex-row flex-col  md:gap-6 gap-2.5">
       <li className="flex">
@@ -84,20 +89,22 @@ export function Menu() {
           미니 테스트
         </Link>
       </li>
-      <li className="flex">
-        <Link
-          href="/studio/test"
-          className="p-2 md:p-1 border-b-2 border-white hover:border-primary hover:text-primary font-bold"
-        >
-          테스트 만들기
-        </Link>
-      </li>
+
+      {isLoggedIn && userData.role === "A" && (
+        <li className="flex">
+          <Link
+            href="/studio/test"
+            className="p-2 md:p-1 border-b-2 border-white hover:border-primary hover:text-primary font-bold"
+          >
+            테스트 만들기
+          </Link>
+        </li>
+      )}
     </ul>
   );
 }
 
 export function Utils({ isLoggedIn, userData }: HeaderProps) {
-  // const [isLogin, setIsLogin] = useState(false);
   return isLoggedIn ? (
     <div className="flex gap-3">
       <Link href="/my" className="flex items-center justify-between">
@@ -108,7 +115,7 @@ export function Utils({ isLoggedIn, userData }: HeaderProps) {
             className="w-full h-full object-cover"
           />
         </div>
-        <span>{userData}</span>
+        <span>{userData?.nickname}</span>
       </Link>
       <form action={logout}>
         <Button type="submit" size="sm">

@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import Image from "next/image";
 import PlayIcon from "@/components/icon/PlayIcon";
@@ -7,7 +8,9 @@ import BaseLink from "@/components/ui/BaseLink";
 import LikeButton from "@/components/ui/LikeButton/LikeButton";
 import { EditTestDialog } from "@/components/test/EditTestDialog";
 import Button from "@/components/ui/Button";
-
+import Alert from "@/components/ui/Alert";
+import { getIsLoggedInClient } from "@/lib/auth-client";
+import { useState } from "react";
 type Variant = "primary" | "secondary";
 type Mode = "studio" | "result";
 type Props = React.ComponentProps<"a"> & {
@@ -24,6 +27,16 @@ export default function Card({
   mode = "result",
   ...props
 }: Props) {
+  const [open, setOpen] = useState(false); // alert ui
+  async function checkLogin(e: React.MouseEvent<HTMLAnchorElement>) {
+    const isLoggedIn = getIsLoggedInClient();
+    if (!isLoggedIn) {
+      e.preventDefault();
+      setOpen(true);
+      return;
+    }
+  }
+
   const content = (
     <>
       <div className="relative w-full aspect-[3/2] ">
@@ -103,13 +116,28 @@ export default function Card({
     <div
       className={`relative group w-full shadow-m rounded-box overflow-hidden hover:shadow-l border-t-4 border-${variant}`}
     >
-      <Link href={`/test/${data.testId}`} className={``}>
+      <Link
+        href={`/test/${data.testId}`}
+        className={``}
+        onClick={(e) => checkLogin(e)}
+      >
         {content}
       </Link>
       <LikeButton
         testId={data.testId}
         likeCount={data.like}
         isLiked={data.isLiked}
+      />
+      <Alert
+        open={open}
+        onOpenChange={setOpen}
+        data={{
+          ttl: "로그아웃 상태",
+          desc: "로그인 후 테스트를 진행해주세요",
+        }}
+        onConfirm={() => {
+          setOpen(false);
+        }}
       />
     </div>
   );

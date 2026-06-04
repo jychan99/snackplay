@@ -14,6 +14,10 @@ type QuestionForm = {
   question: string;
   answers: AnswerForm[];
 };
+type QuestionProps = {
+  question: string;
+  answer: AnswerForm[];
+};
 
 type HashtagOption = {
   hashtag: string;
@@ -89,7 +93,7 @@ export default function EditTestForm() {
       setTestInfo(res.testInfo[0].testInfo);
       setHashtag(res.testInfo[0].hashtag);
       setQuestions(
-        res.testContent.map(({ question, answer }) => ({
+        res.testContent.map(({ question, answer }: QuestionProps) => ({
           question,
           answers: answer,
         })),

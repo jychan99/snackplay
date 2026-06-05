@@ -11,7 +11,7 @@ export default async function MainLayout({
   const userData = await getCurrentUser();
   return (
     <>
-      <Header isLoggedIn={isLoggedIn} userData={userData} />
+      <Header />
       <main className="container-custom py-16">{children}</main>
       <Footer />
     </>

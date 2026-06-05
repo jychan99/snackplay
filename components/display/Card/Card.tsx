@@ -29,12 +29,12 @@ export default function Card({
 }: Props) {
   const [open, setOpen] = useState(false); // alert ui
   async function checkLogin(e: React.MouseEvent<HTMLAnchorElement>) {
-    const isLoggedIn = getIsLoggedInClient();
-    if (!isLoggedIn) {
-      e.preventDefault();
-      setOpen(true);
-      return;
-    }
+    // const isLoggedIn = getIsLoggedInClient();
+    // if (!isLoggedIn) {
+    //   e.preventDefault();
+    //   setOpen(true);
+    //   return;
+    // }
   }
 
   const content = (

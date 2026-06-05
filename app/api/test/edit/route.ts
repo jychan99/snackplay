@@ -58,29 +58,19 @@ export async function POST(request: Request) {
 
     const requestedTestId = Number(testId) || null;
 
+    if (!requestedTestId) {
+      return Response.json({ error: "testId가 필요합니다." }, { status: 400 });
+    }
+
     //TEST_ID는 시퀀스로 자동 생성되지만, 수정 시에는 기존 TEST_ID를 사용해야 함
     const saved = await sql`
-      INSERT INTO "TEST_MAIN" (
-        "TEST_ID",
-        "TEST_TITLE",
-        "TEST_INFO",
-        "HASHTAG",
-        "USER_ID"
-      )
-      OVERRIDING SYSTEM VALUE
-      VALUES (
-        nextval(pg_get_serial_sequence('"TEST_MAIN"', 'TEST_ID'))::integer,
-        ${testTitle},
-        ${testInfo},
-        ${hashtag},
-        ${userId}
-      )
-      ON CONFLICT ("TEST_ID") DO UPDATE
+      UPDATE "TEST_MAIN"
       SET
-        "TEST_TITLE" = EXCLUDED."TEST_TITLE",
-        "TEST_INFO" = EXCLUDED."TEST_INFO",
-        "HASHTAG" = EXCLUDED."HASHTAG",
-        "USER_ID" = EXCLUDED."USER_ID"
+        "TEST_TITLE" = ${testTitle},
+        "TEST_INFO" = ${testInfo},
+        "HASHTAG" = ${hashtag},
+        "USER_ID" = ${userId}
+      WHERE "TEST_ID" = ${requestedTestId}
       RETURNING "TEST_ID" as "testId"
     `;
 

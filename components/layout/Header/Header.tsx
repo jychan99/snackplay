@@ -2,25 +2,26 @@
 import Button from "@/components/ui/Button";
 import Link from "next/link";
 import BaseLink from "@/components/ui/BaseLink";
-
+import type { User } from "@/lib/api/user";
 import { useState, useEffect } from "react";
 import { logout } from "@/actions/auth";
 import { useMobileMenuStore } from "@/store/mobileMenuStore";
-import { getIsLoggedIn } from "@/lib/auth";
 
-type HeaderProps = {
-  isLoggedIn: boolean;
-  userData: {
-    id: string;
-    nickname: string;
-    role: string;
-  };
-};
-
-export default function Header({ isLoggedIn, userData }: HeaderProps) {
+import { useCurrentUser } from "@/hooks/useCurrentUser";
+interface MenuProps {
+  userData: User | null | undefined;
+}
+export default function Header() {
   const [isShowMenu, setIsShowMenu] = useState(false);
-  // const [userData, setUserData] = useState('');
+
   const { open, openMenu, closeMenu } = useMobileMenuStore();
+
+  const { data: user, isLoading } = useCurrentUser();
+
+  if (isLoading) {
+    return null;
+  }
+
   return (
     <header className="flex items-center justify-center md:py-6 py-1 shadow-[0_10px_40px_0_rgba(255,77,148,0.08)] bg-white">
       <div className="flex items-center justify-between w-7xl px-8">
@@ -53,15 +54,15 @@ export default function Header({ isLoggedIn, userData }: HeaderProps) {
             >
               <img src="/images/icons/icon_close.svg" alt="close icon" />
             </button>
-            <Menu isLoggedIn={isLoggedIn} userData={userData}></Menu>
+            <Menu userData={user ?? null}></Menu>
             <hr className="border-1 border-border-sub mt-2.5 mb-6 w-full" />
-            <Utils isLoggedIn={isLoggedIn} userData={userData}></Utils>
+            <Utils userData={user ?? null}></Utils>
           </nav>
         )}
         {/* 모바일 */}
         <nav className="md:flex items-center justify-between w-[60%] hidden">
-          <Menu isLoggedIn={isLoggedIn} userData={userData}></Menu>
-          <Utils isLoggedIn={isLoggedIn} userData={userData}></Utils>
+          <Menu userData={user ?? null}></Menu>
+          <Utils userData={user ?? null}></Utils>
         </nav>
         {/* PC */}
       </div>
@@ -69,7 +70,7 @@ export default function Header({ isLoggedIn, userData }: HeaderProps) {
   );
 }
 
-export function Menu({ userData, isLoggedIn }: HeaderProps) {
+export function Menu({ userData }: MenuProps) {
   return (
     <ul className="flex md:flex-row flex-col  md:gap-6 gap-2.5">
       <li className="flex">
@@ -90,7 +91,7 @@ export function Menu({ userData, isLoggedIn }: HeaderProps) {
         </Link>
       </li>
 
-      {isLoggedIn && userData.role === "A" && (
+      {userData && userData?.role == "A" && (
         <li className="flex">
           <Link
             href="/studio/test"
@@ -104,8 +105,8 @@ export function Menu({ userData, isLoggedIn }: HeaderProps) {
   );
 }
 
-export function Utils({ isLoggedIn, userData }: HeaderProps) {
-  return isLoggedIn ? (
+export function Utils({ userData }: MenuProps) {
+  return userData && userData ? (
     <div className="flex gap-3">
       <Link href="/my" className="flex items-center justify-between">
         <div className="border-4 border-primary rounded-button w-10 h-10 overflow-hidden mr-2">

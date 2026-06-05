@@ -6,10 +6,9 @@ import UserIcon from "@/components/icon/UserIcon";
 import { TEST_MAIN } from "@/types/index";
 import BaseLink from "@/components/ui/BaseLink";
 import LikeButton from "@/components/ui/LikeButton/LikeButton";
-import { EditTestDialog } from "@/components/test/EditTestDialog";
-import Button from "@/components/ui/Button";
 import Alert from "@/components/ui/Alert";
-import { getIsLoggedInClient } from "@/lib/auth-client";
+import { useCurrentUser } from "@/hooks/useCurrentUser";
+
 import { useState } from "react";
 type Variant = "primary" | "secondary";
 type Mode = "studio" | "result";
@@ -28,15 +27,14 @@ export default function Card({
   ...props
 }: Props) {
   const [open, setOpen] = useState(false); // alert ui
+  const { data: user, isLoading } = useCurrentUser();
   async function checkLogin(e: React.MouseEvent<HTMLAnchorElement>) {
-    // const isLoggedIn = getIsLoggedInClient();
-    // if (!isLoggedIn) {
-    //   e.preventDefault();
-    //   setOpen(true);
-    //   return;
-    // }
+    if (!user) {
+      e.preventDefault();
+      setOpen(true);
+      return;
+    }
   }
-
   const content = (
     <>
       <div className="relative w-full aspect-[3/2] ">

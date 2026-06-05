@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import localFont from "next/font/local";
 import { cn } from "@/lib/utils";
-
+import Providers from "@/components/providers";
 const paperlogy = localFont({
   src: [
     {
@@ -57,7 +57,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko" className={cn("h-full", "antialiased", paperlogy.variable)}>
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }

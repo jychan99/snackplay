@@ -3,7 +3,7 @@ import { useState } from "react";
 import HeartIcon from "@/components/icon/HeartIcon";
 import { handleLike } from "@/lib/like";
 import Alert from "@/components/ui/Alert";
-import { getIsLoggedInClient } from "@/lib/auth-client";
+import { useCurrentUser } from "@/hooks/useCurrentUser";
 
 type Props = {
   testId: number;
@@ -19,9 +19,9 @@ export default function LikeButton({
   const [checked, setChecked] = useState(isLiked);
   const [count, setCount] = useState(likeCount);
   const [open, setOpen] = useState(false); // alert ui trigger로 필요함
+  const { data: user } = useCurrentUser();
   async function toggleHeartBtn() {
-    const isLoggedIn = await getIsLoggedInClient();
-    if (!isLoggedIn) {
+    if (!user) {
       setOpen(true);
       return;
     }

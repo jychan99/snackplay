@@ -6,6 +6,8 @@ import Button from "@/components/ui/Button";
 import BaseLink from "@/components/ui/BaseLink";
 import Input from "@/components/ui/Input";
 import ArrowIcon2 from "@/components/icon/ArrowIcon2";
+import Alert from "@/components/ui/Alert";
+import { useRouter } from "next/navigation";
 
 type QuestionForm = {
   question: string;
@@ -34,6 +36,14 @@ const createQuestion = (): QuestionForm => ({
 });
 
 export default function EditTestForm() {
+  const router = useRouter();
+  const [open, setOpen] = useState(false); // alert ui
+  const [alert, setAlert] = useState({
+    ttl: "",
+    desc: "",
+    onConfirm: undefined as (() => void) | undefined,
+  });
+
   const [currentSlide, setCurrentSlide] = useState(0);
   const [testTitle, setTestTitle] = useState("");
   const [testInfo, setTestInfo] = useState("");
@@ -203,208 +213,234 @@ export default function EditTestForm() {
         const data = await res.json();
         throw new Error(data.error || "저장에 실패했습니다.");
       }
-
-      alert("저장되었습니다.");
+      setOpen(true);
+      setAlert({
+        ttl: "저장되었습니다.",
+        desc: "저장되었습니다.",
+        onConfirm: () => {
+          router.push("/studio/test");
+        },
+      });
     } catch (error) {
-      alert(error instanceof Error ? error.message : "저장에 실패했습니다.");
+      setOpen(true);
+      setAlert({
+        ttl: "저장 실패",
+        desc: error instanceof Error ? error.message : "저장에 실패했습니다.",
+        onConfirm: () => {},
+      });
     } finally {
       setIsSaving(false);
     }
   };
 
   return (
-    <form onSubmit={saveTest} className="relative flex items-start gap-4">
-      <button
-        type="button"
-        disabled={!canGoPrev}
-        onClick={() => setCurrentSlide((prev) => prev - 1)}
-        className="hidden sm:flex mt-56 h-12 w-12 shrink-0 items-center justify-center rounded-button border border-border-sub text-text-sub disabled:opacity-30"
-      >
-        <ArrowIcon2 className="rotate-180" size={14} />
-      </button>
+    <>
+      <form onSubmit={saveTest} className="relative flex items-start gap-4">
+        <button
+          type="button"
+          disabled={!canGoPrev}
+          onClick={() => setCurrentSlide((prev) => prev - 1)}
+          className="hidden sm:flex mt-56 h-12 w-12 shrink-0 items-center justify-center rounded-button border border-border-sub text-text-sub disabled:opacity-30"
+        >
+          <ArrowIcon2 className="rotate-180" size={14} />
+        </button>
 
-      <section className="box-custom mx-auto min-h-[560px]">
-        <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <BaseLink href="/studio/test" variant="outline" size="sm">
-            돌아가기
-          </BaseLink>
-          <div className="flex gap-3 sm:justify-end">
-            <Button
-              type="button"
-              variant="outline"
-              size="sm"
-              onClick={addQuestion}
-            >
-              질문 추가
-            </Button>
-            <Button
-              type="submit"
-              variant="primary"
-              size="sm"
-              disabled={isSaving}
-            >
-              {isSaving ? "저장 중" : "저장하기"}
-            </Button>
+        <section className="box-custom mx-auto min-h-[560px]">
+          <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <BaseLink href="/studio/test" variant="outline" size="sm">
+              돌아가기
+            </BaseLink>
+            <div className="flex gap-3 sm:justify-end">
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={addQuestion}
+              >
+                질문 추가
+              </Button>
+              <Button
+                type="submit"
+                variant="primary"
+                size="sm"
+                disabled={isSaving}
+              >
+                {isSaving ? "저장 중" : "저장하기"}
+              </Button>
+            </div>
           </div>
-        </div>
 
-        <div className="transition-all duration-300 ease-out">
-          {isInfoSlide ? (
-            <>
-              <div className="text-center">
-                <p className="text-caption text-primary mb-1">테스트 만들기</p>
-                <h2 className="text-h4 mb-10">새 테스트 편집</h2>
-                <div className="w-full h-50 relative mb-10 overflow-hidden rounded-box">
-                  <Image
-                    src="/images/image_banner.png"
-                    alt=""
-                    fill
-                    priority
-                    className="object-cover"
-                  />
-                </div>
-              </div>
-
-              <div className="grid gap-5">
-                <Input
-                  className="max-w-full"
-                  label="테스트 제목"
-                  id="test_title"
-                  type="text"
-                  value={testTitle}
-                  onChange={(event) => setTestTitle(event.target.value)}
-                  placeholder="테스트 제목을 입력해주세요"
-                />
-                <div>
-                  <label htmlFor="test_info">테스트 설명</label>
-                  <textarea
-                    id="test_info"
-                    value={testInfo}
-                    onChange={(event) => setTestInfo(event.target.value)}
-                    className="mt-2 w-full min-h-32 rounded-input border border-border-main bg-white py-[12px] px-[25px] text-body-m"
-                    placeholder="테스트 설명을 입력해주세요"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="test_hashtag">해시태그</label>
-                  <select
-                    id="test_hashtag"
-                    value={hashtag}
-                    onChange={(event) => updateHashtag(event.target.value)}
-                    className="mt-2 w-full max-w-full rounded-input border border-border-main bg-white py-[12px] px-[25px] text-body-m"
-                  >
-                    <option value="">해시태그를 선택해주세요</option>
-                    {uniqueHashtags.map((item) => (
-                      <option key={item} value={item}>
-                        #{item}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-            </>
-          ) : (
-            <div>
-              <p className="text-h4 text-primary mb-6">질문 {currentSlide}</p>
-              <div>
-                <label htmlFor={`question_${currentSlide}`}>질문</label>
-                <textarea
-                  id={`question_${currentSlide}`}
-                  value={currentQuestion.question}
-                  onChange={(event) =>
-                    updateQuestion(currentSlide - 1, event.target.value)
-                  }
-                  className="mt-2 w-full min-h-32 rounded-input border border-border-main bg-white py-[12px] px-[25px] text-body-m"
-                  placeholder="질문을 입력해주세요"
-                />
-              </div>
-              <div className="grid gap-4 mt-5">
-                {currentQuestion.answers.map((answer, answerIndex) => (
-                  <div
-                    key={answerIndex}
-                    className="rounded-box border border-border-sub bg-background p-4"
-                  >
-                    <Input
-                      className="max-w-full"
-                      label={`답변 ${answerIndex + 1}`}
-                      id={`answer_${currentSlide}_${answerIndex + 1}`}
-                      type="text"
-                      value={answer.content}
-                      onChange={(event) =>
-                        updateAnswerContent(
-                          currentSlide - 1,
-                          answerIndex,
-                          event.target.value,
-                        )
-                      }
-                      placeholder="답변을 입력해주세요"
+          <div className="transition-all duration-300 ease-out">
+            {isInfoSlide ? (
+              <>
+                <div className="text-center">
+                  <p className="text-caption text-primary mb-1">
+                    테스트 만들기
+                  </p>
+                  <h2 className="text-h4 mb-10">새 테스트 편집</h2>
+                  <div className="w-full h-50 relative mb-10 overflow-hidden rounded-box">
+                    <Image
+                      src="/images/image_banner.png"
+                      alt=""
+                      fill
+                      priority
+                      className="object-cover"
                     />
-                    <div className="mt-4">
-                      <label
-                        htmlFor={`answer_scale_${currentSlide}_${answerIndex + 1}`}
-                      >
-                        SCALE
-                      </label>
-                      <select
-                        id={`answer_scale_${currentSlide}_${answerIndex + 1}`}
-                        value={answer.scale}
+                  </div>
+                </div>
+
+                <div className="grid gap-5">
+                  <Input
+                    className="max-w-full"
+                    label="테스트 제목"
+                    id="test_title"
+                    type="text"
+                    value={testTitle}
+                    onChange={(event) => setTestTitle(event.target.value)}
+                    placeholder="테스트 제목을 입력해주세요"
+                  />
+                  <div>
+                    <label htmlFor="test_info">테스트 설명</label>
+                    <textarea
+                      id="test_info"
+                      value={testInfo}
+                      onChange={(event) => setTestInfo(event.target.value)}
+                      className="mt-2 w-full min-h-32 rounded-input border border-border-main bg-white py-[12px] px-[25px] text-body-m"
+                      placeholder="테스트 설명을 입력해주세요"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="test_hashtag">해시태그</label>
+                    <select
+                      id="test_hashtag"
+                      value={hashtag}
+                      onChange={(event) => updateHashtag(event.target.value)}
+                      className="mt-2 w-full max-w-full rounded-input border border-border-main bg-white py-[12px] px-[25px] text-body-m"
+                    >
+                      <option value="">해시태그를 선택해주세요</option>
+                      {uniqueHashtags.map((item) => (
+                        <option key={item} value={item}>
+                          #{item}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <div>
+                <p className="text-h4 text-primary mb-6">질문 {currentSlide}</p>
+                <div>
+                  <label htmlFor={`question_${currentSlide}`}>질문</label>
+                  <textarea
+                    id={`question_${currentSlide}`}
+                    value={currentQuestion.question}
+                    onChange={(event) =>
+                      updateQuestion(currentSlide - 1, event.target.value)
+                    }
+                    className="mt-2 w-full min-h-32 rounded-input border border-border-main bg-white py-[12px] px-[25px] text-body-m"
+                    placeholder="질문을 입력해주세요"
+                  />
+                </div>
+                <div className="grid gap-4 mt-5">
+                  {currentQuestion.answers.map((answer, answerIndex) => (
+                    <div
+                      key={answerIndex}
+                      className="rounded-box border border-border-sub bg-background p-4"
+                    >
+                      <Input
+                        className="max-w-full"
+                        label={`답변 ${answerIndex + 1}`}
+                        id={`answer_${currentSlide}_${answerIndex + 1}`}
+                        type="text"
+                        value={answer.content}
                         onChange={(event) =>
-                          updateAnswerScale(
+                          updateAnswerContent(
                             currentSlide - 1,
                             answerIndex,
                             event.target.value,
                           )
                         }
-                        disabled={!hashtag}
-                        className="mt-2 w-full rounded-input border border-border-main bg-white py-[12px] px-[25px] text-body-m disabled:bg-neutral-200 disabled:text-border-main"
-                      >
-                        <option value="">선택</option>
-                        {scaleOptions.map((item) => (
-                          <option key={item.code} value={item.code}>
-                            {item.description}
-                          </option>
-                        ))}
-                      </select>
+                        placeholder="답변을 입력해주세요"
+                      />
+                      <div className="mt-4">
+                        <label
+                          htmlFor={`answer_scale_${currentSlide}_${answerIndex + 1}`}
+                        >
+                          SCALE
+                        </label>
+                        <select
+                          id={`answer_scale_${currentSlide}_${answerIndex + 1}`}
+                          value={answer.scale}
+                          onChange={(event) =>
+                            updateAnswerScale(
+                              currentSlide - 1,
+                              answerIndex,
+                              event.target.value,
+                            )
+                          }
+                          disabled={!hashtag}
+                          className="mt-2 w-full rounded-input border border-border-main bg-white py-[12px] px-[25px] text-body-m disabled:bg-neutral-200 disabled:text-border-main"
+                        >
+                          <option value="">선택</option>
+                          {scaleOptions.map((item) => (
+                            <option key={item.code} value={item.code}>
+                              {item.description}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                      {answerIndex >= 2 && (
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="sm"
+                          onClick={() =>
+                            removeAnswer(currentSlide - 1, answerIndex)
+                          }
+                          className="mt-4"
+                        >
+                          삭제
+                        </Button>
+                      )}
                     </div>
-                    {answerIndex >= 2 && (
-                      <Button
-                        type="button"
-                        variant="outline"
-                        size="sm"
-                        onClick={() =>
-                          removeAnswer(currentSlide - 1, answerIndex)
-                        }
-                        className="mt-4"
-                      >
-                        삭제
-                      </Button>
-                    )}
-                  </div>
-                ))}
-                <Button
-                  type="button"
-                  variant="outline"
-                  size="sm"
-                  disabled={currentQuestion.answers.length >= 4}
-                  onClick={() => addAnswer(currentSlide - 1)}
-                  className="justify-self-start"
-                >
-                  답변 추가
-                </Button>
+                  ))}
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    disabled={currentQuestion.answers.length >= 4}
+                    onClick={() => addAnswer(currentSlide - 1)}
+                    className="justify-self-start"
+                  >
+                    답변 추가
+                  </Button>
+                </div>
               </div>
-            </div>
-          )}
-        </div>
-      </section>
+            )}
+          </div>
+        </section>
 
-      <button
-        type="button"
-        disabled={!canGoNext}
-        onClick={() => setCurrentSlide((prev) => prev + 1)}
-        className="hidden sm:flex mt-56 h-12 w-12 shrink-0 items-center justify-center rounded-button border border-border-sub text-text-sub disabled:opacity-30"
-      >
-        <ArrowIcon2 size={14} />
-      </button>
-    </form>
+        <button
+          type="button"
+          disabled={!canGoNext}
+          onClick={() => setCurrentSlide((prev) => prev + 1)}
+          className="hidden sm:flex mt-56 h-12 w-12 shrink-0 items-center justify-center rounded-button border border-border-sub text-text-sub disabled:opacity-30"
+        >
+          <ArrowIcon2 size={14} />
+        </button>
+      </form>
+      <Alert
+        open={open}
+        onOpenChange={setOpen}
+        data={alert}
+        onConfirm={() => {
+          setOpen(false);
+          if (alert.onConfirm) {
+            alert.onConfirm();
+          }
+        }}
+      />
+    </>
   );
 }

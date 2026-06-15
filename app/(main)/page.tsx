@@ -98,13 +98,14 @@ type CardListProps = {
 export async function CardList({ variant }: CardListProps) {
   const testPopularData: TEST_MAIN[] = await getPopularTest();
   const isLoggedIn = await getIsLoggedIn();
-
-  testPopularData.sort((a, b) => {
-    if (a.like !== b.like) {
-      return b.like - a.like;
-    }
-    return b.testId - a.testId;
-  });
+  if (testPopularData) {
+    testPopularData.sort((a, b) => {
+      if (a.like !== b.like) {
+        return b.like - a.like;
+      }
+      return b.testId - a.testId;
+    });
+  }
   let bestData;
   if (isLoggedIn) {
     const liked = await myLikedTest();

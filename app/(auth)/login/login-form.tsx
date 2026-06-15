@@ -18,7 +18,7 @@ type LoginAction = (
 
 export default function LoginFormClient({ action }: { action: LoginAction }) {
   const [state, formAction, isPending] = useActionState(action, {});
-  const [savedId, setSavedId] = useState(false);
+  // const [savedId, setSavedId] = useState(false);
   const [open, setOpen] = useState(false); // alert ui
   const [alert, setAlert] = useState({
     ttl: "",
@@ -74,12 +74,12 @@ export default function LoginFormClient({ action }: { action: LoginAction }) {
           >
             비밀번호 찾기
           </Link>
-          <CheckInput
+          {/* <CheckInput
             checked={savedId}
             onChange={(e) => setSavedId(e.target.checked)}
             id="CheckInput"
             label="아이디 저장"
-          />
+          /> */}
           <Button
             disabled={isPending}
             type="submit"

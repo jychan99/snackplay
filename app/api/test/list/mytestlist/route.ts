@@ -15,7 +15,6 @@ function getCookieValue(cookieHeader: string | null, name: string) {
   return targetCookie ? decodeURIComponent(targetCookie.split("=")[1]) : "";
 }
 //마이페이지 - 나의 테스트 조회
-//sql에서 where = userId추가해야함
 export async function GET(request: Request) {
   const token = getCookieValue(request.headers.get("cookie"), "authToken");
   const userId = token ? getUserIdFromToken(token) : "";

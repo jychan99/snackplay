@@ -1,11 +1,27 @@
 import { sql } from "@/lib/db";
 
-//테스트 생성
+function getUserIdFromToken(token: string) {
+  return token.split("_")[0];
+}
+
+function getCookieValue(cookieHeader: string | null, name: string) {
+  if (!cookieHeader) {
+    return "";
+  }
+
+  const cookies = cookieHeader.split(";").map((cookie) => cookie.trim());
+  const targetCookie = cookies.find((cookie) => cookie.startsWith(`${name}=`));
+
+  return targetCookie ? decodeURIComponent(targetCookie.split("=")[1]) : "";
+}
+
 export async function POST(request: Request) {
   try {
-    const { testTitle, testInfo, hashtag } = await request.json();
+    const token = getCookieValue(request.headers.get("cookie"), "authToken");
+    const userId = token ? getUserIdFromToken(token) : "";
+    const { testTitle, testInfo, hashtag, questions = [] } =
+      await request.json();
 
-    // 필수 필드 검증
     if (!testTitle || !testInfo || !hashtag) {
       return Response.json(
         { error: "모든 필드를 입력해주세요." },
@@ -13,7 +29,6 @@ export async function POST(request: Request) {
       );
     }
 
-    // 중복 체크
     const existing = await sql`
       SELECT "TEST_TITLE"
       FROM "TEST_MAIN"
@@ -27,19 +42,57 @@ export async function POST(request: Request) {
       );
     }
 
-    // 테스트 생성
     const result = await sql`
-      INSERT INTO "TEST_MAIN" ("TEST_TITLE", "TEST_INFO", "HASHTAG")
-      VALUES (${testTitle}, ${testInfo}, ${hashtag})
-      RETURNING "TEST_TITLE" as "testTitle", "TEST_INFO" as "testInfo", "HASHTAG" as "hashtag"
+      INSERT INTO "TEST_MAIN" ("TEST_TITLE", "TEST_INFO", "HASHTAG", "USER_ID")
+      VALUES (${testTitle}, ${testInfo}, ${hashtag}, ${userId})
+      RETURNING "TEST_ID" as "testId", "TEST_TITLE" as "testTitle", "TEST_INFO" as "testInfo", "HASHTAG" as "hashtag"
     `;
 
+    const savedTestId = result[0].testId;
+
+    for (let index = 0; index < questions.length; index += 1) {
+      const item = questions[index];
+
+      if (!item.question) {
+        continue;
+      }
+
+      await sql`
+        INSERT INTO "TEST_CONTENT" (
+          "TEST_ID",
+          "TEST_NUMBERING",
+          "QUESTION",
+          "ANSWER_1",
+          "ANSWER_1_SCALE",
+          "ANSWER_2",
+          "ANSWER_2_SCALE",
+          "ANSWER_3",
+          "ANSWER_3_SCALE",
+          "ANSWER_4",
+          "ANSWER_4_SCALE"
+        )
+        VALUES (
+          ${savedTestId},
+          ${index + 1},
+          ${item.question},
+          ${item.answer1 || ""},
+          ${item.answer1Scale || ""},
+          ${item.answer2 || ""},
+          ${item.answer2Scale || ""},
+          ${item.answer3 || ""},
+          ${item.answer3Scale || ""},
+          ${item.answer4 || ""},
+          ${item.answer4Scale || ""}
+        )
+      `;
+    }
+
     return Response.json(
-      { message: "테스트 생성 성공", test: result[0] },
+      { message: "테스트 생성 성공", testId: savedTestId, test: result[0] },
       { status: 201 },
     );
   } catch (error) {
-    console.error("API /auth/signup POST 에러:", error);
+    console.error("API /test/new POST 오류:", error);
     return Response.json(
       { error: "테스트 생성 실패", details: String(error) },
       { status: 500 },

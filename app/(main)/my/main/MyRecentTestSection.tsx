@@ -21,7 +21,7 @@ export default function MyRecentGameSection({ tests }: MyTestProps) {
       <div className="flex flex-col gap-6">
         {tests.map((test) => (
           <CardHorizontal
-            key={test.testId}
+            key={test.resultId}
             data={test}
             mode="result"
             variant="secondary"

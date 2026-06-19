@@ -14,6 +14,7 @@ export interface TEST_MAIN {
   like: number;
   isLiked: boolean;
   resultId?: number;
+  imageUrl?: string;
 }
 
 export interface TEST_CONTENT {
@@ -58,7 +59,7 @@ export interface TEST_INFO {
   testTitle: string;
   testInfo: string;
   hashtag: string;
-  like: number;
+  like: number;  
 }
 
 export interface TestAnswer {

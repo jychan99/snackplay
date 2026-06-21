@@ -48,8 +48,8 @@ export default function Card({
       <div className="flex flex-wrap items-end p-card">
         <h3 className="text-h4 w-full mb-4">{data.testTitle}</h3>
         <p className="flex flex-1 items-center">
-          <UserIcon size={24} />
-          <span className="text-caption text-text-sub">2명 참여</span>
+          {/* <UserIcon size={24} /> */}
+          <span className="text-caption text-text-sub">#{data.hashtag}</span>
         </p>
         {myCont ? (
           <div className="flex gap-2 justify-end w-full">

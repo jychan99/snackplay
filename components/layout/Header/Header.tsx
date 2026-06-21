@@ -108,12 +108,25 @@ export function Menu({ userData }: MenuProps) {
 
 export function Utils({ userData }: MenuProps) {
   // const img = loadImages();
+  const [img, setImg] = useState("");
+
+  useEffect(() => {
+    const fetchImage = async () => {
+      const url = await loadImages();
+
+      if (url) {
+        setImg(url);
+      }
+    };
+
+    fetchImage();
+  }, []);
   return userData && userData ? (
     <div className="flex gap-3">
       <Link href="/my" className="flex items-center justify-between">
         <div className="border-4 border-primary rounded-button w-10 h-10 overflow-hidden mr-2">
           <img
-            src="/images/sample_user.png"
+            src={img}
             alt="user image"
             className="w-full h-full object-cover"
           />

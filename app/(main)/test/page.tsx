@@ -15,7 +15,8 @@ export default function Page() {
         <div>
           <h2 className="text-h2">ALL TEST</h2>
           <p className="text-body-m text-text-sub">
-            다양한 테스트에 참여해보세요
+            다양한 테스트에 참여해보세요. <br />
+            <strong>AI</strong>가 당신의 답변에 따라 결과를 보여드립니다
           </p>
         </div>
       </div>

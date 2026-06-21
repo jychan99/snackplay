@@ -35,9 +35,7 @@ export default function Page() {
         <PlayTest data={contData} />
       ) : (
         <>
-          <p className="text-caption text-primary mb-1">
-            카테고리 또는 해시태그
-          </p>
+          <p className="text-caption text-primary mb-1">{infoData?.hashtag}</p>
           <h2 className="text-h4 mb-10">{infoData?.testTitle}</h2>
           <div className="w-full h-50 relative mb-10">
             <Image

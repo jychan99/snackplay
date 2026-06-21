@@ -60,22 +60,23 @@ export function MainBanner() {
           심심하니?
           <br />
           <b className="text-primary">SnackPlay</b>에서 <br />
-          게임과 테스트를 즐겨봐!
+          테스트를 즐겨봐!
         </h2>
         <p className="mb-6 text-body-l">
-          신나는 게임과 테스트를 하고 친구들과 공유해보세요
+          AI가 분석한 당신의 숨겨진 모습(?)을 확인해보고
+          <br /> 친구들과 공유해보세요
         </p>
         <div className="flex flex-wrap gap-3">
           <BaseLink
             variant="secondary"
-            href="/game"
+            href="/test"
             icon={<RocketIcon className="text-white" size={20} />}
           >
-            게임하러 가기
-          </BaseLink>
-          <BaseLink variant="outline" href="/test">
             테스트하러 가기
           </BaseLink>
+          {/* <BaseLink variant="outline" href="/game">
+            게임하러 가기
+          </BaseLink> */}
         </div>
       </div>
       <div className="relative w-full max-w-[400px] md:max-w-[43%] aspect-[7/6]">

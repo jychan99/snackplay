@@ -9,8 +9,10 @@ import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import { TEST_INFO, TEST_CONTENT, TEST_RESULT, TEST_ANSWER_ALL } from "@/types";
 import { useRouter } from "next/navigation";
+import Loading from "@/components/ui/Loading";
 export default function Page() {
   const [startTest, setStartTest] = useState(false);
+
   const params = useParams();
 
   const id = Number(params.test_id);
@@ -98,12 +100,13 @@ export function PlayTest({ data }: ChildProps) {
       //로컬스토리지에 저장
     }
   };
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
-  const sumitTest = async () => {
+  const submitTest = async () => {
     // 결과 도출
+    setIsSubmitting(true);
     localStorage.setItem("test-result", JSON.stringify(result));
     const resultData = await saveDetailTest();
-
     // 페이지 이동
     if (resultData?.resultId) {
       router.push(`/test/result/${resultData.resultId}`);
@@ -119,6 +122,8 @@ export function PlayTest({ data }: ChildProps) {
 
   return (
     <>
+      {isSubmitting && <Loading />}
+
       <div className="mb-10 text-right">
         <Badge size="sm">
           {num + 1 > data.length ? num : num + 1}/{data.length}
@@ -165,7 +170,7 @@ export function PlayTest({ data }: ChildProps) {
       {num + 1 == data.length && (
         <Button
           disabled={disabled}
-          onClick={() => sumitTest()}
+          onClick={() => submitTest()}
           className="w-full"
         >
           결과보러 가기

@@ -26,6 +26,9 @@ export async function getMyInfo() {
   return data;
 }
 
+// 유저 변경
+export async function modifyMyInfo() {}
+
 // 내가 만든 테스트
 export async function getMyTest() {
   const cookieStore = await cookies();

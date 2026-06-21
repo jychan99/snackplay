@@ -6,11 +6,12 @@ import type { User } from "@/lib/api/user";
 import { useState, useEffect } from "react";
 import { logout } from "@/actions/auth";
 import { useMobileMenuStore } from "@/store/mobileMenuStore";
+import { loadImages } from "@/lib/image";
 
 import { useCurrentUser } from "@/hooks/useCurrentUser";
-interface MenuProps {
+type MenuProps = {
   userData: User | null | undefined;
-}
+};
 export default function Header() {
   const [isShowMenu, setIsShowMenu] = useState(false);
 
@@ -106,6 +107,7 @@ export function Menu({ userData }: MenuProps) {
 }
 
 export function Utils({ userData }: MenuProps) {
+  // const img = loadImages();
   return userData && userData ? (
     <div className="flex gap-3">
       <Link href="/my" className="flex items-center justify-between">

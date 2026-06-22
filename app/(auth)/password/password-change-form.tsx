@@ -4,7 +4,11 @@ import Input from "@/components/ui/Input";
 import Alert from "@/components/ui/Alert";
 import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
+import type { User } from "@/lib/api/user";
+import { logout } from "@/actions/auth";
+import { useCurrentUser } from "@/hooks/useCurrentUser";
 export default function PasswordChagneForm() {
+  const { data: user, isLoading } = useCurrentUser();
   const router = useRouter();
   const [open, setOpen] = useState(false); // alert ui
   const [alert, setAlert] = useState({
@@ -20,7 +24,8 @@ export default function PasswordChagneForm() {
     const passwordCheck = formData.get("password-check");
 
     // 1. 아이디 가져오기 현재 하드코딩
-    const id = "hahye0513";
+    const id = user?.id;
+    console.log(user?.id);
 
     // 2. input 다채워져있는지
     if (password == "" || passwordCheck == "") {
@@ -62,6 +67,7 @@ export default function PasswordChagneForm() {
           ttl: "비밀번호 변경 완료",
           desc: "변경된 비밀번호로 로그인 해주세요",
           onConfirm: () => {
+            logout();
             router.push("/login");
           },
         });

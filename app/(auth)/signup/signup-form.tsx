@@ -165,18 +165,9 @@ export default function Page() {
                 label="회원약관에 동의합니다."
               />
               <div className="mt-2 max-h-[100px] overflow-auto text-caption p-4 border-1 border-border-sub bg-background rounded-box">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolor
-                sed fuga ipsa, perspiciatis nisi architecto, asperiores non
-                ipsam error repudiandae exercitationem odit quasi in est eos.
-                Porro a dolor pariatur laboriosam, quas soluta! Quos aspernatur
-                esse quae nobis aliquam nisi quas voluptates, doloribus, cumque
-                a ipsa doloremque eum odio explicabo pariatur itaque autem
-                numquam ut eos delectus nemo alias! Minima dolores, libero
-                inventore temporibus deleniti cumque quisquam quam nobis.
-                Temporibus tempora aliquam dolorem officia dicta nam sequi quas,
-                hic, vitae, veniam blanditiis voluptates alias ad veritatis nemo
-                deserunt nesciunt quos. At, numquam illo mollitia aspernatur
-                nobis atque eos recusandae excepturi.
+                회사는 회원가입, 서비스 제공 및 고객지원 등을 위하여 개인정보를
+                수집·이용합니다. 수집 항목, 이용 목적, 보유 기간 등 자세한
+                내용은 개인정보처리방침을 참고하시기 바랍니다.
               </div>
             </div>
           </div>

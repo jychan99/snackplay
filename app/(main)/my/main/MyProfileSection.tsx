@@ -8,10 +8,12 @@ import type { User } from "@/lib/api/user";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
 type MenuProps = {
   userData: User | null | undefined;
+  setModifyInfo: (value: boolean) => void;
 };
 import Input from "@/components/ui/Input";
 import { modifyMyInfo } from "@/lib/my";
 import Alert from "@/components/ui/Alert";
+import Link from "next/link";
 
 type UserInfoProps = {
   userData: {
@@ -47,7 +49,7 @@ export default function MyProfileSection() {
         </div>
       </div>
       {modifyInfo ? (
-        <UserModify userData={user ?? null} />
+        <UserModify userData={user ?? null} setModifyInfo={setModifyInfo} />
       ) : (
         <>
           <div className="flex-1 mt-4 sm:ml-10 mb-4 sm:mb-0 sm:mt-0 text-center sm:text-left">
@@ -71,9 +73,8 @@ export default function MyProfileSection() {
   );
 }
 
-export function UserModify({ userData }: MenuProps) {
+export function UserModify({ userData, setModifyInfo }: MenuProps) {
   const id = userData?.id;
-  console.log(userData?.id);
   const [nickname, setnickname] = useState(userData?.nickname);
 
   const [open, setOpen] = useState(false); // alert ui
@@ -149,7 +150,7 @@ export function UserModify({ userData }: MenuProps) {
   }
   return (
     <>
-      <form onSubmit={modifyMyInfo} className="flex flex-1">
+      <form onSubmit={modifyMyInfo} className="flex flex-1 relative">
         <div className="flex-1 mt-4 sm:ml-10 mb-4 sm:mb-0 sm:mt-0">
           <Input
             className="mb-5"
@@ -171,6 +172,15 @@ export function UserModify({ userData }: MenuProps) {
           />
         </div>
         <Button
+          variant="outline"
+          size="sm"
+          type="button"
+          className="self-center mr-2"
+          onClick={() => setModifyInfo(false)}
+        >
+          취소
+        </Button>
+        <Button
           variant="primary"
           size="sm"
           type="submit"
@@ -178,6 +188,12 @@ export function UserModify({ userData }: MenuProps) {
         >
           수정완료
         </Button>
+        <Link
+          className="inline-block text-caption px-2.5 py-1.25 text-secondary mb-6 absolute bottom-0 right-0"
+          href="/password"
+        >
+          비밀번호 변경하기
+        </Link>
       </form>
       <Alert
         open={open}

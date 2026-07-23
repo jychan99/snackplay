@@ -20,7 +20,7 @@ export default async function Page() {
   const myMakes = myInfoData.myTests.slice(0, 3);
   return (
     <div>
-      <MyProfileSection userData={userData} />
+      <MyProfileSection />
       {/* 개인정보 */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 xl:gap-10 ">
         {/* <MyRecentGameSection /> */}

@@ -68,12 +68,12 @@ export default function LoginFormClient({ action }: { action: LoginAction }) {
               name="password"
             />
           </div>
-          <Link
+          {/* <Link
             className="inline-block text-caption px-2.5 py-1.25 text-secondary mb-6"
             href="/password"
           >
             비밀번호 찾기
-          </Link>
+          </Link> */}
           {/* <CheckInput
             checked={savedId}
             onChange={(e) => setSavedId(e.target.checked)}

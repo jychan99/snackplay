@@ -277,6 +277,7 @@ export default function EditTestForm() {
           type="button"
           disabled={!canGoPrev}
           onClick={() => setCurrentSlide((prev) => prev - 1)}
+          aria-label="이전 질문으로 이동"
           className="hidden sm:flex mt-56 h-12 w-12 shrink-0 items-center justify-center rounded-button border border-border-sub text-text-sub disabled:opacity-30"
         >
           <ArrowIcon2 className="rotate-180" size={14} />
@@ -462,6 +463,7 @@ export default function EditTestForm() {
           type="button"
           disabled={!canGoNext}
           onClick={() => setCurrentSlide((prev) => prev + 1)}
+          aria-label="다음 질문으로 이동"
           className="hidden sm:flex mt-56 h-12 w-12 shrink-0 items-center justify-center rounded-button border border-border-sub text-text-sub disabled:opacity-30"
         >
           <ArrowIcon2 size={14} />

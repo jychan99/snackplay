@@ -126,7 +126,14 @@ export function PlayTest({ data }: ChildProps) {
         <Badge size="sm">
           {num + 1 > data.length ? num : num + 1}/{data.length}
         </Badge>
-        <div className="relative w-full h-3 mt-3 rounded-button bg-background overflow-hidden">
+        <div
+          role="progressbar"
+          aria-label="테스트 진행률"
+          aria-valuenow={Math.round(progress)}
+          aria-valuemin={0}
+          aria-valuemax={100}
+          className="relative w-full h-3 mt-3 rounded-button bg-background overflow-hidden"
+        >
           <span
             style={{ width: `${progress}%` }}
             className="inline-block bg-border-main h-full absolute left-0 transition-all"

@@ -34,7 +34,7 @@ export default async function Page({ params }: Props) {
 
 export function LoadingTest() {
   return (
-    <>
+    <div role="status" aria-live="polite">
       <div className="relative w-90 h-3 mb-2 rounded-button bg-border-sub">
         <span className="absolute left-0 h-full w-0 rounded-button bg-gradient bg-linear-to-r from-primary via-[#7c52aa] to-secondary animate-grow-width"></span>
       </div>
@@ -45,6 +45,6 @@ export function LoadingTest() {
         <br />
         잠시만 기다려 주세요.
       </span>
-    </>
+    </div>
   );
 }

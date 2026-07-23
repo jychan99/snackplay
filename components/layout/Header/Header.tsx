@@ -74,12 +74,13 @@ export function Menu({ userData }: MenuProps) {
   return (
     <ul className="flex md:flex-row flex-col  md:gap-6 gap-2.5">
       <li className="flex">
-        <Link
-          href="/game"
-          className="p-2 md:p-1 border-b-2 border-white text-text-sub"
+        <span
+          className="p-2 md:p-1 border-b-2 border-white"
+          style={{ color: "lightgray" }}
         >
           미니 게임
-        </Link>
+          <span className="sr-only">(준비중)</span>
+        </span>
       </li>
       <li className="flex">
         <Link

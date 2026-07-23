@@ -33,7 +33,7 @@ export default function CardHorizontal({
         <div className="relative w-[96px] h-[64px] mr-2 rounded-input overflow-hidden">
           <Image
             src="/images/sample_img.png"
-            alt="sample img"
+            alt=""
             fill
             className="object-cover"
           />

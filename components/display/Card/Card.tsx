@@ -40,13 +40,13 @@ export default function Card({
       <div className="relative w-full aspect-[3/2] ">
         <Image
           src="/images/sample_img.png"
-          alt="sample img"
+          alt=""
           fill
           className="object-cover"
         />
       </div>
       <div className="flex flex-wrap items-end p-card">
-        <h3 className="text-h4 w-full mb-4">{data.testTitle}</h3>
+        <h2 className="text-h4 w-full mb-4">{data.testTitle}</h2>
         <p className="flex flex-1 items-center">
           {/* <UserIcon size={24} /> */}
           <span className="text-caption text-text-sub">#{data.hashtag}</span>

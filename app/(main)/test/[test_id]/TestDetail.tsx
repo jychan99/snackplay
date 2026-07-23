@@ -36,7 +36,7 @@ export default function Page() {
       ) : (
         <>
           <p className="text-caption text-primary mb-1">{infoData?.hashtag}</p>
-          <h2 className="text-h4 mb-10">{infoData?.testTitle}</h2>
+          <h1 className="text-h4 mb-10">{infoData?.testTitle}</h1>
           <div className="w-full h-50 relative mb-10">
             <Image
               className=""
@@ -141,7 +141,7 @@ export function PlayTest({ data }: ChildProps) {
         </div>
       </div>
       <>
-        <h2 className="text-h4 mb-10">{data[num]?.question}</h2>
+        <h1 className="text-h4 mb-10">{data[num]?.question}</h1>
         <div className="mb-10">
           {data[num]?.answer
             .filter((item) => item.content)

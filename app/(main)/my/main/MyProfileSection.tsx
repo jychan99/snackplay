@@ -51,7 +51,7 @@ export default function MyProfileSection() {
       ) : (
         <>
           <div className="flex-1 mt-4 sm:ml-10 mb-4 sm:mb-0 sm:mt-0 text-center sm:text-left">
-            <h3 className="text-h2">{user?.nickname}</h3>
+            <h2 className="text-h2">{user?.nickname}</h2>
             <p className="text-body-m text-text-sub ">{user?.id}</p>
             <div className="flex gap-2 mt-6 justify-center sm:justify-start">
               <Badge>첫 스타터</Badge>

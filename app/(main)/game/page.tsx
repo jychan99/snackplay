@@ -10,7 +10,7 @@ export default function Page() {
     <section className="mb-22">
       <div className="mb-10 flex justify-between items-end">
         <div>
-          <h2 className="text-h2">ALL GAME</h2>
+          <h1 className="text-h2">ALL GAME</h1>
           <p className="text-body-m text-text-sub">
             다양한 게임에 참여해보세요
           </p>

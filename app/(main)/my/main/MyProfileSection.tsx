@@ -28,14 +28,14 @@ export default function MyProfileSection() {
   const [modifyInfo, setModifyInfo] = useState(false);
   return (
     <section className="flex flex-col sm:flex-row items-center box-custom mb-10 max-w-[1280px] w-full mx-auto ">
-      <h2 className="sr-only">my info</h2>
+      <h1 className="sr-only">my info</h1>
       <div>
         <div className="relative">
           <div className="relative w-[152px] h-[152px] border-4 overflow-hidden rounded-button padding-0.5">
             <Image
               className="object-cover"
               src="/images/image_banner.png"
-              alt=""
+              alt={user?.nickname ? `${user.nickname}님의 프로필 이미지` : "프로필 이미지"}
               fill
               priority
             />

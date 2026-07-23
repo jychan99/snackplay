@@ -31,7 +31,7 @@ export default function ResultSection({ data }: Props) {
     <>
       <p className="text-caption text-primary mb-1">{data.testtitle}</p>
       {/* <p className="text-h4">당신에게 어울리는 회사는</p> */}
-      <h2 className="text-h2 mb-10">{data.result}</h2>
+      <h1 className="text-h2 mb-10">{data.result}</h1>
       <div className="w-full h-50 relative mb-10">
         <Image
           className=""

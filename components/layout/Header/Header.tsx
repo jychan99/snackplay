@@ -26,12 +26,11 @@ export default function Header() {
   return (
     <header className="flex items-center justify-center md:py-6 py-1 shadow-[0_10px_40px_0_rgba(255,77,148,0.08)] bg-white">
       <div className="flex items-center justify-between w-7xl px-8">
-        <h1 className="w-[130px] md:w-40.75 md:h-8">
+        <div className="w-[130px] md:w-40.75 md:h-8">
           <Link href="/">
             <img src="/images/logo.png" alt="snackplay logo" />
           </Link>
-          <span className="sr-only">snackplay</span>
-        </h1>
+        </div>
         {/* 로고 */}
         <button
           type="button"
@@ -77,8 +76,7 @@ export function Menu({ userData }: MenuProps) {
       <li className="flex">
         <Link
           href="/game"
-          className="p-2 md:p-1 border-b-2 border-white"
-          style={{ color: "lightgray" }}
+          className="p-2 md:p-1 border-b-2 border-white text-text-sub"
         >
           미니 게임
         </Link>

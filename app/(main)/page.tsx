@@ -56,12 +56,12 @@ export function MainBanner() {
     <section className="flex flex-col-reverse gap-3 md:gap-0 md:flex-row p-6 md:p-16 items-center justify-between rounded-modal bg-[linear-gradient(155deg,_#fdf2f8_0%,_#eff6ff_100%)] mb-22">
       <div className="">
         <Badge>모두 다함께 즐겨요</Badge>
-        <h2 className="my-6 text-h1">
+        <h1 className="my-6 text-h1">
           심심하니?
           <br />
           <b className="text-primary">SnackPlay</b>에서 <br />
           테스트를 즐겨봐!
-        </h2>
+        </h1>
         <p className="mb-6 text-body-l">
           AI가 분석한 당신의 숨겨진 모습(?)을 확인해보고
           <br /> 친구들과 공유해보세요

@@ -161,7 +161,7 @@ export default function Page() {
               <CheckInput
                 checked={checked}
                 onChange={(e) => setChecked(e.target.checked)}
-                id="CheckInput"
+                id="signup_agree_terms"
                 label="회원약관에 동의합니다."
               />
               <div className="mt-2 max-h-[100px] overflow-auto text-caption p-4 border-1 border-border-sub bg-background rounded-box">

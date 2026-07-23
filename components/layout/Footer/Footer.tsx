@@ -51,12 +51,12 @@ export function PrivacyPolicy({ children }: Props) {
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent>
         <DialogTitle>개인정보보호방침</DialogTitle>
-        <p>
+        <DialogDescription>
           개인정보처리방침 [스낵플레이](이하 "서비스")은 이용자의 개인정보를
           중요하게 생각하며, 「개인정보 보호법」 등 관련 법령을 준수합니다.
           서비스는 아래와 같은 개인정보처리방침을 통해 이용자가 제공한
           개인정보가 어떤 용도와 방식으로 이용되는지 안내합니다.
-        </p>
+        </DialogDescription>
         <div>
           <p>
             1. 수집하는 개인정보 항목 서비스는 회원가입 및 로그인 기능 제공을
@@ -117,11 +117,11 @@ export function UseOfTerm({ children }: Props) {
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent>
         <DialogTitle>이용약관</DialogTitle>
-        <p>
+        <DialogDescription>
           본 이용약관은 [스낵플레이](이하 "서비스")이 제공하는 서비스의 이용과
           관련하여 서비스와 이용자 간의 권리, 의무 및 책임사항을 규정함을
           목적으로 합니다.
-        </p>
+        </DialogDescription>
         <div>
           <p>
             제1조 (목적) 본 약관은 서비스가 제공하는 웹서비스의 이용 조건 및

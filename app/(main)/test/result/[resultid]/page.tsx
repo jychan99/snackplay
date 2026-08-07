@@ -1,6 +1,7 @@
 import { getResult } from "@/lib/test";
 import ResultSection from "./ResultSection";
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 
 type Props = {
   params: Promise<{
@@ -57,9 +58,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function Page({ params }: Props) {
   const { resultid } = await params;
   const result: resultProps = await getResult(resultid);
-  console.log(result);
   if (!result) {
-    return <div>데이터 없음</div>;
+    notFound();
   }
   return (
     <div className="box-custom mx-auto text-center">

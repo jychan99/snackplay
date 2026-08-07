@@ -1,6 +1,4 @@
 import type { Metadata } from "next";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
 import NotFoundSection from "@/components/display/NotFoundSection";
 
 export const metadata: Metadata = {
@@ -12,13 +10,5 @@ export const metadata: Metadata = {
 };
 
 export default function NotFound() {
-  return (
-    <>
-      <Header />
-      <main className="container-custom py-16">
-        <NotFoundSection />
-      </main>
-      <Footer />
-    </>
-  );
+  return <NotFoundSection />;
 }

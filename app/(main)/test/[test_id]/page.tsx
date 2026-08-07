@@ -1,6 +1,7 @@
 import TestDetail from "./TestDetail";
 import { getDetailTest } from "@/lib/test";
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 
 type Props = {
   params: Promise<{ test_id: string }>;
@@ -12,7 +13,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const info = res?.testInfo?.[0];
 
   if (!info) {
-    return { title: "테스트 상세" };
+    notFound();
   }
 
   const title = info.testTitle;

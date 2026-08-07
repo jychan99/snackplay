@@ -5,6 +5,7 @@ import { TEST_MAIN } from "@/types/index";
 import { myLikedTest } from "@/lib/mylikedtest";
 export const metadata = {
   title: "내가 좋아요한 테스트 목록",
+  description: "내가 좋아요를 누른 테스트 목록을 확인해보세요.",
 };
 export default async function Page() {
   return (

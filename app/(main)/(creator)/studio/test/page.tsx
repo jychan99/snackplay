@@ -6,6 +6,7 @@ import { myLikedTest } from "@/lib/mylikedtest";
 import Link from "next/link";
 export const metadata = {
   title: "내가 만든 테스트 목록",
+  description: "내가 만든 테스트를 관리하고 새로운 테스트를 추가해보세요.",
 };
 
 export default function Page() {

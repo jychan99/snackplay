@@ -8,6 +8,7 @@ import { getMyInfo } from "@/lib/my";
 
 export const metadata = {
   title: "마이페이지",
+  description: "내 정보와 내가 만든 테스트, 좋아요한 테스트를 한눈에 확인해보세요.",
 };
 
 export default async function Page() {

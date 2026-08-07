@@ -2,6 +2,7 @@ import PasswordChagneForm from "./password-change-form";
 
 export const metadata = {
   title: "비밀번호 변경",
+  description: "비밀번호를 변경하고 안전하게 계정을 관리하세요.",
 };
 
 export default function Page() {

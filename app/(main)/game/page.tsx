@@ -3,6 +3,7 @@ import Card from "@/components/display/Card";
 
 export const metadata = {
   title: "게임 리스트",
+  description: "다양한 미니게임에 참여하고 친구들과 함께 즐겨보세요.",
 };
 
 export default function Page() {

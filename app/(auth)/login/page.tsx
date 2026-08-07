@@ -2,6 +2,7 @@ import LoginForm, { type LoginState } from "./login-form";
 
 export const metadata = {
   title: "로그인",
+  description: "스낵플레이에 로그인하고 다양한 심리테스트와 미니게임을 즐겨보세요.",
 };
 
 import { cookies } from "next/headers";

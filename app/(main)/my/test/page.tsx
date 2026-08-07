@@ -5,6 +5,7 @@ import { TEST_MAIN } from "@/types/index";
 import { myLikedTest } from "@/lib/mylikedtest";
 export const metadata = {
   title: "내가 진행한 테스트 목록",
+  description: "내가 진행한 테스트 결과를 다시 확인해보세요.",
 };
 export default function Page() {
   return (

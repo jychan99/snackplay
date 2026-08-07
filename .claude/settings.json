@@ -12,13 +12,14 @@
       "Bash(npm test)"
     ],
     "ask": [
-      "Edit(/code/**)"
+      "Edit(/app/**)",
+      "Edit(/components/**)",
+      "Edit(/hooks/**)",
+      "Edit(/lib/**)",
+      "Edit(/store/**)",
+      "Edit(/actions/**)"
     ],
     "deny": [
-      "Read(/data/chunks/**)",
-      "Read(/data/docs/**/*.pdf)",
-      "Read(/docs/**)",
-      "Read(/docs/*)",
       "Read(.env)",
       "Read(.env.*)",
       "Read(/.env)",

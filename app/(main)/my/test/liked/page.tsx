@@ -24,20 +24,19 @@ export default async function Page() {
 }
 
 export async function CardList() {
-  const data = await getLikedTest();
   const isLoggedIn = await getIsLoggedIn();
-  let testData;
-  if (isLoggedIn) {
-    const liked = await myLikedTest();
-    testData = data.likedTests.map((item: TEST_MAIN) => ({
-      ...item,
-      isLiked: liked.likedTests.some(
-        (like: { testId: number }) => like.testId === item.testId,
-      ),
-    }));
-  } else {
-    testData = data;
-  }
+  const [data, liked] = await Promise.all([
+    getLikedTest(),
+    isLoggedIn ? myLikedTest() : Promise.resolve(null),
+  ]);
+  const testData = liked
+    ? data.likedTests.map((item: TEST_MAIN) => ({
+        ...item,
+        isLiked: liked.likedTests.some(
+          (like: { testId: number }) => like.testId === item.testId,
+        ),
+      }))
+    : data;
   const myCont = true;
   return (
     <div className="w-full grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">

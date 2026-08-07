@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import Image from "next/image";
 import ArrowIcon2 from "@/components/icon/ArrowIcon2";
 import RocketIcon from "@/components/icon/RocketIcon";
@@ -44,7 +45,9 @@ export default function Page() {
             </ViewAllLink>
           </div>
         </div>
-        <CardList variant="primary" />
+        <Suspense fallback={<CardListSkeleton />}>
+          <CardList variant="primary" />
+        </Suspense>
       </section>
       {/* contents */}
     </div>
@@ -92,13 +95,29 @@ export function MainBanner() {
   );
 }
 
+function CardListSkeleton() {
+  return (
+    <div className="w-full grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      {Array.from({ length: 4 }).map((_, index) => (
+        <div
+          key={index}
+          className="w-full aspect-[3/2] rounded-box bg-background animate-pulse"
+        />
+      ))}
+    </div>
+  );
+}
+
 type CardListProps = {
   variant: "primary" | "secondary";
 };
 
 export async function CardList({ variant }: CardListProps) {
-  const testPopularData: TEST_MAIN[] = await getPopularTest();
   const isLoggedIn = await getIsLoggedIn();
+  const [testPopularData, liked] = await Promise.all([
+    getPopularTest() as Promise<TEST_MAIN[]>,
+    isLoggedIn ? myLikedTest() : Promise.resolve(null),
+  ]);
   if (testPopularData) {
     testPopularData.sort((a, b) => {
       if (a.like !== b.like) {
@@ -107,18 +126,14 @@ export async function CardList({ variant }: CardListProps) {
       return b.testId - a.testId;
     });
   }
-  let bestData;
-  if (isLoggedIn) {
-    const liked = await myLikedTest();
-    bestData = testPopularData.map((item) => ({
-      ...item,
-      isLiked: liked.likedTests.some(
-        (like: { testId: number }) => like.testId === item.testId,
-      ),
-    }));
-  } else {
-    bestData = testPopularData;
-  }
+  const bestData = liked
+    ? testPopularData.map((item) => ({
+        ...item,
+        isLiked: liked.likedTests.some(
+          (like: { testId: number }) => like.testId === item.testId,
+        ),
+      }))
+    : testPopularData;
   const popularData = bestData.slice(0, 4);
   return (
     <div className="w-full grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">

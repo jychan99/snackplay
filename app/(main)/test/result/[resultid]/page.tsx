@@ -1,8 +1,6 @@
 import { getResult } from "@/lib/test";
 import ResultSection from "./ResultSection";
-export const metadata = {
-  title: "테스트 결과",
-};
+import type { Metadata } from "next";
 
 type Props = {
   params: Promise<{
@@ -17,6 +15,44 @@ type resultProps = {
   userid: string;
   testtitle: string;
 };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { resultid } = await params;
+  const result: resultProps = await getResult(resultid);
+
+  if (!result) {
+    return { title: "테스트 결과" };
+  }
+
+  const title = `${result.testtitle} - ${result.result}`;
+  const description =
+    result.resultdetail?.slice(0, 100) ||
+    `${result.testtitle} 테스트 결과를 확인해보세요.`;
+  const url = `${process.env.NEXT_PUBLIC_BASE_URL}/test/result/${resultid}`;
+  const imageUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/images/image_banner.png`;
+
+  return {
+    title,
+    description,
+    robots: {
+      index: false,
+      follow: true,
+    },
+    openGraph: {
+      title,
+      description,
+      url,
+      type: "website",
+      images: [{ url: imageUrl, width: 1200, height: 630, alt: title }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [imageUrl],
+    },
+  };
+}
 
 export default async function Page({ params }: Props) {
   const { resultid } = await params;

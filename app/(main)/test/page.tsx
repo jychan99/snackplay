@@ -7,6 +7,9 @@ import { myLikedTest } from "@/lib/mylikedtest";
 export const metadata = {
   title: "테스트 목록",
   description: "다양한 심리테스트에 참여하고 AI가 분석한 나만의 결과를 확인해보세요.",
+  alternates: {
+    canonical: "/test",
+  },
 };
 
 export default function Page() {

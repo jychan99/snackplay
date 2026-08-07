@@ -42,12 +42,47 @@ const paperlogy = localFont({
   display: "swap",
 });
 
+const siteName = "스낵플레이";
+const siteDescription = "재미있는 미니 게임, 테스트 사이트";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL!),
   title: {
-    default: "스낵플레이",
+    default: siteName,
     template: "%s | 스낵플레이",
   },
-  description: "재미있는 미니 게임, 테스트 사이트",
+  description: siteDescription,
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: siteName,
+    description: siteDescription,
+    url: "/",
+    siteName,
+    images: [
+      {
+        url: "/images/image_banner.png",
+        width: 1200,
+        height: 630,
+        alt: siteName,
+      },
+    ],
+    locale: "ko_KR",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteName,
+    description: siteDescription,
+    images: ["/images/image_banner.png"],
+  },
+  verification: {
+    google: "REPLACE_WITH_GOOGLE_SITE_VERIFICATION_CODE",
+    other: {
+      "naver-site-verification": "REPLACE_WITH_NAVER_SITE_VERIFICATION_CODE",
+    },
+  },
 };
 
 export default function RootLayout({

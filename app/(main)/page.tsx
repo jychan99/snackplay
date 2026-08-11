@@ -88,7 +88,8 @@ export function MainBanner() {
           src="/images/image_banner.webp"
           alt=""
           fill
-          priority
+          sizes="(min-width: 768px) 43vw, 400px"
+          fetchPriority="high"
         />
       </div>
     </section>

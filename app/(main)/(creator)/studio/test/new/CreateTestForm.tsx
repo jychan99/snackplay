@@ -284,7 +284,7 @@ export default function EditTestForm() {
                       src="/images/image_banner.webp"
                       alt=""
                       fill
-                      priority
+                      fetchPriority="high"
                       className="object-cover"
                     />
                   </div>

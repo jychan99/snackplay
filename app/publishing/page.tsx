@@ -115,7 +115,7 @@ export default function Home() {
           alt="Next.js logo"
           width={100}
           height={20}
-          priority
+          fetchPriority="high"
         />
       </main>
       {/* <Loading/> */}

@@ -38,7 +38,7 @@ export default function ResultSection({ data }: Props) {
           src="/images/image_banner.webp"
           alt=""
           fill
-          priority
+          fetchPriority="high"
         />
       </div>
       {/* <p className="text-text-sub text-body-m mb-10">

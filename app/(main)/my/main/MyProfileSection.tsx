@@ -39,7 +39,7 @@ export default function MyProfileSection() {
               src="/images/image_banner.webp"
               alt={user?.nickname ? `${user.nickname}님의 프로필 이미지` : "프로필 이미지"}
               fill
-              priority
+              fetchPriority="high"
             />
           </div>
           <button className="absolute bottom-0 right-0 w-10 h-10 rounded-button border-2 flex items-center justify-center bg-primary border-white shadow-[0_2px_4px_-1px_rgba(0,0,0,0.2)]">

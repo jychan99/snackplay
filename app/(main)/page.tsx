@@ -89,6 +89,7 @@ export function MainBanner() {
           alt=""
           fill
           sizes="(min-width: 768px) 43vw, 400px"
+          loading="eager" // 지연 로딩 해제 (즉시 로드)
           fetchPriority="high"
         />
       </div>

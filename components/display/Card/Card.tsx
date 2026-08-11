@@ -17,6 +17,7 @@ type Props = React.ComponentProps<"a"> & {
   variant: Variant; // 색상
   myCont?: boolean; // 내가 실행한, 내가 만든, 내가 좋아요한 테스트 리스트 중 1개 (버튼 있음)
   mode?: Mode; // mycont 중 분류
+  priority?: boolean; // 화면 첫 줄에 보이는 카드(LCP 후보)인지
 };
 
 export default function Card({
@@ -24,6 +25,7 @@ export default function Card({
   variant = "primary",
   myCont = false,
   mode = "result",
+  priority = false,
   ...props
 }: Props) {
   const [open, setOpen] = useState(false); // alert ui
@@ -42,7 +44,11 @@ export default function Card({
           src="/images/sample_img.png"
           alt=""
           fill
+          sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
           className="object-cover"
+          {...(priority
+            ? { fetchPriority: "high", loading: "eager" }
+            : undefined)}
         />
       </div>
       <div className="flex flex-wrap items-end p-card">

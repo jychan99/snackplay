@@ -139,7 +139,7 @@ export async function CardList({ variant }: CardListProps) {
   return (
     <div className="w-full grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
       {popularData.map((data: TEST_MAIN) => (
-        <Card key={data.testId} data={data} variant={variant} />
+        <Card key={data.testId} data={data} variant={variant} priority />
       ))}
     </div>
   );

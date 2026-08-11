@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     result.resultdetail?.slice(0, 100) ||
     `${result.testtitle} 테스트 결과를 확인해보세요.`;
   const url = `${process.env.NEXT_PUBLIC_BASE_URL}/test/result/${resultid}`;
-  const imageUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/images/image_banner.png`;
+  const imageUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/images/image_banner.webp`;
 
   return {
     title,

@@ -62,7 +62,7 @@ export const metadata: Metadata = {
     siteName,
     images: [
       {
-        url: "/images/image_banner.png",
+        url: "/images/image_banner.webp",
         width: 1200,
         height: 630,
         alt: siteName,
@@ -75,7 +75,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: siteName,
     description: siteDescription,
-    images: ["/images/image_banner.png"],
+    images: ["/images/image_banner.webp"],
   },
   verification: {
     google: "REPLACE_WITH_GOOGLE_SITE_VERIFICATION_CODE",

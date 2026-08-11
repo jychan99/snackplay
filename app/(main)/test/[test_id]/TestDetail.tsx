@@ -40,7 +40,7 @@ export default function Page() {
           <div className="w-full h-50 relative mb-10">
             <Image
               className=""
-              src="/images/image_banner.png"
+              src="/images/image_banner.webp"
               alt=""
               fill
               priority

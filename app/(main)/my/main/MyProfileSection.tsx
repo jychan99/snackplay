@@ -36,7 +36,7 @@ export default function MyProfileSection() {
           <div className="relative w-[152px] h-[152px] border-4 overflow-hidden rounded-button padding-0.5">
             <Image
               className="object-cover"
-              src="/images/image_banner.png"
+              src="/images/image_banner.webp"
               alt={user?.nickname ? `${user.nickname}님의 프로필 이미지` : "프로필 이미지"}
               fill
               priority

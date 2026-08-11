@@ -85,7 +85,7 @@ export function MainBanner() {
       <div className="relative w-full max-w-[400px] md:max-w-[43%] aspect-[7/6]">
         <Image
           className="object-cover"
-          src="/images/image_banner.png"
+          src="/images/image_banner.webp"
           alt=""
           fill
           priority

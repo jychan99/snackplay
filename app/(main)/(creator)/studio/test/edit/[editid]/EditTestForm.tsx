@@ -318,7 +318,7 @@ export default function EditTestForm() {
                   <h1 className="text-h4 mb-10">새 테스트 편집</h1>
                   <div className="w-full h-50 relative mb-10 overflow-hidden rounded-box">
                     <Image
-                      src="/images/image_banner.png"
+                      src="/images/image_banner.webp"
                       alt=""
                       fill
                       priority

@@ -36,7 +36,7 @@ export default function Page() {
           <div>
             <h2 className="text-h2">인기있는 테스트</h2>
             <p className="text-body-m text-text-sub">
-              인기있는 다양한 테스트에 참여해보세요
+              현재 가장 인기있는 다양한 테스트에 참여해보세요
             </p>
           </div>
           <div className="relative -m-2.5">

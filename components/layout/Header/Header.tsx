@@ -18,11 +18,7 @@ export default function Header() {
 
   const { open, openMenu, closeMenu } = useMobileMenuStore();
 
-  const { data: user, isLoading } = useCurrentUser();
-
-  if (isLoading) {
-    return null;
-  }
+  const { data: user } = useCurrentUser();
 
   return (
     <header className="flex items-center justify-center md:py-6 py-1 shadow-[0_10px_40px_0_rgba(255,77,148,0.08)] bg-white">

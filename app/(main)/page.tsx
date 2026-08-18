@@ -103,8 +103,14 @@ function CardListSkeleton() {
       {Array.from({ length: 4 }).map((_, index) => (
         <div
           key={index}
-          className="w-full aspect-[3/2] rounded-box bg-background animate-pulse"
-        />
+          className="w-full rounded-box shadow-m overflow-hidden animate-pulse"
+        >
+          <div className="w-full aspect-[3/2] bg-background" />
+          <div className="p-card">
+            <div className="h-5 w-3/4 rounded bg-background" />
+            <div className="mt-3 h-3 w-1/3 rounded bg-background" />
+          </div>
+        </div>
       ))}
     </div>
   );

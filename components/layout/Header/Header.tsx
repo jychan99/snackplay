@@ -1,6 +1,7 @@
 "use client";
 import Button from "@/components/ui/Button";
 import Link from "next/link";
+import Image from "next/image";
 import BaseLink from "@/components/ui/BaseLink";
 import type { User } from "@/lib/api/user";
 import { useState, useEffect } from "react";
@@ -26,9 +27,16 @@ export default function Header() {
   return (
     <header className="flex items-center justify-center md:py-6 py-1 shadow-[0_10px_40px_0_rgba(255,77,148,0.08)] bg-white">
       <div className="flex items-center justify-between w-7xl px-8">
-        <div className="w-[130px] md:w-40.75 md:h-8">
+        <div>
           <Link href="/">
-            <img src="/images/logo.png" alt="snackplay logo" />
+            <Image
+              src="/images/logo.png"
+              alt="snackplay logo"
+              width={163}
+              height={32}
+              sizes="(min-width: 768px) 163px, 130px"
+              className="h-[25.5px] w-[130px] md:h-8 md:w-40.75"
+            />
           </Link>
         </div>
         {/* 로고 */}

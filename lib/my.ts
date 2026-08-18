@@ -1,6 +1,13 @@
 import { cookies } from "next/headers";
 import { sql } from "@/lib/db";
 import { getUserIdFromToken } from "@/lib/auth";
+import type { TEST_MAIN } from "@/types/index";
+
+const emptyMyInfo = {
+  myTests: [] as TEST_MAIN[],
+  myTestResults: [] as TEST_MAIN[],
+  likedTests: [] as TEST_MAIN[],
+};
 
 async function getAuthUserId() {
   const cookieStore = await cookies();
@@ -13,10 +20,10 @@ export async function getMyInfo() {
   try {
     const userId = await getAuthUserId();
     if (!userId) {
-      throw new Error("로그인이 필요합니다.");
+      return emptyMyInfo;
     }
 
-    const myTests = await sql`
+    const myTests = (await sql`
       SELECT "TEST_ID" as "testId"
           , "USER_ID" as "userId"
           , "TEST_TITLE" as "testTitle"
@@ -25,9 +32,9 @@ export async function getMyInfo() {
           , "LIKE" as "like"
       FROM "TEST_MAIN"
       WHERE "USER_ID" = ${userId}
-    `;
+    `) as TEST_MAIN[];
 
-    const myTestResults = await sql`
+    const myTestResults = (await sql`
       SELECT A."TEST_ID"as "testId"
           , A."USER_ID" as "userId"
           , A."TEST_TITLE"  as "testTitle"
@@ -36,9 +43,9 @@ export async function getMyInfo() {
       JOIN "TEST_RESULT" B
         ON A."TEST_ID" = B."TEST_ID"
       WHERE B."USER_ID" = ${userId}
-    `;
+    `) as TEST_MAIN[];
 
-    const likedTests = await sql`
+    const likedTests = (await sql`
       SELECT A."TEST_ID" as "testId"
           , A."USER_ID" as "userId"
           , A."TEST_TITLE" as "testTitle"
@@ -46,11 +53,12 @@ export async function getMyInfo() {
       JOIN "TEST_LIKE" B
         ON A."TEST_ID" = B."TEST_ID"
       WHERE B."USER_ID" = ${userId}
-    `;
+    `) as TEST_MAIN[];
 
     return { myTests, myTestResults, likedTests };
   } catch (err: unknown) {
     console.log(err instanceof Error ? err.message : "네트워크 오류");
+    return emptyMyInfo;
   }
 }
 
@@ -58,11 +66,11 @@ export async function getMyInfo() {
 export async function modifyMyInfo() {}
 
 // 내가 만든 테스트
-export async function getMyTest() {
+export async function getMyTest(): Promise<TEST_MAIN[]> {
   try {
     const userId = await getAuthUserId();
 
-    return await sql`
+    return (await sql`
       SELECT "TEST_ID" as "testId"
             , "TEST_TITLE" as "testTitle"
             , "TEST_INFO" as "testInfo"
@@ -72,9 +80,10 @@ export async function getMyTest() {
       FROM "TEST_MAIN"
       WHERE "USER_ID" = ${userId}
       ORDER BY "TEST_ID" DESC
-    `;
+    `) as TEST_MAIN[];
   } catch (error) {
     console.error("getTests 에러:", error);
+    return [];
   }
 }
 
@@ -83,10 +92,10 @@ export async function getPlayedTest() {
   try {
     const userId = await getAuthUserId();
     if (!userId) {
-      throw new Error("로그인이 필요합니다.");
+      return { myTestResults: [] as TEST_MAIN[] };
     }
 
-    const myTestResults = await sql`
+    const myTestResults = (await sql`
       SELECT A."TEST_ID"as "testId"
           , A."USER_ID" as "userId"
           , A."TEST_TITLE"  as "testTitle"
@@ -99,11 +108,12 @@ export async function getPlayedTest() {
       JOIN "TEST_RESULT" B
         ON A."TEST_ID" = B."TEST_ID"
       WHERE B."USER_ID" = ${userId}
-    `;
+    `) as TEST_MAIN[];
 
     return { myTestResults };
   } catch (error) {
     console.error("getTests 에러:", error);
+    return { myTestResults: [] as TEST_MAIN[] };
   }
 }
 
@@ -112,10 +122,10 @@ export async function getLikedTest() {
   try {
     const userId = await getAuthUserId();
     if (!userId) {
-      throw new Error("로그인이 필요합니다.");
+      return { likedTests: [] as TEST_MAIN[] };
     }
 
-    const likedTests = await sql`
+    const likedTests = (await sql`
       SELECT A."TEST_ID" as "testId"
           , A."USER_ID" as "userId"
           , A."TEST_TITLE" as "testTitle"
@@ -127,10 +137,11 @@ export async function getLikedTest() {
       JOIN "TEST_LIKE" B
         ON A."TEST_ID" = B."TEST_ID"
       WHERE B."USER_ID" = ${userId}
-    `;
+    `) as TEST_MAIN[];
 
     return { likedTests };
   } catch (error) {
     console.error("getTests 에러:", error);
+    return { likedTests: [] as TEST_MAIN[] };
   }
 }

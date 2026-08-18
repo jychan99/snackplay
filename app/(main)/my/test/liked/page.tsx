@@ -36,7 +36,7 @@ export async function CardList() {
           (like: { testId: number }) => like.testId === item.testId,
         ),
       }))
-    : data;
+    : data.likedTests;
   const myCont = true;
   return (
     <div className="w-full grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">

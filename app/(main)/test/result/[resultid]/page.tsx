@@ -19,7 +19,7 @@ type resultProps = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { resultid } = await params;
-  const result: resultProps = await getResult(resultid);
+  const result = (await getResult(resultid)) as resultProps | undefined;
 
   if (!result) {
     return { title: "테스트 결과" };
@@ -57,7 +57,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function Page({ params }: Props) {
   const { resultid } = await params;
-  const result: resultProps = await getResult(resultid);
+  const result = (await getResult(resultid)) as resultProps | undefined;
   if (!result) {
     notFound();
   }

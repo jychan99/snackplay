@@ -24,6 +24,7 @@ export async function GET(request: Request) {
             , "TEST_TITLE" as "testTitle"
             , "TEST_INFO" as "testInfo"
             , "HASHTAG" as "hashtag"
+            , "IMAGE_URL" as "imageUrl"
             , "LIKE" as "like"
       FROM "TEST_MAIN"
       WHERE "USER_ID" = ${userId}

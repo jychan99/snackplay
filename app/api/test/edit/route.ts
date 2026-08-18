@@ -46,7 +46,7 @@ export async function POST(request: Request) {
   try {
     const token = getCookieValue(request.headers.get("cookie"), "authToken");
     const userId = token ? getUserIdFromToken(token) : "";
-    const { testId, testTitle, testInfo, hashtag, questions } =
+    const { testId, testTitle, testInfo, hashtag, imageUrl = "", questions } =
       await request.json();
 
     if (!testTitle || !testInfo || !hashtag) {
@@ -69,6 +69,7 @@ export async function POST(request: Request) {
         "TEST_TITLE" = ${testTitle},
         "TEST_INFO" = ${testInfo},
         "HASHTAG" = ${hashtag},
+        "IMAGE_URL" = ${imageUrl || null},
         "USER_ID" = ${userId}
       WHERE "TEST_ID" = ${requestedTestId}
       RETURNING "TEST_ID" as "testId"

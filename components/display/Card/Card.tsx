@@ -41,7 +41,7 @@ export default function Card({
     <>
       <div className="relative w-full aspect-[3/2] ">
         <Image
-          src="/images/sample_img.png"
+          src={data.imageUrl || "/images/sample_img.png"}
           alt=""
           fill
           sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"

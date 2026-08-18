@@ -30,6 +30,7 @@ export async function GET(request: Request) {
       SELECT A."TEST_ID" as "testId"
           , A."USER_ID" as "userId"
           , A."TEST_TITLE" as "testTitle"
+          , A."IMAGE_URL" as "imageUrl"
           , (SELECT COUNT("TEST_ID")
             FROM "TEST_LIKE"
             WHERE "TEST_ID" = A."TEST_ID") as "like"

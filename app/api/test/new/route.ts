@@ -19,7 +19,7 @@ export async function POST(request: Request) {
   try {
     const token = getCookieValue(request.headers.get("cookie"), "authToken");
     const userId = token ? getUserIdFromToken(token) : "";
-    const { testTitle, testInfo, hashtag, questions = [] } =
+    const { testTitle, testInfo, hashtag, imageUrl = "", questions = [] } =
       await request.json();
 
     if (!testTitle || !testInfo || !hashtag) {
@@ -43,9 +43,9 @@ export async function POST(request: Request) {
     }
 
     const result = await sql`
-      INSERT INTO "TEST_MAIN" ("TEST_TITLE", "TEST_INFO", "HASHTAG", "USER_ID")
-      VALUES (${testTitle}, ${testInfo}, ${hashtag}, ${userId})
-      RETURNING "TEST_ID" as "testId", "TEST_TITLE" as "testTitle", "TEST_INFO" as "testInfo", "HASHTAG" as "hashtag"
+      INSERT INTO "TEST_MAIN" ("TEST_TITLE", "TEST_INFO", "HASHTAG", "IMAGE_URL", "USER_ID")
+      VALUES (${testTitle}, ${testInfo}, ${hashtag}, ${imageUrl || null}, ${userId})
+      RETURNING "TEST_ID" as "testId", "TEST_TITLE" as "testTitle", "TEST_INFO" as "testInfo", "HASHTAG" as "hashtag", "IMAGE_URL" as "imageUrl"
     `;
 
     const savedTestId = result[0].testId;

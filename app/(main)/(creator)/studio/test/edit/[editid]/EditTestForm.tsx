@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import Image from "next/image";
 import Button from "@/components/ui/Button";
 import BaseLink from "@/components/ui/BaseLink";
@@ -10,6 +10,7 @@ import { getDetailTest, saveDetailTest } from "@/lib/test";
 import { useParams } from "next/navigation";
 import Alert from "@/components/ui/Alert";
 import { useRouter } from "next/navigation";
+import { compressImage } from "@/lib/image-compress";
 
 // 타입
 type QuestionForm = {
@@ -62,6 +63,9 @@ export default function EditTestForm() {
   const [questions, setQuestions] = useState<QuestionForm[]>([
     createQuestion(),
   ]);
+  const [thumbnailFile, setThumbnailFile] = useState<File | null>(null);
+  const [thumbnailPreview, setThumbnailPreview] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
   const [isSaving, setIsSaving] = useState(false);
 
   const slideCount = questions.length + 1;
@@ -102,6 +106,8 @@ export default function EditTestForm() {
       setTestTitle(res.testInfo[0].testTitle);
       setTestInfo(res.testInfo[0].testInfo);
       setHashtag(res.testInfo[0].hashtag);
+      setImageUrl(res.testInfo[0].imageUrl || "");
+      setThumbnailPreview(res.testInfo[0].imageUrl || "");
       setQuestions(
         res.testContent.map(({ question, answer }: QuestionProps) => ({
           question,
@@ -119,6 +125,24 @@ export default function EditTestForm() {
   const addQuestion = () => {
     setQuestions((prev) => [...prev, createQuestion()]);
     setCurrentSlide(questions.length + 1);
+  };
+
+  const handleThumbnailChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0] || null;
+
+    if (!file || !file.type.startsWith("image/")) {
+      setThumbnailFile(null);
+      return;
+    }
+
+    setThumbnailFile(file);
+    setThumbnailPreview((prev) => {
+      if (prev && prev.startsWith("blob:")) {
+        URL.revokeObjectURL(prev);
+      }
+
+      return URL.createObjectURL(file);
+    });
   };
 
   // 해시태그 업데이트
@@ -220,6 +244,26 @@ export default function EditTestForm() {
     setIsSaving(true);
 
     try {
+      let uploadedImageUrl = imageUrl;
+
+      if (thumbnailFile) {
+        const compressedFile = await compressImage(thumbnailFile);
+        const formData = new FormData();
+        formData.append("image", compressedFile);
+
+        const uploadRes = await fetch("/api/test/images", {
+          method: "POST",
+          body: formData,
+        });
+        const uploadData = await uploadRes.json();
+
+        if (!uploadRes.ok) {
+          throw new Error(uploadData.error || "이미지 업로드에 실패했습니다.");
+        }
+
+        uploadedImageUrl = uploadData.image.url;
+      }
+
       const res = await fetch("/api/test/edit", {
         method: "POST",
         headers: {
@@ -230,6 +274,7 @@ export default function EditTestForm() {
           testTitle,
           testInfo,
           hashtag,
+          imageUrl: uploadedImageUrl,
           questions: questions.map((item, index) => ({
             testNumbering: index + 1,
             question: item.question,
@@ -337,6 +382,31 @@ export default function EditTestForm() {
                     onChange={(event) => setTestTitle(event.target.value)}
                     placeholder="테스트 제목을 입력해주세요"
                   />
+                  <div>
+                    <label htmlFor="test_thumbnail">썸네일 이미지</label>
+                    <div className="mt-2 grid gap-3 sm:grid-cols-[160px_1fr] sm:items-start">
+                      <div className="relative aspect-square overflow-hidden rounded-box border border-border-sub bg-background">
+                        {thumbnailPreview ? (
+                          <img
+                            src={thumbnailPreview}
+                            alt="썸네일 미리보기"
+                            className="h-full w-full object-cover"
+                          />
+                        ) : (
+                          <div className="grid h-full place-items-center text-caption text-text-sub">
+                            이미지 없음
+                          </div>
+                        )}
+                      </div>
+                      <input
+                        id="test_thumbnail"
+                        type="file"
+                        accept="image/*"
+                        onChange={handleThumbnailChange}
+                        className="text-body-s"
+                      />
+                    </div>
+                  </div>
                   <div>
                     <label htmlFor="test_info">테스트 설명</label>
                     <textarea

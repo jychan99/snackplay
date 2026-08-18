@@ -88,7 +88,7 @@ export function MainBanner() {
           src="/images/image_banner.webp"
           alt=""
           fill
-          sizes="(min-width: 768px) 43vw, 400px"
+          sizes="(min-width: 768px) 43vw, 300px"
           loading="eager" // 지연 로딩 해제 (즉시 로드)
           fetchPriority="high"
         />

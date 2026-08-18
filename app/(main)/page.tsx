@@ -82,7 +82,7 @@ export function MainBanner() {
           </BaseLink> */}
         </div>
       </div>
-      <div className="relative w-full max-w-[400px] md:max-w-[43%] aspect-[7/6]">
+      {/* <div className="relative w-full max-w-[400px] md:max-w-[43%] aspect-[7/6]">
         <Image
           className="object-cover"
           src="/images/image_banner.webp"
@@ -92,7 +92,7 @@ export function MainBanner() {
           loading="eager" // 지연 로딩 해제 (즉시 로드)
           fetchPriority="high"
         />
-      </div>
+      </div> */}
     </section>
   );
 }

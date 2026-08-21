@@ -8,33 +8,23 @@ import Providers from "@/components/providers";
 const paperlogy = localFont({
   src: [
     {
-      path: "./fonts/Paperlogy-3Light.ttf",
-      weight: "300",
-      style: "normal",
-    },
-    {
-      path: "./fonts/Paperlogy-4Regular.ttf",
+      path: "./fonts/Paperlogy-4Regular.woff2",
       weight: "400",
       style: "normal",
     },
     {
-      path: "./fonts/Paperlogy-5Medium.ttf",
+      path: "./fonts/Paperlogy-5Medium.woff2",
       weight: "500",
       style: "normal",
     },
     {
-      path: "./fonts/Paperlogy-6SemiBold.ttf",
+      path: "./fonts/Paperlogy-6SemiBold.woff2",
       weight: "600",
       style: "normal",
     },
     {
-      path: "./fonts/Paperlogy-7Bold.ttf",
+      path: "./fonts/Paperlogy-7Bold.woff2",
       weight: "700",
-      style: "normal",
-    },
-    {
-      path: "./fonts/Paperlogy-8ExtraBold.ttf",
-      weight: "800",
       style: "normal",
     },
   ],

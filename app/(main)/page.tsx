@@ -6,7 +6,7 @@ import BaseLink from "@/components/ui/BaseLink";
 import ViewAllLink from "@/components/ui/ViewAllLink";
 import Badge from "@/components/ui/Badge";
 import Card from "@/components/display/Card";
-import { getPopularTest } from "@/lib/test";
+import { getPopularTest } from "@/lib/actions";
 import { getIsLoggedIn } from "@/lib/auth";
 import { myLikedTest } from "@/lib/mylikedtest";
 import { TEST_MAIN } from "@/types";

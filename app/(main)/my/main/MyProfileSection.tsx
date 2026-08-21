@@ -11,7 +11,6 @@ type MenuProps = {
   setModifyInfo: (value: boolean) => void;
 };
 import Input from "@/components/ui/Input";
-import { modifyMyInfo } from "@/lib/my";
 import Alert from "@/components/ui/Alert";
 import Link from "next/link";
 

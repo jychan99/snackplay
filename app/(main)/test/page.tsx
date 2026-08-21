@@ -1,5 +1,5 @@
 import Card from "@/components/display/Card";
-import { getAllTest } from "@/lib/test";
+import { getAllTest } from "@/lib/actions";
 import { getIsLoggedIn } from "@/lib/auth";
 import { TEST_MAIN } from "@/types/index";
 import { myLikedTest } from "@/lib/mylikedtest";

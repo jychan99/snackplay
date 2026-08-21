@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { getAllTest } from "@/lib/test";
+import { getAllTest } from "@/lib/actions";
 import type { TEST_MAIN } from "@/types/index";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {

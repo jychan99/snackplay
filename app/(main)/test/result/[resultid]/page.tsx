@@ -1,4 +1,4 @@
-import { getResult } from "@/lib/test";
+import { getResult } from "@/lib/actions";
 import ResultSection from "./ResultSection";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";

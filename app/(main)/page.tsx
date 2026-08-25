@@ -91,6 +91,7 @@ export function MainBanner() {
           sizes="(min-width: 768px) 43vw, 300px"
           loading="eager" // 지연 로딩 해제 (즉시 로드)
           fetchPriority="high"
+          unoptimized // /_next/image 파이프라인(콜드스타트) 우회, 이미 51KB webp로 사전 최적화됨
         />
       </div>
     </section>

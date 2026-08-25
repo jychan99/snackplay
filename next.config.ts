@@ -9,6 +9,11 @@ const nextConfig: NextConfig = {
   experimental: {
     // CSS를 HTML <head> 내 <style> 태그로 인라인 삽입하여 차단 요청 제거
     inlineCss: true,
+    optimizePackageImports: [
+      "radix-ui", // dialog, alert-dialog 등 통합 패키지에서 import 중
+      "@tanstack/react-query",
+      "lucide-react",
+    ],
   },
 
   images: {

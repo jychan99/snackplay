@@ -30,6 +30,7 @@ const paperlogy = localFont({
   ],
   variable: "--font-paperlogy",
   display: "swap",
+  preload: false,
 });
 
 const siteName = "스낵플레이";

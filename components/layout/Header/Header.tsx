@@ -8,6 +8,7 @@ import { useState, useEffect } from "react";
 import { logout } from "@/actions/auth";
 import { useMobileMenuStore } from "@/store/mobileMenuStore";
 import { loadImages } from "@/lib/image";
+import { usePathname } from 'next/navigation'
 
 import { useCurrentUser } from "@/hooks/useCurrentUser";
 type MenuProps = {
@@ -15,10 +16,19 @@ type MenuProps = {
 };
 export default function Header() {
   const [isShowMenu, setIsShowMenu] = useState(false);
-
-  const { open, openMenu, closeMenu } = useMobileMenuStore();
+ 
+  const open = useMobileMenuStore((state) => state.open);
+  const openMenu = useMobileMenuStore((state) => state.openMenu);
+  const closeMenu = useMobileMenuStore((state) => state.closeMenu);
 
   const { data: user } = useCurrentUser();
+
+  /*페이지 이동 */
+  const pathname = usePathname();
+
+  useEffect(() => {
+    closeMenu();
+  }, [pathname])
 
   return (
     <header className="flex items-center justify-center md:py-6 py-1 shadow-[0_10px_40px_0_rgba(255,77,148,0.08)] bg-white">

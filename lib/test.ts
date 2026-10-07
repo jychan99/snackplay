@@ -1,3 +1,5 @@
+import { TEST_RESULT } from "@/types";
+
 // 테스트 상세 데이터
 export async function getDetailTest(id: number) {
   let data;
@@ -24,10 +26,10 @@ export async function getDetailTest(id: number) {
 }
 
 // 테스트 제출
-export async function saveDetailTest() {
+export async function saveDetailTest(testResult:Partial<TEST_RESULT>) {
   let data;
   try {
-    const testResult = JSON.parse(localStorage.getItem("test-result") ?? "{}");
+    // const testResult = JSON.parse(localStorage.getItem("test-result") ?? "{}");
     const testId = testResult.testId;
 
     if (!testResult.testId) {

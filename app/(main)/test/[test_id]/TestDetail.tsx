@@ -67,11 +67,12 @@ export function PlayTest({ data }: ChildProps) {
   const [num, setNum] = useState(0);
   // 프로그래스 바
   const progress = data.length > 0 ? (num / data.length) * 100 : 0;
-  // console.log(data);
+
   // 답변 데이터
   const [answerArr, setAnswerArr] = useState<TEST_ANSWER_ALL[]>([]);
   const [result, setResult] = useState<Partial<TEST_RESULT>>({});
   const [disabled, setDisabled] = useState(true);
+
 
   // 답변 추가 이벤트
   const addAnswer = (item: TEST_ANSWER_ALL) => {
@@ -98,18 +99,21 @@ export function PlayTest({ data }: ChildProps) {
       //로컬스토리지에 저장
     }
   };
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
+
+  // 결과 도출
   const submitTest = async () => {
-    // 결과 도출
     setIsSubmitting(true);
-    localStorage.setItem("test-result", JSON.stringify(result));
-    const resultData = await saveDetailTest();
+    // localStorage.setItem("test-result", JSON.stringify(result));
+    const resultData = await saveDetailTest(result);
     // 페이지 이동
     if (resultData?.resultId) {
       router.push(`/test/result/${resultData.resultId}`);
     }
   };
+
   //뒤로가기
   const goBack = () => {
     if (num === 0) return;
@@ -121,7 +125,6 @@ export function PlayTest({ data }: ChildProps) {
   return (
     <>
       {isSubmitting && <Loading />}
-
       <div className="mb-10 text-right">
         <Badge size="sm">
           {num + 1 > data.length ? num : num + 1}/{data.length}

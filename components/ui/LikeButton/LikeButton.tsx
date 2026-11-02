@@ -19,16 +19,27 @@ export default function LikeButton({
   const [checked, setChecked] = useState(isLiked);
   const [count, setCount] = useState(likeCount);
   const [open, setOpen] = useState(false); // alert ui trigger로 필요함
+  const [pending, setPending] = useState(false); // 연속 클릭 방지
   const { data: user } = useCurrentUser();
   async function toggleHeartBtn() {
     if (!user) {
       setOpen(true);
       return;
     }
+    if (pending) return;
+
     const nextChecked = !checked;
     setChecked(nextChecked);
     setCount((prev) => (nextChecked ? prev + 1 : prev - 1));
-    await handleLike(testId);
+    setPending(true);
+    try {
+      await handleLike(testId);
+    } catch {
+      setChecked(checked);
+      setCount(count);
+    } finally {
+      setPending(false);
+    }
   }
 
   // 내가 클릭했는지 안했는지 아는 법?

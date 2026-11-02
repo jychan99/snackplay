@@ -70,9 +70,7 @@ export function PlayTest({ data }: ChildProps) {
 
   // 답변 데이터
   const [answerArr, setAnswerArr] = useState<TEST_ANSWER_ALL[]>([]);
-  const [result, setResult] = useState<Partial<TEST_RESULT>>({});
-  const [disabled, setDisabled] = useState(true);
-
+  const isComplete = data.length > 0 && answerArr.length === data.length;
 
   // 답변 추가 이벤트
   const addAnswer = (item: TEST_ANSWER_ALL) => {
@@ -88,15 +86,6 @@ export function PlayTest({ data }: ChildProps) {
     setAnswerArr(filtered);
     if (num + 1 < data.length) {
       setNum((prev) => prev + 1);
-    } else {
-      setDisabled(false);
-      const finalResult = {
-        testId: data[0].testId,
-        answer: filtered,
-      };
-
-      setResult(finalResult);
-      //로컬스토리지에 저장
     }
   };
 
@@ -106,6 +95,10 @@ export function PlayTest({ data }: ChildProps) {
   // 결과 도출
   const submitTest = async () => {
     setIsSubmitting(true);
+    const result: Partial<TEST_RESULT> = {
+      testId: data[0].testId,
+      answer: answerArr,
+    };
     // localStorage.setItem("test-result", JSON.stringify(result));
     const resultData = await saveDetailTest(result);
     // 페이지 이동
@@ -177,7 +170,7 @@ export function PlayTest({ data }: ChildProps) {
       <PrevButton onClick={goBack} />
       {num + 1 == data.length && (
         <Button
-          disabled={disabled}
+          disabled={!isComplete}
           onClick={() => submitTest()}
           className="w-full"
         >

@@ -7,6 +7,6 @@ export function useCurrentUser() {
   return useQuery({
     queryKey: ["currentUser"],
     queryFn: getCurrentUserClient,
-    staleTime: 0,
+    staleTime: 1000 * 60 * 5, // 로그인/로그아웃 시 직접 갱신하므로 5분간 재요청 안 함
   });
 }

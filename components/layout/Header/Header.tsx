@@ -11,6 +11,7 @@ import { loadImages } from "@/lib/image";
 import { usePathname } from 'next/navigation'
 
 import { useCurrentUser } from "@/hooks/useCurrentUser";
+import { useQueryClient } from "@tanstack/react-query";
 type MenuProps = {
   userData: User | null | undefined;
 };
@@ -122,6 +123,13 @@ export function Menu({ userData }: MenuProps) {
 export function Utils({ userData }: MenuProps) {
   // const img = loadImages();
   const [img, setImg] = useState("");
+  const queryClient = useQueryClient();
+
+  // 유저 캐시 비운 뒤 로그아웃
+  const handleLogout = async () => {
+    queryClient.setQueryData(["currentUser"], null);
+    await logout();
+  };
 
   useEffect(() => {
     const fetchImage = async () => {
@@ -146,7 +154,7 @@ export function Utils({ userData }: MenuProps) {
         </div>
         <span>{userData?.nickname}</span>
       </Link>
-      <form action={logout}>
+      <form action={handleLogout}>
         <Button type="submit" size="sm">
           로그아웃
         </Button>

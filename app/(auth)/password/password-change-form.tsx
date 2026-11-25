@@ -3,13 +3,13 @@ import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import Alert from "@/components/ui/Alert";
 import { useState, useRef } from "react";
-import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 import type { User } from "@/lib/api/user";
 import { logout } from "@/actions/auth";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
 export default function PasswordChagneForm() {
   const { data: user, isLoading } = useCurrentUser();
-  const router = useRouter();
+  const queryClient = useQueryClient();
   const [open, setOpen] = useState(false); // alert ui
   const [alert, setAlert] = useState({
     ttl: "",
@@ -67,8 +67,8 @@ export default function PasswordChagneForm() {
           ttl: "비밀번호 변경 완료",
           desc: "변경된 비밀번호로 로그인 해주세요",
           onConfirm: () => {
-            logout();
-            router.push("/login");
+            queryClient.setQueryData(["currentUser"], null);
+            logout("/login");
           },
         });
       } catch (err: unknown) {

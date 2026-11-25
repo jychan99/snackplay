@@ -4,6 +4,8 @@ import Button from "@/components/ui/Button";
 import CheckInput from "@/components/ui/CheckInput";
 import Input from "@/components/ui/Input";
 import { useActionState, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 import Alert from "@/components/ui/Alert";
 export type LoginState = {
   alertId?: number;
@@ -18,6 +20,8 @@ type LoginAction = (
 
 export default function LoginFormClient({ action }: { action: LoginAction }) {
   const [state, formAction, isPending] = useActionState(action, {});
+  const router = useRouter();
+  const queryClient = useQueryClient();
   // const [savedId, setSavedId] = useState(false);
   const [open, setOpen] = useState(false); // alert ui
   const [alert, setAlert] = useState({
@@ -35,6 +39,14 @@ export default function LoginFormClient({ action }: { action: LoginAction }) {
       });
     }
   }, [state.alertId, state.error]);
+
+  // 로그인 성공 시 유저 캐시 갱신 후 메인 이동
+  useEffect(() => {
+    if (state.success) {
+      queryClient.invalidateQueries({ queryKey: ["currentUser"] });
+      router.replace("/");
+    }
+  }, [state.success, queryClient, router]);
 
   return (
     <>

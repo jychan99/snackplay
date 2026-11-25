@@ -6,7 +6,6 @@ export const metadata = {
 };
 
 import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
 
 export async function loginUser(
   _prevState: LoginState,
@@ -51,8 +50,8 @@ export async function loginUser(
     sameSite: "lax",
   });
 
-  // 메인 이동
-  redirect("/");
+  // 메인 이동은 클라이언트에서 유저 캐시 갱신 후 처리
+  return { success: true };
 }
 
 export default async function Page() {
